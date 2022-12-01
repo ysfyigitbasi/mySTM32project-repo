@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>printMsg</OutputName>
+          <OutputName>stm32f103Projects</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -382,27 +382,27 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>User App</GroupName>
+          <GroupName>User Application</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
+              <FilePath>.\STM32F103C8X_projects\main.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>User Lib</GroupName>
+          <GroupName>User Libraries</GroupName>
           <Files>
             <File>
-              <FileName>printMsg.h</FileName>
+              <FileName>_HAL_GPIO.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\printMsg.h</FilePath>
+              <FilePath>.\STM32F103C8X_projects\_HAL_GPIO.h</FilePath>
             </File>
             <File>
-              <FileName>printMsg.c</FileName>
+              <FileName>_HAL_GPIO.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\printMsg.c</FilePath>
+              <FilePath>.\STM32F103C8X_projects\_HAL_GPIO.c</FilePath>
             </File>
           </Files>
         </Group>

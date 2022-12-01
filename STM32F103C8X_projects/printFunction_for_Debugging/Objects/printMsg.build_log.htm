@@ -17,28 +17,52 @@ Library Manager: ArmAr.exe V6.18
 Hex Converter:   FromElf.exe V6.18
 CPU DLL:         SARMCM3.DLL V5.37.0.0
 Dialog DLL:      DCM.DLL V1.17.5.0
-Target DLL:      UL2CM3.DLL V1.164.7.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
 D:\projects-yyigitbasi\STM32F103C8X_projects\printFunction_for_Debugging\printMsg.uvprojx
-Project File Date:  11/28/2022
+Project File Date:  12/01/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main.c(46): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
-                vsprintf(buff, msg, args);
-                ^
-main.c(46): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
-main.c(46): warning: format string is not a string literal [-Wformat-nonliteral]
-                vsprintf(buff, msg, args);
-                               ^~~
+main.c(9): warning: no previous extern declaration for non-static variable 'test' [-Wmissing-variable-declarations]
+int test = 0;
+    ^
+main.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int test = 0;
+^
+main.c(3): warning: no previous extern declaration for non-static variable 'ticks' [-Wmissing-variable-declarations]
+int ticks;
+    ^
+main.c(3): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int ticks;
+^
 2 warnings generated.
 compiling main.c...
+printMsg.c(1): warning: In file included from...
+./printMsg.h(15): warning: padding struct 'printMsg_config' with 2 bytes to align 'tx_port' [-Wpadded]
+        GPIO_TypeDef    *tx_port;
+                         ^
+./printMsg.h(17): warning: padding struct 'printMsg_config' with 3 bytes to align 'Uart_instance' [-Wpadded]
+        USART_TypeDef   *Uart_instance;
+                         ^
+printMsg.c(37): warning: non-void function does not return a value in all control paths [-Wreturn-type]
+}
+^
+printMsg.c(48): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
+        vsprintf(buff, msg, args);
+        ^
+printMsg.c(48): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
+printMsg.c(48): warning: format string is not a string literal [-Wformat-nonliteral]
+        vsprintf(buff, msg, args);
+                       ^~~
+5 warnings generated.
+compiling printMsg.c...
 linking...
-Program Size: Code=7520 RO-data=832 RW-data=0 ZI-data=1632  
-".\Objects\printMsg.axf" - 0 Error(s), 2 Warning(s).
+Program Size: Code=7480 RO-data=832 RW-data=0 ZI-data=1632  
+".\Objects\printMsg.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -65,10 +89,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
-      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Source file:   Device/Source/system_stm32f10x.c
+      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
+      Include file:  RTE_Driver/Config/RTE_Device.h
 Build Time Elapsed:  00:00:00
 </pre>
 </body>

@@ -7,9 +7,9 @@ Section Cross References
     main.o(.text.main) refers to _hal_gpio.o(.text.gpio_init) for gpio_init
     main.o(.text.main) refers to _hal_gpio.o(.text.config_gpio_interrupt) for config_gpio_interrupt
     main.o(.text.main) refers to _hal_gpio.o(.text.enable_gpio_interrupt) for enable_gpio_interrupt
-    main.o(.text.main) refers to _hal_gpio.o(.text.gpio_toggle) for gpio_toggle
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     main.o(.text.EXTI4_IRQ_IRQHandler) refers to _hal_gpio.o(.text.clear_gpio_interrupt) for clear_gpio_interrupt
+    main.o(.text.EXTI4_IRQ_IRQHandler) refers to _hal_gpio.o(.text.gpio_toggle) for gpio_toggle
     main.o(.ARM.exidx.text.EXTI4_IRQ_IRQHandler) refers to main.o(.text.EXTI4_IRQ_IRQHandler) for [Anonymous Symbol]
     _hal_gpio.o(.ARM.exidx.text.gpio_write) refers to _hal_gpio.o(.text.gpio_write) for [Anonymous Symbol]
     _hal_gpio.o(.ARM.exidx.text.gpio_toggle) refers to _hal_gpio.o(.text.gpio_toggle) for [Anonymous Symbol]
@@ -156,12 +156,13 @@ Removing Unused input sections from the image.
 
     Removing main.o(.text), (0 bytes).
     Removing main.o(.ARM.exidx.text.main), (8 bytes).
-    Removing main.o(.text.EXTI4_IRQ_IRQHandler), (10 bytes).
+    Removing main.o(.text.EXTI4_IRQ_IRQHandler), (24 bytes).
     Removing main.o(.ARM.exidx.text.EXTI4_IRQ_IRQHandler), (8 bytes).
     Removing main.o(.ARM.use_no_argv), (4 bytes).
     Removing _hal_gpio.o(.text), (0 bytes).
     Removing _hal_gpio.o(.text.gpio_write), (50 bytes).
     Removing _hal_gpio.o(.ARM.exidx.text.gpio_write), (8 bytes).
+    Removing _hal_gpio.o(.text.gpio_toggle), (26 bytes).
     Removing _hal_gpio.o(.ARM.exidx.text.gpio_toggle), (8 bytes).
     Removing _hal_gpio.o(.ARM.exidx.text.gpio_init), (8 bytes).
     Removing _hal_gpio.o(.ARM.exidx.text.config_pin), (8 bytes).
@@ -180,7 +181,7 @@ Removing Unused input sections from the image.
     Removing system_stm32f10x.o(.data.SystemCoreClock), (4 bytes).
     Removing system_stm32f10x.o(.rodata.AHBPrescTable), (16 bytes).
 
-25 unused section(s) (total 524 bytes) removed from the image.
+26 unused section(s) (total 564 bytes) removed from the image.
 
 ==============================================================================
 
@@ -316,8 +317,7 @@ Image Symbol Table
     [Anonymous Symbol]                       0x08000d1c   Section        0  _hal_gpio.o(.text.config_pin_speed)
     [Anonymous Symbol]                       0x08000dd0   Section        0  _hal_gpio.o(.text.enable_gpio_interrupt)
     [Anonymous Symbol]                       0x08000dfc   Section        0  _hal_gpio.o(.text.gpio_init)
-    [Anonymous Symbol]                       0x08000ec0   Section        0  _hal_gpio.o(.text.gpio_toggle)
-    [Anonymous Symbol]                       0x08000edc   Section        0  main.o(.text.main)
+    [Anonymous Symbol]                       0x08000ec0   Section        0  main.o(.text.main)
     .bss                                     0x20000040   Section       96  libspace.o(.bss)
     Heap_Mem                                 0x200000a0   Data         512  startup_stm32f10x_md.o(HEAP)
     HEAP                                     0x200000a0   Section      512  startup_stm32f10x_md.o(HEAP)
@@ -482,10 +482,9 @@ Image Symbol Table
     config_gpio_interrupt                    0x08000409   Thumb Code  1946  _hal_gpio.o(.text.config_gpio_interrupt)
     enable_gpio_interrupt                    0x08000dd1   Thumb Code    44  _hal_gpio.o(.text.enable_gpio_interrupt)
     gpio_init                                0x08000dfd   Thumb Code   194  _hal_gpio.o(.text.gpio_init)
-    gpio_toggle                              0x08000ec1   Thumb Code    26  _hal_gpio.o(.text.gpio_toggle)
-    main                                     0x08000edd   Thumb Code   136  main.o(.text.main)
-    Region$$Table$$Base                      0x08000f64   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08000f84   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08000ec1   Thumb Code   122  main.o(.text.main)
+    Region$$Table$$Base                      0x08000f3c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08000f5c   Number         0  anon$$obj.o(Region$$Table)
     PINPOS                                   0x20000000   Data          64  _hal_gpio.o(.data.PINPOS)
     __libspace_start                         0x20000040   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x200000a0   Data           0  libspace.o(.bss)
@@ -498,9 +497,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x00000fc4, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x00000f9c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000f84, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000f5c, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -577,20 +576,19 @@ Memory Map of the image
     0x08000dd0   0x08000dd0   0x0000002c   Code   RO           26    .text.enable_gpio_interrupt  _hal_gpio.o
     0x08000dfc   0x08000dfc   0x000000c2   Code   RO           18    .text.gpio_init     _hal_gpio.o
     0x08000ebe   0x08000ebe   0x00000002   PAD
-    0x08000ec0   0x08000ec0   0x0000001a   Code   RO           16    .text.gpio_toggle   _hal_gpio.o
-    0x08000eda   0x08000eda   0x00000002   PAD
-    0x08000edc   0x08000edc   0x00000088   Code   RO            2    .text.main          main.o
-    0x08000f64   0x08000f64   0x00000020   Data   RO          233    Region$$Table       anon$$obj.o
+    0x08000ec0   0x08000ec0   0x0000007a   Code   RO            2    .text.main          main.o
+    0x08000f3a   0x08000f3a   0x00000002   PAD
+    0x08000f3c   0x08000f3c   0x00000020   Data   RO          233    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000f84, Size: 0x00000040, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000f5c, Size: 0x00000040, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08000f84   0x00000040   Data   RW           32    .data.PINPOS        _hal_gpio.o
+    0x20000000   0x08000f5c   0x00000040   Data   RW           32    .data.PINPOS        _hal_gpio.o
 
 
-    Execution Region ER_ZI (Exec base: 0x20000040, Load base: 0x08000fc4, Size: 0x00000660, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000040, Load base: 0x08000f9c, Size: 0x00000660, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -606,13 +604,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-      2812        120          0         64          0       7012   _hal_gpio.o
-       136          0          0          0          0       2449   main.o
+      2786        120          0         64          0       7012   _hal_gpio.o
+       122          0          0          0          0       2447   main.o
         64         26        236          0       1536        816   startup_stm32f10x_md.o
        400          0          0          0          0       2858   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-      3424        146        268         64       1536      13135   Object Totals
+      3384        146        268         64       1536      13133   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         12          0          0          0          0          0   (incl. Padding)
 
@@ -661,15 +659,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      3704        162        268         64       1632      13571   Grand Totals
-      3704        162        268         64       1632      13571   ELF Image Totals
-      3704        162        268         64          0          0   ROM Totals
+      3664        162        268         64       1632      13569   Grand Totals
+      3664        162        268         64       1632      13569   ELF Image Totals
+      3664        162        268         64          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 3972 (   3.88kB)
+    Total RO  Size (Code + RO Data)                 3932 (   3.84kB)
     Total RW  Size (RW Data + ZI Data)              1696 (   1.66kB)
-    Total ROM Size (Code + RO Data + RW Data)       4036 (   3.94kB)
+    Total ROM Size (Code + RO Data + RW Data)       3996 (   3.90kB)
 
 ==============================================================================
 

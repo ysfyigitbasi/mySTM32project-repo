@@ -28,7 +28,7 @@ int main(){
 			GPIOC->BSRR = (1<<(13+16)); // RESET
 			for(int i=0; i<10;i++); */
 		
-		gpio_toggle(PORTC,13);
+
 		for(int i=0;i<5;i++);
 		/*
 		gpio_write(myGPIO.port,myGPIO.pin,HIGH);
@@ -40,6 +40,7 @@ int main(){
 }
 void EXTI4_IRQ_IRQHandler(){
 	clear_gpio_interrupt(4);
+	gpio_toggle(PORTC,13);
 	
 	
 }
