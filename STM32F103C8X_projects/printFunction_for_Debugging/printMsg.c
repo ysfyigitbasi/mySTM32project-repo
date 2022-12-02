@@ -43,32 +43,56 @@ uint8_t printMsg_init(printMsg_config Transmit){
 			
 			return 1;	} // IF-End GPIOB
 		
-		if(Transmit.tx_port == GPIOC){
+		else if(Transmit.tx_port == GPIOC){ // PARTIAL REMAP-PC10
 			
 			AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_0;
-			RCC->APB1ENR
+			RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+			RCC->APB2ENR |= RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN;
+			GPIOC->CRH |= GPIO_CRH_MODE10_0 | GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_1;
+			GPIOC->CRH &= ~GPIO_CRH_CNF10_0;
 			
+			return 1;	} // IF-END GPIOC
+		else
+			return 0;	} // IF-END USART3
+	return 0;	} // END FUNCTION
+
+static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint16_t baudR){
+
+	switch(baudR){
+		case 2400:
 			
+			if(UsartP == USART1){
+				
+				USART1->BRR = 0x3A98;
+				USART1->CR1 |= USART_CR1_TE | USART_CR1_UE;
+				return 1;	} // END IF USART1 2.4KBPS
 			
+			if(UsartP == USART2){
+				
+				USART2->BRR = 0x3A98;
+				USART2->CR1 |= USART_CR1_TE | USART_CR1_UE;
+				return 1;	} // END IF USART2 2.4KBPS
 			
+			if(UsartP == USART3){
+				
+				USART3->BRR = 0x3A98;
+				USART3->CR1 |= USART_CR1_TE | USART_CR1_UE;
+				return 1;	} // END IF USART2 2.4KBPS
 			
-			
-			
+			break;	// CASE 1 IS GENERATED...
 		
-	
-	
-		
+		case 4800:
+			
 	}
 		
 		
-	
-	
-	
-	
-	
-	
-}
+		
+		
+	}
 
+
+
+}	
 
 
 

@@ -19,6 +19,7 @@ typedef struct{
 
 // #################| 	UART-CONFIG	|########################
 uint8_t printMsg_init(printMsg_config Transmit);
+static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint16_t baudR); 
 // #################|	Prototypes	|########################
 
 void print(const char *msg, ...);
