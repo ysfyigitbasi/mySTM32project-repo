@@ -11,7 +11,7 @@
 
 // #################| 	STRUCTURES	|########################
 typedef struct{
-	uint16_t 		baud;
+	uint32_t 		baud;
 	GPIO_TypeDef 	*tx_port;
 //	uint8_t 		TX_pinNumber;
 	USART_TypeDef	*Uart_instance;
@@ -19,7 +19,7 @@ typedef struct{
 
 // #################| 	UART-CONFIG	|########################
 uint8_t printMsg_init(printMsg_config Transmit);
-static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint16_t baudR); 
+static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR); 
 // #################|	Prototypes	|########################
 
 void print(const char *msg, ...);

@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.37.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Yusuf Yigitbasi, Hacettepe University, LIC=----
+License Information: Yusuf Yigitbasi, Kellesi, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.37.0.0
@@ -21,48 +21,24 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
-D:\projects-yyigitbasi\STM32F103C8X_projects\printFunction_for_Debugging\printMsg.uvprojx
-Project File Date:  12/01/2022
+D:\mystm32Project\mySTM32project-repo\STM32F103C8X_projects\printFunction_for_Debugging\printMsg.uvprojx
+Project File Date:  12/04/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main.c(9): warning: no previous extern declaration for non-static variable 'test' [-Wmissing-variable-declarations]
-int test = 0;
-    ^
-main.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-int test = 0;
-^
-main.c(3): warning: no previous extern declaration for non-static variable 'ticks' [-Wmissing-variable-declarations]
-int ticks;
-    ^
-main.c(3): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-int ticks;
-^
-2 warnings generated.
-compiling main.c...
-printMsg.c(1): warning: In file included from...
-./printMsg.h(15): warning: padding struct 'printMsg_config' with 2 bytes to align 'tx_port' [-Wpadded]
-        GPIO_TypeDef    *tx_port;
-                         ^
-./printMsg.h(17): warning: padding struct 'printMsg_config' with 3 bytes to align 'Uart_instance' [-Wpadded]
-        USART_TypeDef   *Uart_instance;
-                         ^
-printMsg.c(37): warning: non-void function does not return a value in all control paths [-Wreturn-type]
-}
-^
-printMsg.c(48): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
+printMsg.c(199): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
         vsprintf(buff, msg, args);
         ^
-printMsg.c(48): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
-printMsg.c(48): warning: format string is not a string literal [-Wformat-nonliteral]
+printMsg.c(199): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
+printMsg.c(199): warning: format string is not a string literal [-Wformat-nonliteral]
         vsprintf(buff, msg, args);
                        ^~~
-5 warnings generated.
+2 warnings generated.
 compiling printMsg.c...
 linking...
-Program Size: Code=7480 RO-data=832 RW-data=0 ZI-data=1632  
-".\Objects\printMsg.axf" - 0 Error(s), 7 Warning(s).
+Program Size: Code=7448 RO-data=832 RW-data=0 ZI-data=1632  
+".\Objects\printMsg.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -81,19 +57,19 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   ./RTE/Device/STM32F103C8
   ./RTE/_Target_1
-  C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/Administrator/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
+      Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/system_stm32f10x.c
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
-      Include file:  RTE_Driver/Config/RTE_Device.h
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
