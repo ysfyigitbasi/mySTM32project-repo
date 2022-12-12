@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.37.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Yusuf Yigitbasi, Hacettepe University, LIC=----
+License Information: Yusuf Yigitbasi, Kellesi, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.37.0.0
@@ -21,34 +21,23 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
-D:\projects-yyigitbasi\stm32f103Projects.uvprojx
-Project File Date:  11/21/2022
+D:\mystm32Project\mySTM32project-repo\stm32f103Projects.uvprojx
+Project File Date:  12/12/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-STM32F103C8X_projects/main.c(41): warning: no previous prototype for function 'EXTI4_IRQ_IRQHandler' [-Wmissing-prototypes]
-void EXTI4_IRQ_IRQHandler(){
-     ^
-STM32F103C8X_projects/main.c(41): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void EXTI4_IRQ_IRQHandler(){
+STM32F103C8X_projects/_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+         ^
+STM32F103C8X_projects/_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
 ^
-static 
-STM32F103C8X_projects/main.c(41): warning: this old-style function definition is not preceded by a prototype [-Wstrict-prototypes]
-void EXTI4_IRQ_IRQHandler(){
-                         ^
-STM32F103C8X_projects/main.c(2): warning: In file included from...
-STM32F103C8X_projects/_HAL_GPIO.h(72): warning: unused function 'config_pin' [-Wunused-function]
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
-            ^
-STM32F103C8X_projects/_HAL_GPIO.h(73): warning: unused function 'config_pin_speed' [-Wunused-function]
-static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
-            ^
-4 warnings generated.
-compiling main.c...
+1 warning generated.
+compiling _HAL_GPIO.c...
 linking...
-Program Size: Code=3664 RO-data=268 RW-data=64 ZI-data=1632  
-".\Objects\stm32f103Projects.axf" - 0 Error(s), 4 Warning(s).
+Program Size: Code=1708 RO-data=268 RW-data=64 ZI-data=1632  
+".\Objects\stm32f103Projects.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,8 +56,8 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   ./RTE/Device/STM32F103C8
   ./RTE/_Target_1
-  C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/Administrator/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
@@ -77,8 +66,8 @@ Package Vendor: Keil
    * Component: Keil::Device:Startup:1.0.0
       Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
-      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Source file:   Device/Source/system_stm32f10x.c
+      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

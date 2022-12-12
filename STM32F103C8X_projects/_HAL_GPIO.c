@@ -85,8 +85,8 @@ void gpio_write(GPIO_TypeDef *port, uint32_t pinNumber, uint8_t state){
 	
 	if(state)
 		port->BSRR = (1<<pinNumber);
-	else{
-		port->BSRR = (1<<(pinNumber + 16));}
+	else
+		port->BSRR = (1<<(pinNumber + 16));
 }
 //********************************************************************************************************
 

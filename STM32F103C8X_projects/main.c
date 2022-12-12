@@ -17,8 +17,8 @@ int main(){
 	myGPIO.speed = SPEED_50MHZ;
 	
 	gpio_init(myGPIO);
-	config_gpio_interrupt(PORTB, 4, EDGE_RISING);
-	enable_gpio_interrupt(4, EXTI4_IRQn);
+	//config_gpio_interrupt(PORTB, 4, EDGE_RISING);
+	//enable_gpio_interrupt(4, EXTI4_IRQn);
 	
 
 	while(1)
@@ -29,19 +29,20 @@ int main(){
 			for(int i=0; i<10;i++); */
 		
 
-		for(int i=0;i<5;i++);
-		/*
-		gpio_write(myGPIO.port,myGPIO.pin,HIGH);
-		for(int i=0;i<100;i++);
-		gpio_write(myGPIO.port,myGPIO.pin,LOW);
-		for(int j=0;j<100;j++); */
+		
+		gpio_write(myGPIO.port, myGPIO.pin, HIGH);
+		for(int i=0;i<500000;i++);
+		gpio_write(myGPIO.port, myGPIO.pin, LOW);
+		for(int j=0;j<500000;j++);
 		
 	} 	
 }
+
+/*
 void EXTI4_IRQ_IRQHandler(){
 	clear_gpio_interrupt(4);
 	gpio_toggle(PORTC,13);
 	
 	
-}
+}*/
 
