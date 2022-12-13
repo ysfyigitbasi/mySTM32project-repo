@@ -24,15 +24,15 @@ int main(void){
 		// clear PWR Wake up flag
 		PWR->CR |= PWR_CR_CWUF;
 		PWR->CR |= PWR_CR_CSBF;
-		printMsg("I have awaken from standby\n", USART1);
+		printMsg(USART1, "I have awaken from standby\n");
 	}
 	else
-		printMsg("I've awaken from power cycle\n", USART1);
+		printMsg(USART1, "I've awaken from power cycle\n");
 	
 	while(1){
-		printMsg("-----Going to sleep\n\r", USART1);
+		printMsg(USART1, "-----Going to sleep\n\r");
 		gotoSleep();
-		printMsg("fail", USART1);
+		printMsg(USART1, "fail");
 	}
 }	// ------------------| END MAIN | ------------------------
 

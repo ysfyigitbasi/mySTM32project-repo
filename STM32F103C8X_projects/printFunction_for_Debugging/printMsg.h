@@ -22,5 +22,5 @@ uint8_t printMsg_init(printMsg_config Transmit);
 static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR); 
 // #################|	Prototypes	|########################
 
-void printMsg(const char *msg, USART_TypeDef *UsartP, ...);
+void printMsg(USART_TypeDef *UsartP, const char *msg, ...);
 

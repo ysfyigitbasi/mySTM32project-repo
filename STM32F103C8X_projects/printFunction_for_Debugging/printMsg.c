@@ -192,7 +192,7 @@ static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR){
 }		// end function
 
 
-void printMsg(const char *msg, USART_TypeDef *UsartP, ...){
+void printMsg(USART_TypeDef *UsartP, const char *msg, ...){
 	
 	char buff[50];
 	va_list args;
