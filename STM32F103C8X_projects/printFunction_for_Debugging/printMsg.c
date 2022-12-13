@@ -9,6 +9,7 @@ uint8_t printMsg_init(printMsg_config Transmit){
 			RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN | RCC_APB2ENR_USART1EN;
 			GPIOA->CRH |= GPIO_CRH_CNF9_1 | GPIO_CRH_MODE9_0 | GPIO_CRH_MODE9_1; // MODE(1,1) 50MHZ, CNF(1,0) AF_PP
 			GPIOA->CRH &= ~GPIO_CRH_CNF9_0;
+			
 			return UsartBaudRateSet(USART1, Transmit.baud);	} // IF-END GPIOA
 
 			
@@ -191,7 +192,7 @@ static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR){
 }		// end function
 
 
-void print(const char *msg, ...){
+void printMsg(const char *msg, USART_TypeDef *UsartP, ...){
 	
 	char buff[50];
 	va_list args;
@@ -199,8 +200,8 @@ void print(const char *msg, ...){
 	vsprintf(buff, msg, args);
 		
 	for(uint8_t i=0; i<strlen(buff); i++){
-		USART1->DR = buff[i];
-		while( !(USART1->SR & USART_SR_TXE) );
+		UsartP->DR = buff[i];
+		while( !(UsartP->SR & USART_SR_TXE) );
 	}	
 	
 }
