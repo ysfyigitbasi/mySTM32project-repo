@@ -57,7 +57,7 @@ static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_typ
 				port->CRL &= ~( 1<<CNF_POS_BIT2 ); port->CRH |= (1<<CNF_POS_BIT1); break;
 			
 			case OUTPUT_ALT_FUNCTION_PP | INPUT_PU_PD:
-				port->CRL |= (OUTPUT_ALT_FUNCTION_PP << CNF_POS_BIT1); break;
+				port->CRH |= (1 << CNF_POS_BIT2);  port->CRH &= ~(1 << CNF_POS_BIT1); break;
 			
 			case OUTPUT_ALT_FUNCTION_OD:
 				port->CRL |= (OUTPUT_ALT_FUNCTION_OD << CNF_POS_BIT1); break;
