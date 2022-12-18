@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.37.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Yusuf Yigitbasi, Kellesi, LIC=----
+License Information: Yusuf Yigitbasi, Hacettepe University, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.37.0.0
@@ -21,24 +21,13 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
-D:\mystm32Project\mySTM32project-repo\STM32F103C8X_projects\printFunction_for_Debugging\printMsg.uvprojx
-Project File Date:  12/04/2022
+D:\yyigitbasi_stm32_git\STM32F103C8X_projects\printFunction_for_Debugging\printMsg.uvprojx
+Project File Date:  12/16/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-printMsg.c(199): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
-        vsprintf(buff, msg, args);
-        ^
-printMsg.c(199): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
-printMsg.c(199): warning: format string is not a string literal [-Wformat-nonliteral]
-        vsprintf(buff, msg, args);
-                       ^~~
-2 warnings generated.
-compiling printMsg.c...
-linking...
-Program Size: Code=7448 RO-data=832 RW-data=0 ZI-data=1632  
-".\Objects\printMsg.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\printMsg.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -57,19 +46,19 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   ./RTE/Device/STM32F103C8
   ./RTE/_Target_1
-  C:/Users/yusuf/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/yusuf/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
+  C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/Administrator/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  RTE_Driver/Config/RTE_Device.h
+      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/system_stm32f10x.c
-      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
-Build Time Elapsed:  00:00:01
+      Include file:  RTE_Driver/Config/RTE_Device.h
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
