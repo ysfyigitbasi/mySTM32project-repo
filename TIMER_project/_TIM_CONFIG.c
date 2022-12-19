@@ -26,14 +26,14 @@ void initTimer(myTIMERcfg mytimer){
 		while (!(TIM3->SR & TIM_SR_UIF))
 			printMsg(USART1,"Timer register is not setted!\r\n");}
 	
-	/* DOES NOT WORK WITH MY STM32
+	// DOES NOT WORK WITH MY STM32
 	else if(mytimer.timer == TIM4){
 		RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
 		TIM4->PSC = mytimer.preScalar - 1;
 		TIM4->ARR = mytimer.limitValue - 1;
 		TIM4->CR1 |= TIM_CR1_CEN;
 		while (!(TIM4->SR & TIM_SR_UIF))
-			printMsg(USART1,"Timer register is not setted!\r\n");}	*/ 
+			printMsg(USART1,"Timer register is not setted!\r\n");}
 	
 }
 
