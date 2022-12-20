@@ -5,6 +5,7 @@
 void Delay_us (uint16_t us, myTIMERcfg *timer);
 void Delay_ms (uint16_t ms, myTIMERcfg *timer);
 int main(){
+	
 	myTIMERcfg timer3;
 	timer3.timer = TIM3;	timer3.preScalar = 36000;	timer3.limitValue = 0xFFFF;
 	
@@ -17,9 +18,9 @@ int main(){
 	printer.baud = 9600;
 	printer.tx_port = GPIOA;
 	printer.Uart_instance = USART1;
+	
+	initSysClck();
 	printMsg_init(printer);
-	
-	
 	gpio_init(myLED);
 	initTimer(timer3);
 	
@@ -32,10 +33,6 @@ int main(){
 		gpio_write(myLED.port, myLED.pin, LOW);
 		Delay_us(8000, &timer3);
 	}
-	
-	
-	
-	
 	
 }
 

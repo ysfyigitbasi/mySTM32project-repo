@@ -28,10 +28,25 @@ Project File Date:  12/19/2022
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_stm32f10x_md.s...
-main.c(11): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+printMsg.c(200): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
+        vsprintf(buff, msg, args);
+        ^
+printMsg.c(200): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
+printMsg.c(200): warning: format string is not a string literal [-Wformat-nonliteral]
+        vsprintf(buff, msg, args);
+                       ^~~
+2 warnings generated.
+compiling printMsg.c...
+_TIM_CONFIG.c(2): warning: In file included from...
+./printMsg.h(22): warning: unused function 'UsartBaudRateSet' [-Wunused-function]
+static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR); 
+               ^
+1 warning generated.
+compiling _TIM_CONFIG.c...
+main.c(12): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
         GPIO_TYPE myLED;
                   ^
-main.c(26): warning: variable 'x' set but not used [-Wunused-but-set-variable]
+main.c(27): warning: variable 'x' set but not used [-Wunused-but-set-variable]
         int x = 0;
             ^
 main.c(2): warning: In file included from...
@@ -55,21 +70,6 @@ __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9}
     ^
 1 warning generated.
 compiling system_stm32f10x.c...
-printMsg.c(200): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
-        vsprintf(buff, msg, args);
-        ^
-printMsg.c(200): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
-printMsg.c(200): warning: format string is not a string literal [-Wformat-nonliteral]
-        vsprintf(buff, msg, args);
-                       ^~~
-2 warnings generated.
-compiling printMsg.c...
-_TIM_CONFIG.c(2): warning: In file included from...
-./printMsg.h(22): warning: unused function 'UsartBaudRateSet' [-Wunused-function]
-static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR); 
-               ^
-1 warning generated.
-compiling _TIM_CONFIG.c...
 _HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
 uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
          ^
@@ -79,7 +79,7 @@ uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
 1 warning generated.
 compiling _HAL_GPIO.c...
 linking...
-Program Size: Code=10568 RO-data=852 RW-data=64 ZI-data=1632  
+Program Size: Code=10836 RO-data=852 RW-data=64 ZI-data=1632  
 ".\Objects\timer_test_project.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -107,10 +107,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
-      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Source file:   Device/Source/system_stm32f10x.c
       Include file:  RTE_Driver/Config/RTE_Device.h
+      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
+      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
 Build Time Elapsed:  00:00:01
 </pre>
 </body>
