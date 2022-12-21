@@ -11,7 +11,8 @@ typedef struct{
 	uint16_t limitValue;	
 }myTIMERcfg;
 
-void initTimer(myTIMERcfg mytimer);
+void initTimer(myTIMERcfg mytimer, uint32_t priority);
+void timerEnable(TIM_TypeDef *timer);
 void initSysClck(void); // Only HSE, then PLL mult is used
 
 #endif

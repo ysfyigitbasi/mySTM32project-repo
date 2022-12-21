@@ -1,7 +1,7 @@
 #include "_TIM_CONFIG.h"
 #include "printMsg.h"
 
-void initTimer(myTIMERcfg mytimer){
+void initTimer(myTIMERcfg mytimer, uint32_t priority){
 	
 	if(mytimer.timer == TIM1){ //ADVANCED
 		RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
@@ -15,9 +15,17 @@ void initTimer(myTIMERcfg mytimer){
 		RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
 		TIM2->PSC = mytimer.preScalar - 1;
 		TIM2->ARR = mytimer.limitValue - 1;
-		TIM2->CR1 |= TIM_CR1_CEN;
-		while (!(TIM2->SR & TIM_SR_UIF))
-			printMsg(USART1,"Timer register is not setted!\r\n");}
+		//TIM2->CR1 |= TIM_CR1_CEN;
+		//while (!(TIM2->SR & TIM_SR_UIF))
+			//printMsg(USART1,"Timer register is not setted!\r\n");
+		
+		// Enable Timer Update Interrupt
+		TIM2->DIER |= TIM_DIER_UIE;
+		// Enable Timer Interrupt on NVIC
+		NVIC_EnableIRQ(TIM2_IRQn);
+		// Set IRQn of the Priority
+		NVIC_SetPriority(TIM2_IRQn, priority);
+	}
 
 	else if(mytimer.timer == TIM3){
 		RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
@@ -36,6 +44,9 @@ void initTimer(myTIMERcfg mytimer){
 		while (!(TIM4->SR & TIM_SR_UIF))
 			printMsg(USART1,"Timer register is not setted!\r\n");}
 }
+
+void timerEnable(TIM_TypeDef *timer){
+	timer->CR1 |= TIM_CR1_CEN;	}
 
 void initSysClck(void){ // 72MHz
 	

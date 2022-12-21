@@ -6,32 +6,39 @@ void Delay_us (uint16_t us, myTIMERcfg *timer);
 void Delay_ms (uint16_t ms, myTIMERcfg *timer);
 int main(){
 	
-	myTIMERcfg timer3;
-	timer3.timer = TIM3;	timer3.preScalar = 36000;	timer3.limitValue = 0xFFFF;
+	myTIMERcfg timer2;
+	timer2.timer = TIM2;	timer2.preScalar = 36000;	timer2.limitValue = (uint16_t)2000;
 	
 	GPIO_TYPE myLED;
 	myLED.port = PORTC; myLED.pin = 13; myLED.mode = OUTPUT_MODE; myLED.mode_type = OUTPUT_GEN_PURPOSE;
 	myLED.speed = SPEED_50MHZ;
 	
+	GPIO_TYPE mybutton;
+	mybutton.port = PORTB; mybutton.pin = 4; mybutton.mode = INPUT_MODE; mybutton.mode_type = INPUT_PU_PD;
 	
 	printMsg_config printer;
 	printer.baud = 9600;
 	printer.tx_port = GPIOA;
 	printer.Uart_instance = USART1;
 	
+	
 	initSysClck();
 	printMsg_init(printer);
 	gpio_init(myLED);
-	initTimer(timer3);
-	
-	int x = 0;
+	initTimer(timer2, 2);
+	timerEnable(timer2.timer);
+	//config_gpio_interrupt(PORTB,4,EDGE_RISING);
+	//enable_gpio_IRQ(4,EXTI4_IRQn);
+
+
+	uint32_t x = 0;
 	
 	while(1){
-		gpio_write(myLED.port, myLED.pin, HIGH);
-		x = timer3.timer->CNT;
-		Delay_us(8000, &timer3);
-		gpio_write(myLED.port, myLED.pin, LOW);
-		Delay_us(8000, &timer3);
+		//gpio_write(myLED.port, myLED.pin, HIGH);
+		x = timer2.timer->CNT;
+		//Delay_us(8000, &timer2);
+		//gpio_write(myLED.port, myLED.pin, LOW);
+		//Delay_us(8000, &timer2);
 	}
 	
 }
@@ -53,5 +60,18 @@ void Delay_ms (uint16_t ms, myTIMERcfg *timer)
 	{
 		Delay_us (1000, timer); // delay of 1 ms
 	}
+}
+
+
+// External interrupt handler function, for gpio port interrupts.
+void EXTI4_IRQHandler(void){
+	if((EXTI->PR & EXTI_PR_PR4) == EXTI_PR_PR4)
+		clear_gpio_interrupt(4);
+}
+
+// Timer 2 Interrupt Request Handler Function
+void TIM2_IRQHandler(void){
+	TIM2->SR &= ~TIM_SR_UIF;
+	gpio_toggle(PORTC, 13);
 }
 
