@@ -33,27 +33,13 @@ uint8_t printMsg_init(printMsg_config Transmit){
 		return UsartBaudRateSet(USART2, Transmit.baud);	} // IF-END USART2
 		
 	if(Transmit.Uart_instance == USART3){
-		
-		if(Transmit.tx_port == GPIOB) { //NO REMAP PB10
 			
-			RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
-			RCC->APB2ENR |= RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN;
-			GPIOB->CRH |= GPIO_CRH_MODE10_0 | GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_1;
-			GPIOB->CRH &= ~GPIO_CRH_CNF10_0;
+		RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+		RCC->APB2ENR |= RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN;
+		GPIOB->CRH |= GPIO_CRH_MODE10_0 | GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_1;
+		GPIOB->CRH &= ~GPIO_CRH_CNF10_0;
 			
-			return UsartBaudRateSet(USART3, Transmit.baud);	} // IF-End GPIOB
-		
-		else if(Transmit.tx_port == GPIOC){ // PARTIAL REMAP-PC10
-			
-			AFIO->MAPR |= AFIO_MAPR_USART3_REMAP_0;
-			RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
-			RCC->APB2ENR |= RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN;
-			GPIOC->CRH |= GPIO_CRH_MODE10_0 | GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_1;
-			GPIOC->CRH &= ~GPIO_CRH_CNF10_0;
-			
-			return UsartBaudRateSet(USART3, Transmit.baud);	} // IF-END GPIOC
-		else
-			return 0;	} // IF-END USART3
+		return UsartBaudRateSet(USART3, Transmit.baud);	} // IF-End GPIOB
 	return 0;	} // END FUNCTION
 
 static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR){

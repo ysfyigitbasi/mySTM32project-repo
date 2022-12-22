@@ -13,9 +13,31 @@ void initTimer(myTIMERcfg mytimer, uint32_t priority){
 		TIM1->ARR = mytimer.limitValue - 1;
 		TIM1->CR1 |= TIM_CR1_CEN;
 		while (!(TIM1->SR & TIM_SR_UIF))
-			printMsg(USART1,"Timer register is not setted!\r\n");}
+			printMsg(USART1,"Timer register is not setted!\r\n");}	// TIM1 if finished
 	
 	else if(mytimer.timer == TIM2){
+        
+		switch (mytimer.channelMod){
+        	case MOD_inputCapt:
+				
+        		break;
+			case MOD_pwmInput:
+				break;
+			case MOD_forcedOutp:
+				break;
+			
+        	case MOD_outputComp:
+        		break;
+			case MOD_PWM_edge:
+        		break;
+			case MOD_PWM_center:
+        		break;
+			case MOD_onePulse:
+        		break;
+        	default:	// just Counting mode
+        		break;
+        }
+		
 		RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
 		TIM2->PSC = mytimer.preScalar - 1;
 		TIM2->ARR = mytimer.limitValue - 1;

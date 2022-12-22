@@ -7,9 +7,6 @@ int main(){
 	myTIMERcfg timer2;
 	timer2.timer = TIM2;	timer2.preScalar = 36000;	timer2.limitValue = (uint16_t)4000;
 	
-	myTIMERcfg timer3;
-	timer3.timer = TIM3;	timer3.preScalar = 36000;	timer3.limitValue = (uint16_t)16000;
-	
 	GPIO_TYPE myLED;
 	myLED.port = PORTC; myLED.pin = 13; myLED.mode = OUTPUT_MODE; myLED.mode_type = OUTPUT_GEN_PURPOSE;
 	myLED.speed = SPEED_50MHZ;

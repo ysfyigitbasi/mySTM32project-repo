@@ -3,10 +3,22 @@
 
 #include <stm32f10x.h>
 
+typedef enum{
+	MOD_inputCapt,
+	MOD_pwmInput,
+	MOD_forcedOutp,
+	MOD_outputComp,
+	MOD_PWM_edge,
+	MOD_PWM_center,
+	MOD_onePulse	
+}timerModes;
+
+
 typedef struct{
 	TIM_TypeDef *timer;
+	timerModes channelMod;
 	uint16_t preScalar;
-	uint16_t limitValue;	
+	uint16_t limitValue;
 }myTIMERcfg;
 
 void initTimer(myTIMERcfg mytimer, uint32_t priority);
