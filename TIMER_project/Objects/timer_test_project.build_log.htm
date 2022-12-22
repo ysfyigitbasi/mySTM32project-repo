@@ -28,32 +28,17 @@ Project File Date:  12/21/2022
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_stm32f10x_md.s...
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-            ^
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-    ^
-1 warning generated.
-compiling system_stm32f10x.c...
-main.c(12): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-        GPIO_TYPE myLED;
-                  ^
-main.c(34): warning: variable 'x' set but not used [-Wunused-but-set-variable]
-        uint32_t x = 0;
+main.c(10): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        myTIMERcfg timer3;
+                   ^
+main.c(36): warning: variable 'x' set but not used [-Wunused-but-set-variable]
+        uint16_t x = 0;
                  ^
-main.c(67): warning: no previous prototype for function 'EXTI4_IRQHandler' [-Wmissing-prototypes]
+main.c(45): warning: no previous prototype for function 'EXTI4_IRQHandler' [-Wmissing-prototypes]
 void EXTI4_IRQHandler(void){
      ^
-main.c(67): note: declare 'static' if the function is not intended to be used outside of this translation unit
+main.c(45): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void EXTI4_IRQHandler(void){
-^
-static 
-main.c(73): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
-void TIM2_IRQHandler(void){
-     ^
-main.c(73): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void TIM2_IRQHandler(void){
 ^
 static 
 main.c(2): warning: In file included from...
@@ -67,22 +52,50 @@ main.c(3): warning: In file included from...
 ./printMsg.h(22): warning: unused function 'UsartBaudRateSet' [-Wunused-function]
 static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR); 
                ^
-7 warnings generated.
+6 warnings generated.
 compiling main.c...
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+            ^
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+    ^
+1 warning generated.
+compiling system_stm32f10x.c...
+_TIM_CONFIG.c(139): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
+void TIM2_IRQHandler(void){
+     ^
+_TIM_CONFIG.c(139): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void TIM2_IRQHandler(void){
+^
+static 
+_TIM_CONFIG.c(149): warning: no previous prototype for function 'TIM3_IRQHandler' [-Wmissing-prototypes]
+void TIM3_IRQHandler(void){
+     ^
+_TIM_CONFIG.c(149): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void TIM3_IRQHandler(void){
+^
+static 
+_TIM_CONFIG.c(154): warning: no previous prototype for function 'TIM4_IRQHandler' [-Wmissing-prototypes]
+void TIM4_IRQHandler(void){
+     ^
+_TIM_CONFIG.c(154): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void TIM4_IRQHandler(void){
+^
+static 
 _TIM_CONFIG.c(2): warning: In file included from...
 ./printMsg.h(22): warning: unused function 'UsartBaudRateSet' [-Wunused-function]
 static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR); 
                ^
-1 warning generated.
+_TIM_CONFIG.c(3): warning: In file included from...
+./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
+static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
+            ^
+./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
+static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+            ^
+6 warnings generated.
 compiling _TIM_CONFIG.c...
-_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-         ^
-_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-^
-1 warning generated.
-compiling _HAL_GPIO.c...
 printMsg.c(200): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
         vsprintf(buff, msg, args);
         ^
@@ -92,9 +105,17 @@ printMsg.c(200): warning: format string is not a string literal [-Wformat-nonlit
                        ^~~
 2 warnings generated.
 compiling printMsg.c...
+_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+         ^
+_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+^
+1 warning generated.
+compiling _HAL_GPIO.c...
 linking...
-Program Size: Code=10968 RO-data=852 RW-data=64 ZI-data=1632  
-".\Objects\timer_test_project.axf" - 0 Error(s), 12 Warning(s).
+Program Size: Code=9472 RO-data=852 RW-data=64 ZI-data=1632  
+".\Objects\timer_test_project.axf" - 0 Error(s), 16 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -121,10 +142,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
-      Source file:   Device/Source/system_stm32f10x.c
       Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
+      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
+      Source file:   Device/Source/system_stm32f10x.c
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\timer_test_project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\timer_test_project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Wed Dec 21 16:31:00 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Thu Dec 22 10:54:40 2022
 <BR><P>
 <H3>Maximum Stack Usage =        324 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -76,9 +76,9 @@ Function Pointers
  <LI><a href="#[25]">TIM1_CC_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[24]">TIM1_TRG_COM_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[23]">TIM1_UP_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
- <LI><a href="#[26]">TIM2_IRQHandler</a> from main.o(.text.TIM2_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
- <LI><a href="#[27]">TIM3_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
- <LI><a href="#[28]">TIM4_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
+ <LI><a href="#[26]">TIM2_IRQHandler</a> from _tim_config.o(.text.TIM2_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
+ <LI><a href="#[27]">TIM3_IRQHandler</a> from _tim_config.o(.text.TIM3_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
+ <LI><a href="#[28]">TIM4_IRQHandler</a> from _tim_config.o(.text.TIM4_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[2f]">USART1_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[30]">USART2_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[31]">USART3_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
@@ -374,7 +374,7 @@ Global Symbols
 <P><STRONG><a name="[ca]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[6a]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 304 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; initTimer &rArr; printMsg &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -563,12 +563,6 @@ Global Symbols
 <P><STRONG><a name="[23]"></a>TIM1_UP_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
-<P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
-</UL>
-<P><STRONG><a name="[28]"></a>TIM4_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
-</UL>
 <P><STRONG><a name="[2f]"></a>USART1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
@@ -601,13 +595,13 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg
 </UL>
 
-<P><STRONG><a name="[9e]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
+<P><STRONG><a name="[9f]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg
 </UL>
 
 <P><STRONG><a name="[cd]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
@@ -955,6 +949,12 @@ Global Symbols
 
 <P><STRONG><a name="[d4]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
 
+<P><STRONG><a name="[94]"></a>Delay_us</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, _tim_config.o(.text.Delay_us))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Delay_us
+</UL>
+<BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
+</UL>
+
 <P><STRONG><a name="[14]"></a>EXTI4_IRQHandler</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, main.o(.text.EXTI4_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = EXTI4_IRQHandler &rArr; clear_gpio_interrupt
 </UL>
@@ -969,8 +969,23 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(.text)
 </UL>
-<P><STRONG><a name="[26]"></a>TIM2_IRQHandler</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, main.o(.text.TIM2_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM2_IRQHandler &rArr; gpio_toggle
+<P><STRONG><a name="[26]"></a>TIM2_IRQHandler</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, _tim_config.o(.text.TIM2_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = TIM2_IRQHandler &rArr; gpio_toggle
+</UL>
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_toggle
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_us
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
+</UL>
+<P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, _tim_config.o(.text.TIM3_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM3_IRQHandler &rArr; gpio_toggle
+</UL>
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_toggle
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
+</UL>
+<P><STRONG><a name="[28]"></a>TIM4_IRQHandler</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, _tim_config.o(.text.TIM4_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM4_IRQHandler &rArr; gpio_toggle
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_toggle
 </UL>
@@ -982,11 +997,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI4_IRQHandler
 </UL>
 
-<P><STRONG><a name="[94]"></a>gpio_init</STRONG> (Thumb, 182 bytes, Stack size 32 bytes, _hal_gpio.o(.text.gpio_init))
+<P><STRONG><a name="[95]"></a>gpio_init</STRONG> (Thumb, 182 bytes, Stack size 32 bytes, _hal_gpio.o(.text.gpio_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = gpio_init &rArr; config_pin
 </UL>
-<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;config_pin_speed
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;config_pin
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;config_pin_speed
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;config_pin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -994,57 +1009,57 @@ Global Symbols
 <P><STRONG><a name="[93]"></a>gpio_toggle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, _hal_gpio.o(.text.gpio_toggle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gpio_toggle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_IRQHandler
+<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[9b]"></a>initSysClck</STRONG> (Thumb, 264 bytes, Stack size 0 bytes, _tim_config.o(.text.initSysClck))
+<P><STRONG><a name="[9c]"></a>initSysClck</STRONG> (Thumb, 264 bytes, Stack size 0 bytes, _tim_config.o(.text.initSysClck))
 <BR><BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[97]"></a>initTimer</STRONG> (Thumb, 472 bytes, Stack size 24 bytes, _tim_config.o(.text.initTimer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
+<P><STRONG><a name="[98]"></a>initTimer</STRONG> (Thumb, 424 bytes, Stack size 32 bytes, _tim_config.o(.text.initTimer))
+<BR><BR>[Stack]<UL><LI>Max Depth = 240 + Unknown Stack Size
 <LI>Call Chain = initTimer &rArr; printMsg &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_SetPriority
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_SetPriority
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[6b]"></a>main</STRONG> (Thumb, 170 bytes, Stack size 88 bytes, main.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
+<P><STRONG><a name="[6b]"></a>main</STRONG> (Thumb, 158 bytes, Stack size 64 bytes, main.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 304 + Unknown Stack Size
 <LI>Call Chain = main &rArr; initTimer &rArr; printMsg &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerEnable
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg_init
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSysClck
+<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerGetCounterValue
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerEnable
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSysClck
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[98]"></a>printMsg</STRONG> (Thumb, 116 bytes, Stack size 88 bytes, printmsg.o(.text.printMsg))
+<P><STRONG><a name="[99]"></a>printMsg</STRONG> (Thumb, 116 bytes, Stack size 88 bytes, printmsg.o(.text.printMsg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
 <LI>Call Chain = printMsg &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
-</UL>
-
-<P><STRONG><a name="[9c]"></a>printMsg_init</STRONG> (Thumb, 534 bytes, Stack size 24 bytes, printmsg.o(.text.printMsg_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = printMsg_init &rArr; UsartBaudRateSet
-</UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UsartBaudRateSet
-</UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
 </UL>
 
 <P><STRONG><a name="[9d]"></a>timerEnable</STRONG> (Thumb, 18 bytes, Stack size 4 bytes, _tim_config.o(.text.timerEnable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = timerEnable
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[9e]"></a>timerGetCounterValue</STRONG> (Thumb, 12 bytes, Stack size 4 bytes, _tim_config.o(.text.timerGetCounterValue))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = timerGetCounterValue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1151,34 +1166,28 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[99]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 48 bytes, Stack size 4 bytes, _tim_config.o(.text.__NVIC_EnableIRQ))
+<P><STRONG><a name="[9a]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 48 bytes, Stack size 4 bytes, _tim_config.o(.text.__NVIC_EnableIRQ))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __NVIC_EnableIRQ
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
 </UL>
 
-<P><STRONG><a name="[9a]"></a>__NVIC_SetPriority</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, _tim_config.o(.text.__NVIC_SetPriority))
+<P><STRONG><a name="[9b]"></a>__NVIC_SetPriority</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, _tim_config.o(.text.__NVIC_SetPriority))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __NVIC_SetPriority
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
 </UL>
 
-<P><STRONG><a name="[95]"></a>config_pin</STRONG> (Thumb, 420 bytes, Stack size 20 bytes, _hal_gpio.o(.text.config_pin))
+<P><STRONG><a name="[96]"></a>config_pin</STRONG> (Thumb, 420 bytes, Stack size 20 bytes, _hal_gpio.o(.text.config_pin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = config_pin
 </UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
 </UL>
 
-<P><STRONG><a name="[96]"></a>config_pin_speed</STRONG> (Thumb, 178 bytes, Stack size 16 bytes, _hal_gpio.o(.text.config_pin_speed))
+<P><STRONG><a name="[97]"></a>config_pin_speed</STRONG> (Thumb, 178 bytes, Stack size 16 bytes, _hal_gpio.o(.text.config_pin_speed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = config_pin_speed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
-</UL>
-
-<P><STRONG><a name="[9f]"></a>UsartBaudRateSet</STRONG> (Thumb, 1074 bytes, Stack size 16 bytes, printmsg.o(.text.UsartBaudRateSet))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = UsartBaudRateSet
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printMsg_init
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
 </UL>
 
 <P><STRONG><a name="[91]"></a>SetSysClock</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, system_stm32f10x.o(.text.SetSysClock))

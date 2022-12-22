@@ -9,4 +9,4 @@
   C:\Users\Administrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include\system_stm32f10x.h \
   printMsg.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h _HAL_GPIO.h
