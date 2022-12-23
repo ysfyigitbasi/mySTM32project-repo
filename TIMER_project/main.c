@@ -24,9 +24,9 @@ int main(){
 	//printMsg_init(printer);
 	gpio_init(myLED);
 	initTimer(timer2, 2);
-	initTimer(timer3, 3);
+
 	timerEnable(timer2.timer);
-	timerEnable(timer3.timer);
+
 	//config_gpio_interrupt(PORTB,4,EDGE_RISING);
 	//enable_gpio_IRQ(4,EXTI4_IRQn);
 

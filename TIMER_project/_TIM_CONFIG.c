@@ -4,7 +4,161 @@
 
 //****IRQ Handler functions are defined at the bottom.
 
+//-------------- | TIMER'S GPIO PARAMETERS | ---------------
+
+// DIPNOT FOR SETTING GPIO SETTINGS:******************
+// IF YOU WOULD LIKE TO MAKE REMAP FOR STM32F103C8
+// TIMER 1 HAS NO REMAP FOR (CH1-2-3-4 and ETR), just for (BKIN,CH1N,CH2N,CH3N)
+
+// TIMER 2 HAS REMAPS [1:0]
+// TIM2_REMAP[1:0] = "00" -> NO REMAP
+// -------------CH1 - PA0
+// -------------CH2 - PA1
+// -------------CH3 - PA2 also remap 01
+// -------------CH4 - PA3 also remap 01
+
+// TIM2_REMAP[1:0] = "01" -> PARTIAL REMAP
+// ------------- CH1 - PA15
+// ------------- CH2 - PB3
+
+// TIM2_REMAP[1:0] = "10" -> PARTIAL REMAP
+// ------------- CH1 - PA0
+// ------------- CH2 - PA1
+// ------------- CH3 - PB10 - also fullremap
+// ------------- CH4 - PB11 - also fullremap
+
+// TIM2_REMAP[1:0] = "11" -> FULL REMAP
+// ------------- CH1 - PA15
+// ------------- CH2 - PB3
+
+// TIMER 3 HAS ONLY PARTIAL REMAP FOR STM32F103C8
+// TIM3_REMAP[1:0] = "00" -> NO REMAP
+// -------------CH1 - PA6
+// -------------CH2 - PA7
+// -------------CH3 - PB0 also remap 01
+// -------------CH4 - PB1 also remap 01
+
+// TIM3_REMAP[1:0] = "01" -> PARTIAL REMAP
+// -------------CH1 - PB4
+// -------------CH2 - PB5
+
+#define __EN_CLK_ALT_GPIO_TIM1()	(RCC->APB2ENR |= RCC_APB2_AFIOEN | RCC_APB2_TIM1EN)
+#define __EN_ALT_GPIO_INP_TIM1(CH)	do{									\
+									GPIO_TYPE gpio;						\
+									gpio.port = PORTA;					\
+									gpio.mode = INPUT_MODE;				\
+									gpio.mode_type = INPUT_FLOATING;	\
+									__EN_CLK_ALT_GPIO_TIM1();			\
+									switch(CH){							\
+										case 1:							\
+											gpio.pin = 8;				\
+											break;						\
+										case 2:							\
+											gpio.pin = 9;				\
+											break;						\
+										case 3:							\
+											gpio.pin = 10;				\
+											break;						\
+										case 4:							\
+											gpio.pin = 11;				\
+											break;	}					\
+									gpio.init(gpio);		}while(0)
+
+											
+#define __EN_CLK_ALT_GPIO_TIM2()	do{RCC->APB2ENR |= RCC_APB2_AFIOEN; RCC-> APB1ENR |= RCC_APB1_TIM2EN;}while(0)
+#define __EN_ALT_GPIO_INP_TIM2(CH, MAP)	do{ 								\
+										switch(CH){							\
+											case 1:							\
+											GPIO_TYPE gpio;					\
+											gpio.port = PORTA;				\
+											gpio.mode = INPUT_MODE;			\
+											gpio.mode_type = INPUT_FLOATING; \
+											__EN_CLK_ALT_GPIO_TIM2();		\
+												if( MAP%2 == 0){			\
+													gpio.pin = 0;	}		\
+												else{						\
+													gpio.pin = 15;	}		\
+												break;						\
+													
+														
+\
+}							}while(0);
+
+#define _SET_TIM1_CH1_GPIO(mytimer)	do{	}while(0)
+switch ()
+{
+	case:
+		break;
+	case:
+		break;
+	default:
+		break;
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+static setGPIO(myTIMERcfg mytimer){
+	
+	
+	switch (mytimer._TIMx_)
+    {
+    	case timer1:
+			mytimer1.port = PORTA;
+			mytimer1.pin = pinNumber;
+    		break;
+    	case timer2:
+			mytimer2.port = PORTA;
+			mytimer2.port
+			
+    		break;
+		case timer3:
+    		break;
+    	case timer4:
+    		break;
+
+    }
+}
+
+
 //-------------------FUNCTIONS-----------------------------|
+
+static gpioTimerConfig(GPIO_TYPE gpio){
+
+	
+
+
+
+
+
+
+
+
+
+
+}
+
+
 void initTimer(myTIMERcfg mytimer, uint32_t priority){
 	
 	if(mytimer.timer == TIM1){ //ADVANCED
