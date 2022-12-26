@@ -3,37 +3,27 @@
 #include "printMsg.h"
 
 int main(){
-	
-	myTIMERcfg timer2;
-	timer2.timer = TIM2;	timer2.preScalar = 36000;	timer2.limitValue = (uint16_t)4000;
-	
-	GPIO_TYPE myLED;
-	myLED.port = PORTC; myLED.pin = 13; myLED.mode = OUTPUT_MODE; myLED.mode_type = OUTPUT_GEN_PURPOSE;
-	myLED.speed = SPEED_50MHZ;
-	
-	/*GPIO_TYPE mybutton;
-	mybutton.port = PORTB; mybutton.pin = 4; mybutton.mode = INPUT_MODE; mybutton.mode_type = INPUT_PU_PD;
-	
-	printMsg_config printer;
-	printer.baud = 9600;
-	printer.tx_port = GPIOA;
-	printer.Uart_instance = USART1; */
-
+		
+	GPIO_TYPE myled;
+	myled.port = PORTC;
+	myled.pin = 13;
+	myled.mode = OUTPUT_MODE;
+	myled.mode_type = OUTPUT_GEN_PURPOSE;
+	myled.speed = SPEED_50MHZ;
 	
 	initSysClck();
-	//printMsg_init(printer);
-	gpio_init(myLED);
-	initTimer(timer2, 2);
-
-	timerEnable(timer2.timer);
-
-	//config_gpio_interrupt(PORTB,4,EDGE_RISING);
-	//enable_gpio_IRQ(4,EXTI4_IRQn);
-
+	gpio_init(myled);
+	
+	_TIM3_RCC_EN()
+	_TIM3_CH1_GPIO_EN()
+	_TIM3_OUTP_COMPARE()
+	_TIM3_ENABLE()
+	
 	uint16_t x = 0;
 	
 	while(1){
-		x = timerGetCounterValue(timer2.timer);		}
+		x = TIM3->CNT;
+	}
 	
 }
 

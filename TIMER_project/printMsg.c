@@ -192,3 +192,8 @@ void printMsg(USART_TypeDef *UsartP, const char *msg, ...){
 	
 }
 
+	/*
+	printMsg_config printer;
+	printer.baud = 9600;
+	printer.tx_port = GPIOA;
+	printer.Uart_instance = USART1; */

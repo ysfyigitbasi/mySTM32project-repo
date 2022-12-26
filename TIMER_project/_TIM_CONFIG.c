@@ -42,126 +42,12 @@
 // -------------CH1 - PB4
 // -------------CH2 - PB5
 
-#define __EN_CLK_ALT_GPIO_TIM1()	(RCC->APB2ENR |= RCC_APB2_AFIOEN | RCC_APB2_TIM1EN)
-#define __EN_ALT_GPIO_INP_TIM1(CH)	do{									\
-									GPIO_TYPE gpio;						\
-									gpio.port = PORTA;					\
-									gpio.mode = INPUT_MODE;				\
-									gpio.mode_type = INPUT_FLOATING;	\
-									__EN_CLK_ALT_GPIO_TIM1();			\
-									switch(CH){							\
-										case 1:							\
-											gpio.pin = 8;				\
-											break;						\
-										case 2:							\
-											gpio.pin = 9;				\
-											break;						\
-										case 3:							\
-											gpio.pin = 10;				\
-											break;						\
-										case 4:							\
-											gpio.pin = 11;				\
-											break;	}					\
-									gpio.init(gpio);		}while(0)
-
-											
-#define __EN_CLK_ALT_GPIO_TIM2()	do{RCC->APB2ENR |= RCC_APB2_AFIOEN; RCC-> APB1ENR |= RCC_APB1_TIM2EN;}while(0)
-#define __EN_ALT_GPIO_INP_TIM2(CH, MAP)	do{ 								\
-										switch(CH){							\
-											case 1:							\
-											GPIO_TYPE gpio;					\
-											gpio.port = PORTA;				\
-											gpio.mode = INPUT_MODE;			\
-											gpio.mode_type = INPUT_FLOATING; \
-											__EN_CLK_ALT_GPIO_TIM2();		\
-												if( MAP%2 == 0){			\
-													gpio.pin = 0;	}		\
-												else{						\
-													gpio.pin = 15;	}		\
-												break;						\
-													
-														
-\
-}							}while(0);
-
-#define _SET_TIM1_CH1_GPIO(mytimer)	do{	}while(0)
-switch ()
-{
-	case:
-		break;
-	case:
-		break;
-	default:
-		break;
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-static setGPIO(myTIMERcfg mytimer){
-	
-	
-	switch (mytimer._TIMx_)
-    {
-    	case timer1:
-			mytimer1.port = PORTA;
-			mytimer1.pin = pinNumber;
-    		break;
-    	case timer2:
-			mytimer2.port = PORTA;
-			mytimer2.port
-			
-    		break;
-		case timer3:
-    		break;
-    	case timer4:
-    		break;
-
-    }
-}
-
-
 //-------------------FUNCTIONS-----------------------------|
-
-static gpioTimerConfig(GPIO_TYPE gpio){
-
-	
-
-
-
-
-
-
-
-
-
-
-}
-
 
 void initTimer(myTIMERcfg mytimer, uint32_t priority){
 	
 	if(mytimer.timer == TIM1){ //ADVANCED
+		
 		RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
 		TIM1->PSC = mytimer.preScalar - 1;
 		TIM1->ARR = mytimer.limitValue - 1;
@@ -170,27 +56,6 @@ void initTimer(myTIMERcfg mytimer, uint32_t priority){
 			printMsg(USART1,"Timer register is not setted!\r\n");}	// TIM1 if finished
 	
 	else if(mytimer.timer == TIM2){
-        
-		switch (mytimer.channelMod){
-        	case MOD_inputCapt:
-				
-        		break;
-			case MOD_pwmInput:
-				break;
-			case MOD_forcedOutp:
-				break;
-			
-        	case MOD_outputComp:
-        		break;
-			case MOD_PWM_edge:
-        		break;
-			case MOD_PWM_center:
-        		break;
-			case MOD_onePulse:
-        		break;
-        	default:	// just Counting mode
-        		break;
-        }
 		
 		RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
 		TIM2->PSC = mytimer.preScalar - 1;
@@ -315,16 +180,11 @@ void Delay_ms (uint16_t ms, TIM_TypeDef *timer)
 void TIM2_IRQHandler(void){
 	TIM2->SR &= ~TIM_SR_UIF;
 	gpio_toggle(PORTC, 13);
-	
-	Delay_us(400, TIM3);
-	TIM3->EGR |= TIM_EGR_UG;
-	Delay_us(400, TIM3);
-	TIM3->EGR |= TIM_EGR_UG;
 }
 
 void TIM3_IRQHandler(void){
-	
-	TIM3->SR &= ~TIM_SR_UIF;
+	//TIM3->SR &= ~TIM_SR_UIF;
+	TIM3->SR &= ~TIM_SR_CC1IF;
 	gpio_toggle(PORTC, 13);		}
 
 void TIM4_IRQHandler(void){
