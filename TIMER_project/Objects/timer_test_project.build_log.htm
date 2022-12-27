@@ -28,6 +28,18 @@ Project File Date:  12/21/2022
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_stm32f10x_md.s...
+printMsg.c(186): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
+        vsprintf(buff, msg, args);
+        ^
+printMsg.c(186): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
+printMsg.c(186): warning: format string is not a string literal [-Wformat-nonliteral]
+        vsprintf(buff, msg, args);
+                       ^~~
+printMsg.c(199): warning: no newline at end of file [-Wnewline-eof]
+        printer.Uart_instance = USART1; */
+                                          ^
+3 warnings generated.
+compiling printMsg.c...
 _TIM_CONFIG.c(180): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
 void TIM2_IRQHandler(void){
      ^
@@ -71,14 +83,14 @@ __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9}
     ^
 1 warning generated.
 compiling system_stm32f10x.c...
-main.c(22): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+main.c(24): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
         uint16_t x = 0;
                  ^
-main.c(22): warning: variable 'x' set but not used [-Wunused-but-set-variable]
-main.c(32): warning: no previous prototype for function 'EXTI4_IRQHandler' [-Wmissing-prototypes]
+main.c(24): warning: variable 'x' set but not used [-Wunused-but-set-variable]
+main.c(34): warning: no previous prototype for function 'EXTI4_IRQHandler' [-Wmissing-prototypes]
 void EXTI4_IRQHandler(void){
      ^
-main.c(32): note: declare 'static' if the function is not intended to be used outside of this translation unit
+main.c(34): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void EXTI4_IRQHandler(void){
 ^
 static 
@@ -96,18 +108,6 @@ static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR);
                ^
 6 warnings generated.
 compiling main.c...
-printMsg.c(186): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
-        vsprintf(buff, msg, args);
-        ^
-printMsg.c(186): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
-printMsg.c(186): warning: format string is not a string literal [-Wformat-nonliteral]
-        vsprintf(buff, msg, args);
-                       ^~~
-printMsg.c(199): warning: no newline at end of file [-Wnewline-eof]
-        printer.Uart_instance = USART1; */
-                                          ^
-3 warnings generated.
-compiling printMsg.c...
 _HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
 uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
          ^
@@ -117,7 +117,7 @@ uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
 1 warning generated.
 compiling _HAL_GPIO.c...
 linking...
-Program Size: Code=2416 RO-data=268 RW-data=64 ZI-data=1632  
+Program Size: Code=2424 RO-data=268 RW-data=64 ZI-data=1632  
 ".\Objects\timer_test_project.axf" - 0 Error(s), 17 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -145,10 +145,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/system_stm32f10x.c
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Include file:  RTE_Driver/Config/RTE_Device.h
+      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

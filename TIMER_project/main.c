@@ -16,8 +16,10 @@ int main(){
 	
 	_TIM3_RCC_EN()
 	_TIM3_CH1_GPIO_EN()
-	_TIM3_OUTP_COMPARE()
-	_TIM3_ENABLE()
+	_TIM3_GeneralSetup()
+	_TIM3_CH1_OUTP_COMPARE()
+	_TIM3_IRQ_CC1(3)
+
 	
 	uint16_t x = 0;
 	
