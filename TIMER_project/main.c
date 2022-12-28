@@ -14,11 +14,11 @@ int main(){
 	initSysClck();
 	gpio_init(myled);
 	
-	_TIM3_RCC_EN()
-	_TIM3_CH1_GPIO_EN()
-	_TIM3_GeneralSetup()
-	_TIM3_CH1_OUTP_COMPARE()
-	_TIM3_IRQ_CC1(3)
+	_TIM4_RCC_EN()
+	_TIM4_CH1_GPIO_EN()
+	_TIM4_GeneralSetup()
+	_TIM4_CH1_OUTP_TGL()
+	_TIM4_IRQ_CC1(3)
 
 	
 	uint16_t x = 0;

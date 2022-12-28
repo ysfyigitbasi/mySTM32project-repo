@@ -188,5 +188,6 @@ void TIM3_IRQHandler(void){
 	gpio_toggle(PORTC, 13);		}
 
 void TIM4_IRQHandler(void){
-	TIM4->SR &= ~TIM_SR_UIF;
+	//TIM4->SR &= ~TIM_SR_UIF;
+	TIM4->SR &= ~TIM_SR_CC1IF;
 	gpio_toggle(PORTC, 13);		}
