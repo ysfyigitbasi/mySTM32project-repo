@@ -3,98 +3,119 @@
 #include "_HAL_GPIO.h"
 
 //****IRQ Handler functions are defined at the bottom.
-
-//-------------- | TIMER'S GPIO PARAMETERS | ---------------
-
-// DIPNOT FOR SETTING GPIO SETTINGS:******************
-// IF YOU WOULD LIKE TO MAKE REMAP FOR STM32F103C8
-// TIMER 1 HAS NO REMAP FOR (CH1-2-3-4 and ETR), just for (BKIN,CH1N,CH2N,CH3N)
-
-// TIMER 2 HAS REMAPS [1:0]
-// TIM2_REMAP[1:0] = "00" -> NO REMAP
-// -------------CH1 - PA0
-// -------------CH2 - PA1
-// -------------CH3 - PA2 also remap 01
-// -------------CH4 - PA3 also remap 01
-
-// TIM2_REMAP[1:0] = "01" -> PARTIAL REMAP
-// ------------- CH1 - PA15
-// ------------- CH2 - PB3
-
-// TIM2_REMAP[1:0] = "10" -> PARTIAL REMAP
-// ------------- CH1 - PA0
-// ------------- CH2 - PA1
-// ------------- CH3 - PB10 - also fullremap
-// ------------- CH4 - PB11 - also fullremap
-
-// TIM2_REMAP[1:0] = "11" -> FULL REMAP
-// ------------- CH1 - PA15
-// ------------- CH2 - PB3
-
-// TIMER 3 HAS ONLY PARTIAL REMAP FOR STM32F103C8
-// TIM3_REMAP[1:0] = "00" -> NO REMAP
-// -------------CH1 - PA6
-// -------------CH2 - PA7
-// -------------CH3 - PB0 also remap 01
-// -------------CH4 - PB1 also remap 01
-
-// TIM3_REMAP[1:0] = "01" -> PARTIAL REMAP
-// -------------CH1 - PB4
-// -------------CH2 - PB5
-
 //-------------------FUNCTIONS-----------------------------|
+static uint64_t myTicks = 0;
+static uint16_t msTicks = 0;
+void initTimer(void){
+	// IF SysTick is going to be used..
+	SysTick_Config(SystemCoreClock / 1000); // 1ms interval
+	
+// IF TIMER 2 IS GOING TO BE USED... MODES: COMPARE-TOGGLE,PWM,ONEPULSE
+	_TIM2_RCC_EN()	
+	_TIM2_GeneralSetup()
+	
+	// IF UPCOUNTING MODE WILL BE USED
+	_TIM2_UPCOUNTER()
+	
+	// IF CH1 IS GOING TO BE USED
+//	_TIM2_CH1_GPIO_EN()
+	// IF CH2 IS GOING TO BE USED
+//	_TIM2_CH2_GPIO_EN()
+	// IF CH3 IS GOING TO BE USED
+//	_TIM2_CH3_GPIO_EN()
+	// IF CH4 IS GOING TO BE USED
+//	_TIM2_CH4_GPIO_EN()
+	
+	//IF TIMER 2 IS GOING TO BE USED FOR COMPARE-TOGGLE MODE
+//	_TIM2_CH1_OUTP_TGL() // CH1
+//	_TIM2_CH2_OUTP_TGL() // CH2
+//	_TIM2_CH3_OUTP_TGL() // CH3
+//	_TIM2_CH4_OUTP_TGL() // CH4
+	
+	//IF TIMER 2 IS GOING TO BE USED FOR PWM OUTP
+//	_TIM2_CH1_OUTP_PWM() // CH1
+//	_TIM2_CH2_OUTP_PWM() // CH2
+//	_TIM2_CH3_OUTP_PWM() // CH3
+//	_TIM2_CH4_OUTP_PWM() // CH4
+	
+	//IF TIMER 2 IS GOING TO BE USED FOR ONE PULSE MODE
+//	_TIM2_CH1_OUTP_OPM() // CH1
+//	_TIM2_CH2_OUTP_OPM() // CH2
+//	_TIM2_CH3_OUTP_OPM() // CH3
+//	_TIM2_CH4_OUTP_OPM() // CH4
 
-void initTimer(myTIMERcfg mytimer, uint32_t priority){
+//	_TIM2_CC1IEN()
+//	_TIM2_IRQ(2)	
 	
-	if(mytimer.timer == TIM1){ //ADVANCED
-		
-		RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
-		TIM1->PSC = mytimer.preScalar - 1;
-		TIM1->ARR = mytimer.limitValue - 1;
-		TIM1->CR1 |= TIM_CR1_CEN;
-		while (!(TIM1->SR & TIM_SR_UIF))
-			printMsg(USART1,"Timer register is not setted!\r\n");}	// TIM1 if finished
+/*	
+	// IF TIMER 3 IS GOING TO BE USED... MODES: COMPARE-TOGGLE,PWM,ONEPULSE
+	_TIM3_RCC_EN()	
+	_TIM3_GeneralSetup()
 	
-	else if(mytimer.timer == TIM2){
-		
-		RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
-		TIM2->PSC = mytimer.preScalar - 1;
-		TIM2->ARR = mytimer.limitValue - 1;
-		//TIM2->CR1 |= TIM_CR1_CEN;
-		//while (!(TIM2->SR & TIM_SR_UIF))
-			//printMsg(USART1,"Timer register is not setted!\r\n");
-		
-		// Enable Timer Update Interrupt
-		TIM2->DIER |= TIM_DIER_UIE;
-		// Enable Timer Interrupt on NVIC
-		NVIC_EnableIRQ(TIM2_IRQn);
-		// Set IRQn of the Priority
-		NVIC_SetPriority(TIM2_IRQn, priority);		}
+	// IF CH1 IS GOING TO BE USED
+	_TIM3_CH1_GPIO_EN()
+	// IF CH2 IS GOING TO BE USED
+//	_TIM3_CH2_GPIO_EN()
+	// IF CH3 IS GOING TO BE USED
+//	_TIM3_CH3_GPIO_EN()
+	// IF CH4 IS GOING TO BE USED
+//	_TIM3_CH4_GPIO_EN()
+	
+	//IF TIMER 3 IS GOING TO BE USED FOR COMPARE-TOGGLE MODE
+	_TIM3_CH1_OUTP_TGL() // CH1
+//	_TIM3_CH2_OUTP_TGL() // CH2
+//	_TIM3_CH3_OUTP_TGL() // CH3
+//	_TIM3_CH4_OUTP_TGL() // CH4
+	
+	//IF TIMER 3 IS GOING TO BE USED FOR PWM OUTP
+	_TIM3_CH1_OUTP_PWM() // CH1
+//	_TIM3_CH2_OUTP_PWM() // CH2
+//	_TIM3_CH3_OUTP_PWM() // CH3
+//	_TIM3_CH4_OUTP_PWM() // CH4
+	
+	//IF TIMER 3 IS GOING TO BE USED FOR ONE PULSE MODE
+	_TIM3_CH1_OUTP_OPM() // CH1
+//	_TIM3_CH2_OUTP_OPM() // CH2
+//	_TIM3_CH3_OUTP_OPM() // CH3
+//	_TIM3_CH4_OUTP_OPM() // CH4
 
-	else if(mytimer.timer == TIM3){
-		RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-		TIM3->PSC = mytimer.preScalar - 1;
-		TIM3->ARR = mytimer.limitValue - 1;
-		
-		// Enable Timer Update Interrupt
-		TIM3->DIER |= TIM_DIER_UIE;
-		// Enable Timer Interrupt on NVIC
-		NVIC_EnableIRQ(TIM3_IRQn);
-		// Set IRQn of the Priority
-		NVIC_SetPriority(TIM3_IRQn, priority);		}
+	_TIM3_CC1IEN()
+	_TIM3_IRQ(2)				*/
 	
-	// DOES NOT WORK WITH MY STM32
-	else if(mytimer.timer == TIM4){
-		RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
-		TIM4->PSC = mytimer.preScalar - 1;
-		TIM4->ARR = mytimer.limitValue - 1;
-		
-		// Enable Timer Update Interrupt
-		TIM4->DIER |= TIM_DIER_UIE;
-		// Enable Timer Interrupt on NVIC
-		NVIC_EnableIRQ(TIM4_IRQn);
-		// Set IRQn of the Priority
-		NVIC_SetPriority(TIM4_IRQn, priority);		}
+/*	
+	// IF TIMER 4 IS GOING TO BE USED... MODES: COMPARE-TOGGLE,PWM,ONEPULSE
+	_TIM4_RCC_EN()	
+	_TIM4_GeneralSetup()
+	
+	// IF CH1 IS GOING TO BE USED
+	_TIM4_CH1_GPIO_EN()
+	// IF CH2 IS GOING TO BE USED
+//	_TIM4_CH2_GPIO_EN()
+	// IF CH3 IS GOING TO BE USED
+//	_TIM4_CH3_GPIO_EN()
+	// IF CH4 IS GOING TO BE USED
+//	_TIM4_CH4_GPIO_EN()
+	
+	//IF TIMER 4 IS GOING TO BE USED FOR COMPARE-TOGGLE MODE
+	_TIM4_CH1_OUTP_TGL() // CH1
+//	_TIM4_CH2_OUTP_TGL() // CH2
+//	_TIM4_CH3_OUTP_TGL() // CH3
+//	_TIM4_CH4_OUTP_TGL() // CH4
+	
+	//IF TIMER 4 IS GOING TO BE USED FOR PWM OUTP
+	_TIM4_CH1_OUTP_PWM() // CH1
+//	_TIM4_CH2_OUTP_PWM() // CH2
+//	_TIM4_CH3_OUTP_PWM() // CH3
+//	_TIM4_CH4_OUTP_PWM() // CH4
+	
+	//IF TIMER 4 IS GOING TO BE USED FOR ONE PULSE MODE
+	_TIM4_CH1_OUTP_OPM() // CH1
+//	_TIM4_CH2_OUTP_OPM() // CH2
+//	_TIM4_CH3_OUTP_OPM() // CH3
+//	_TIM4_CH4_OUTP_OPM() // CH4
+
+	_TIM4_CC1IEN()
+	_TIM4_IRQ(2)			*/
 }
 //--------------------------------------------------------------------
 void timerEnable(TIM_TypeDef *timer){
@@ -103,12 +124,58 @@ void timerEnable(TIM_TypeDef *timer){
 void timerDisable(TIM_TypeDef *timer){
 	timer->CR1 &= ~TIM_CR1_CEN;	}
 //---------------------------------------------------------------------
-void timerSetPeriod(TIM_TypeDef *timer, uint16_t period){
+void timerSetARR(TIM_TypeDef *timer, uint16_t period){
 	timer->ARR = period - 1;	}
 
 //---------------------------------------------------------------------
 uint16_t timerGetCounterValue(TIM_TypeDef *timer){
 	return timer->CNT;			}
+
+void delayUS(uint16_t uS){
+
+	// if TIMER2 IS WANTED TO BE USED.
+	_TIM2_EN()
+	myTicks = 0;
+	while(myTicks < uS);
+	timerDisable(TIM2);
+	
+	/* if TIMER3 IS WANTED TO BE USED.
+	_TIM3_EN()
+	myTicks = 0;
+	while(myTicks < uS);
+	timerDisable(TIM3); */
+	
+	/* if TIMER4 IS WANTED TO BE USED.
+	_TIM4_EN()
+	myTicks = 0;
+	while(myTicks < uS);
+	timerDisable(TIM4); */
+}
+
+void delayMS(uint16_t mS){
+	
+	// if SysTick timer is going to be used.
+	msTicks = 0;
+	while(msTicks < mS);
+
+	/* if TIMER2 IS WANTED TO BE USED.
+	_TIM2_EN()
+	myTicks = 0;
+	while(myTicks < (mS * 1000) );
+	timerDisable(TIM2);		*/
+	
+	/* if TIMER3 IS WANTED TO BE USED.
+	_TIM3_EN()
+	myTicks = 0;
+	while(myTicks < (mS * 1000) );
+	timerDisable(TIM3); */
+	
+	/* if TIMER4 IS WANTED TO BE USED.
+	_TIM4_EN()
+	myTicks = 0;
+	while(myTicks < (mS * 1000) );
+	timerDisable(TIM4); */
+}
 
 void initSysClck(void){ // 72MHz
 	
@@ -153,33 +220,21 @@ void initSysClck(void){ // 72MHz
 	SysTick->CTRL |= SysTick_CTRL_CLKSOURCE_Msk;	
 }
 
-void Delay_us (uint16_t us, TIM_TypeDef *timer)
-{
-	/************** STEPS TO FOLLOW *****************
-	1. RESET the Counter
-	2. Wait for the Counter to reach the entered value. As each count will take 1 us, 
-		 the total waiting time will be the required us delay
-	************************************************/
-	//timer->timer->CNT = 0;
-	while (timer->CNT < us);
-}
-
-void Delay_ms (uint16_t ms, TIM_TypeDef *timer)
-{
-	for (uint16_t i=0; i<ms; i++)
-	{
-		Delay_us (1000, timer); // delay of 1 ms
-	}
-	
-}
 //****************************************************
 //****************************************************
 //********----INTERRUPT HANDLER FUNCTIONS----*********
 //****************************************************
 //****************************************************
 void TIM2_IRQHandler(void){
+/* 	not necessary to check, Update Request Source bit is SET.
+	if(TIM2->SR & TIM_SR_UIF){
+		TIM2->SR &= ~TIM_SR_UIF;
+		myTicks++;
+	}
+*/
 	TIM2->SR &= ~TIM_SR_UIF;
-	gpio_toggle(PORTC, 13);
+	myTicks++;
+	//gpio_toggle(PORTC, 13);
 }
 
 void TIM3_IRQHandler(void){
@@ -191,3 +246,6 @@ void TIM4_IRQHandler(void){
 	//TIM4->SR &= ~TIM_SR_UIF;
 	TIM4->SR &= ~TIM_SR_CC1IF;
 	gpio_toggle(PORTC, 13);		}
+
+void SysTick_Handler(void){
+	msTicks++;		}	
