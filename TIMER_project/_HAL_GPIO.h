@@ -64,6 +64,9 @@ typedef enum{
 	EDGE_RISING_FALLING
 }edge_select;
 
+//---------------MY MACROS----------------------|
+
+
 //Function Prototypes
 //***************************************************************
 //							GPIO CONFIGURATION
@@ -80,7 +83,8 @@ void gpio_init( GPIO_TYPE gpio_type);
 //							INTERRUPT FUNCTIONS
 
 void config_gpio_interrupt(GPIO_TypeDef *port, uint32_t pinNumber, edge_select edge);
-void enable_gpio_interrupt(uint32_t pinNumber, IRQn_Type irqNumber);
+void enable_gpio_interrupt(uint32_t pinNumber, IRQn_Type irqNumber, uint32_t priorityLevel);
+void enable_gpio_IRQ(uint32_t pinNumber, IRQn_Type irqNumber);
 void clear_gpio_interrupt(uint32_t pinNumber);
 
 

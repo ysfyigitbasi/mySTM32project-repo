@@ -120,151 +120,186 @@ void config_gpio_interrupt(GPIO_TypeDef *port, uint32_t pinNumber, edge_select e
 	if(port == PORTA){
 		switch(pinNumber){
 			case 0:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI0_PA; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PA; break;
 			case 1:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI1_PA; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI1_PA; break;
 			case 2:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI2_PA; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI2_PA; break;
 			case 3:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI3_PA; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI3_PA; break;
 			case 4:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI4_PA; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI4_PA; break;
 			case 5:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI5_PA; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI5_PA; break;
 			case 6:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI6_PA; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI6_PA; break;
 			case 7:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI7_PA; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI7_PA; break;
 			case 8:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI8_PA; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI8_PA; break;
 			case 9:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI9_PA; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI9_PA; break;
 			case 10:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI10_PA; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI10_PA; break;
 			case 11:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI11_PA; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI11_PA; break;
 			case 12:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI12_PA; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI12_PA; break;
 			case 13:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI13_PA; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI13_PA; break;
 			case 14:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI14_PA; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI14_PA; break;
 			case 15:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI15_PA; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI15_PA; break;
 		}// end switch
 	}// end PortA if
 	
 	if(port == PORTB){
 		switch(pinNumber){
 			case 0:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI0_PB; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PB; break;
 			case 1:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI1_PB; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI1_PB; break;
 			case 2:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI2_PB; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI2_PB; break;
 			case 3:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI3_PB; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI3_PB; break;
 			case 4:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI4_PB; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI4_PB; break;
 			case 5:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI5_PB; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI5_PB; break;
 			case 6:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI6_PB; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI6_PB; break;
 			case 7:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI7_PB; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI7_PB; break;
 			case 8:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI8_PB; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI8_PB; break;
 			case 9:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI9_PB; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI9_PB; break;
 			case 10:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI10_PB; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI10_PB; break;
 			case 11:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI11_PB; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI11_PB; break;
 			case 12:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI12_PB; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI12_PB; break;
 			case 13:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI13_PB; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI13_PB; break;
 			case 14:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI14_PB; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI14_PB; break;
 			case 15:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI15_PB; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI15_PB; break;
 		}// end switch
 	}// end PortB if
 
 	if(port == PORTC){
 		switch(pinNumber){
 			case 0:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI0_PC; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PC; break;
 			case 1:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI1_PC; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI1_PC; break;
 			case 2:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI2_PC; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI2_PC; break;
 			case 3:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI3_PC; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI3_PC; break;
 			case 4:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI4_PC; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI4_PC; break;
 			case 5:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI5_PC; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI5_PC; break;
 			case 6:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI6_PC; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI6_PC; break;
 			case 7:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI7_PC; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI7_PC; break;
 			case 8:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI8_PC; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI8_PC; break;
 			case 9:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI9_PC; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI9_PC; break;
 			case 10:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI10_PC; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI10_PC; break;
 			case 11:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI11_PC; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI11_PC; break;
 			case 12:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI12_PC; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI12_PC; break;
 			case 13:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI13_PC; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI13_PC; break;
 			case 14:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI14_PC; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI14_PC; break;
 			case 15:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI15_PC; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI15_PC; break;
 		}// end switch
 	}// end PortC if
 
 	if(port == PORTD){
 		switch(pinNumber){
 			case 0:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI0_PD; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PD; break;
 			case 1:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI1_PD; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI1_PD; break;
 			case 2:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI2_PD; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI2_PD; break;
 			case 3:
-				AFIO->EXTICR[0] = AFIO_EXTICR1_EXTI3_PD; break;
+				AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI3_PD; break;
 			case 4:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI4_PD; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI4_PD; break;
 			case 5:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI5_PD; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI5_PD; break;
 			case 6:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI6_PD; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI6_PD; break;
 			case 7:
-				AFIO->EXTICR[1] = AFIO_EXTICR2_EXTI7_PD; break;
+				AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI7_PD; break;
 			case 8:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI8_PD; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI8_PD; break;
 			case 9:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI9_PD; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI9_PD; break;
 			case 10:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI10_PD; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI10_PD; break;
 			case 11:
-				AFIO->EXTICR[2] = AFIO_EXTICR3_EXTI11_PD; break;
+				AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI11_PD; break;
 			case 12:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI12_PD; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI12_PD; break;
 			case 13:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI13_PD; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI13_PD; break;
 			case 14:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI14_PD; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI14_PD; break;
 			case 15:
-				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI15_PD; break;
+				AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI15_PD; break;
 		}// end switch
 	}// end PortD if
 	
+	switch(edge){
+		case EDGE_RISING:
+			EXTI->RTSR |= (1<<pinNumber); break;
+		case EDGE_FALLING:
+			EXTI->FTSR |= (1<<pinNumber); break;
+		case EDGE_RISING_FALLING:
+			EXTI->RTSR |= (1<<pinNumber);	EXTI->RTSR |= (1<<pinNumber);	break;
+	}	// END SWITCH
+} // end the function bracet
+
+//********************************************************************************
+void enable_gpio_interrupt(uint32_t pinNumber, IRQn_Type irqNumber, uint32_t priorityLevel){
+	// set priority level of the interrupt
+	NVIC_SetPriority(irqNumber, priorityLevel);
+	// enable interrupt in EXTI
+	EXTI->IMR |= 1<<pinNumber;
+	// enable interrupt in NVIC
+	NVIC_EnableIRQ(irqNumber);	
+}
+//*********************************************************************************
+void enable_gpio_IRQ(uint32_t pinNumber, IRQn_Type irqNumber){
+	// enable interrupt in EXTI
+	EXTI->IMR |= 1<<pinNumber;
+	// enable interrupt in NVIC
+	NVIC_EnableIRQ(irqNumber);	} 
+
+//*********************************************************************************
+void clear_gpio_interrupt(uint32_t pinNumber) {
+	
+	EXTI->PR |= 1<<pinNumber;	
+}
+
+
+// NONNECESSARY STATEMENTS
+/*
 	if(port == PORTE){
 		switch(pinNumber){
 			case 0:
@@ -375,30 +410,4 @@ void config_gpio_interrupt(GPIO_TypeDef *port, uint32_t pinNumber, edge_select e
 				AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI15_PG; break;
 		}// end switch
 	}// end PortG if
-	
-	switch(edge){
-		case EDGE_RISING:
-			EXTI->RTSR |= (1<<pinNumber); break;
-		case EDGE_FALLING:
-			EXTI->FTSR |= (1<<pinNumber); break;
-		case EDGE_RISING_FALLING:
-			EXTI->RTSR |= (1<<pinNumber);	EXTI->RTSR |= (1<<pinNumber);	break;
-	}	// END SWITCH
-} // end the function bracet
-
-//********************************************************************************
-void enable_gpio_interrupt(uint32_t pinNumber, IRQn_Type irqNumber){
-	
-	// enable interrupt in EXTI
-	EXTI->IMR |= 1<<pinNumber;
-	// enable interrupt in NVIC
-	NVIC_EnableIRQ(irqNumber);	
-}
-//*********************************************************************************
-
-void clear_gpio_interrupt(uint32_t pinNumber) {
-	
-	EXTI->PR |= 1<<pinNumber;	
-}
-
-
+	*/
