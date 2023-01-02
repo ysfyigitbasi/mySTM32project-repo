@@ -1,5 +1,4 @@
 #include "_TIM_CONFIG.h"
-#include "printMsg.h"
 #include "_HAL_GPIO.h"
 
 //****IRQ Handler functions are defined at the bottom.

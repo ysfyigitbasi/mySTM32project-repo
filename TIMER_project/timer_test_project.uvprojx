@@ -411,19 +411,19 @@
               <FilePath>.\_HAL_GPIO.c</FilePath>
             </File>
             <File>
-              <FileName>printMsg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\printMsg.c</FilePath>
-            </File>
-            <File>
               <FileName>_HAL_GPIO.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\_HAL_GPIO.h</FilePath>
             </File>
             <File>
-              <FileName>printMsg.h</FileName>
+              <FileName>_UART.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\printMsg.h</FilePath>
+              <FilePath>.\_UART.h</FilePath>
+            </File>
+            <File>
+              <FileName>_UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\_UART.c</FilePath>
             </File>
           </Files>
         </Group>

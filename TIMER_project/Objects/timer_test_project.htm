@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\timer_test_project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\timer_test_project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Mon Jan  2 03:02:45 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Mon Jan  2 18:12:25 2023
 <BR><P>
 <H3>Maximum Stack Usage =        100 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -78,7 +78,7 @@ Function Pointers
  <LI><a href="#[26]">TIM2_IRQHandler</a> from _tim_config.o(.text.TIM2_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[27]">TIM3_IRQHandler</a> from _tim_config.o(.text.TIM3_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[28]">TIM4_IRQHandler</a> from _tim_config.o(.text.TIM4_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
- <LI><a href="#[2f]">USART1_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
+ <LI><a href="#[2f]">USART1_IRQHandler</a> from _uart.o(.text.USART1_IRQHandler) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[30]">USART2_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[31]">USART3_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
  <LI><a href="#[34]">USBWakeUp_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
@@ -387,9 +387,6 @@ Global Symbols
 <P><STRONG><a name="[23]"></a>TIM1_UP_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
-<P><STRONG><a name="[2f]"></a>USART1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
-</UL>
 <P><STRONG><a name="[30]"></a>USART2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
@@ -493,6 +490,13 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
+<P><STRONG><a name="[2f]"></a>USART1_IRQHandler</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, _uart.o(.text.USART1_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = USART1_IRQHandler &rArr; gpio_toggle
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_toggle
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
+</UL>
 <P><STRONG><a name="[49]"></a>clear_gpio_interrupt</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, _hal_gpio.o(.text.clear_gpio_interrupt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = clear_gpio_interrupt
 </UL>
@@ -511,7 +515,8 @@ Global Symbols
 <P><STRONG><a name="[4c]"></a>gpio_toggle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, _hal_gpio.o(.text.gpio_toggle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gpio_toggle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_IRQHandler
 <LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
