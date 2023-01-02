@@ -19,9 +19,7 @@ int main(){
 	uint16_t x = 0;
 	
 	while(1){
-		x = TIM3->CNT;
-		delayMS(100);
-		gpio_toggle(PORTC, 13);
+		x = TIM2->CNT;
 	}
 	
 }

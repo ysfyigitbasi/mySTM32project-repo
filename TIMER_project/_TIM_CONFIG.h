@@ -20,15 +20,15 @@ knowledge:
 //************ || PARAMETERS OF THE TIMER-2 || *****************
 #define	TIM2_OUTP_CMP_PSC	(36000 - 1)
 #define TIM2_OUTP_CMP_ARR	(4000 - 1)
-//#define TIM2_OUTP_CMP_CCR1	(2000 - 1)
-//#define TIM2_OUTP_CMP_CCR2	(2000 - 1)
+#define TIM2_OUTP_CMP_CCR1	(2000 - 1)
+//#define TIM2_OUTP_CMP_CCR2	(1000 - 1)
 //#define TIM2_OUTP_CMP_CCR3	(2000 - 1)
 //#define TIM2_OUTP_CMP_CCR4	(2000 - 1)
-//#define TIM2_partREMAP_CH1	
+#define TIM2_partREMAP_CH1	
 //#define TIM2_partREMAP_CH2
 //#define TIM2_partREMAP_CH3
 //#define TIM2_partREMAP_CH4
-#define TIM2_UPCNT
+//#define TIM2_UPCNT
 //#define TIM2_CH1_OUTP_CMP_TOGGLE
 //#define TIM2_CH2_OUTP_CMP_TOGGLE
 //#define TIM2_CH3_OUTP_CMP_TOGGLE
@@ -37,26 +37,26 @@ knowledge:
 //#define TIM2_CH2_OUTP_CMP_PWM
 //#define TIM2_CH3_OUTP_CMP_PWM
 //#define TIM2_CH4_OUTP_CMP_PWM
-//#define TIM2_CH1_OUTP_OPMode
+#define TIM2_CH1_OUTP_OPMode
 //#define TIM2_CH2_OUTP_OPMode
 //#define TIM2_CH3_OUTP_OPMode
 //#define TIM2_CH4_OUTP_OPMode
 
 //************ || interrupts OF THE TIMER-3 || *****************
-//#define _TIM2_CC1IEN()					{TIM2->DIER |= TIM_DIER_CC1IE;}
+#define _TIM2_CC1IEN()					{TIM2->DIER |= TIM_DIER_CC1IE;}
 //#define _TIM2_CC2IEN()				{TIM2->DIER |= TIM_DIER_CC2IE;}
 //#define _TIM2_CC3IEN()				{TIM2->DIER |= TIM_DIER_CC3IE;}
 //#define _TIM2_CC4IEN()				{TIM2->DIER |= TIM_DIER_CC4IE;}
 
 //************ || PARAMETERS OF THE TIMER-3 || *****************
-#define	TIM3_OUTP_CMP_PSC	(36000 - 1)
-#define TIM3_OUTP_CMP_ARR	(4000 - 1)
-#define TIM3_OUTP_CMP_CCR1	(2000 - 1)
+//#define	TIM3_OUTP_CMP_PSC	(36000 - 1)
+//#define TIM3_OUTP_CMP_ARR	(4000 - 1)
+//#define TIM3_OUTP_CMP_CCR1	(2000 - 1)
 //#define TIM3_OUTP_CMP_CCR2	(2000 - 1)
 //#define TIM3_OUTP_CMP_CCR3	(2000 - 1)
 //#define TIM3_OUTP_CMP_CCR4	(2000 - 1)
 //#define TIM3_partREMAP
-#define TIM3_CH1_OUTP_CMP_TOGGLE
+//#define TIM3_CH1_OUTP_CMP_TOGGLE
 //#define TIM3_CH2_OUTP_CMP_TOGGLE
 //#define TIM3_CH3_OUTP_CMP_TOGGLE
 //#define TIM3_CH4_OUTP_CMP_TOGGLE
@@ -70,19 +70,19 @@ knowledge:
 //#define TIM3_CH4_OUTP_OPMode
 
 //************ || interrupts OF THE TIMER-3 || *****************
-#define _TIM3_CC1IEN()					{TIM3->DIER |= TIM_DIER_CC1IE;}
+//#define _TIM3_CC1IEN()					{TIM3->DIER |= TIM_DIER_CC1IE;}
 //#define _TIM3_CC2IEN()				{TIM3->DIER |= TIM_DIER_CC2IE;}
 //#define _TIM3_CC3IEN()				{TIM3->DIER |= TIM_DIER_CC3IE;}
 //#define _TIM3_CC4IEN()				{TIM3->DIER |= TIM_DIER_CC4IE;}
 
 //************ || PARAMETERS OF THE TIMER-4 || *****************
-#define	TIM4_OUTP_CMP_PSC	(36000 - 1)
-#define TIM4_OUTP_CMP_ARR	(4000 - 1)
-#define TIM4_OUTP_CMP_CCR1	(2000 - 1)
+//#define	TIM4_OUTP_CMP_PSC	(36000 - 1)
+//#define TIM4_OUTP_CMP_ARR	(4000 - 1)
+//#define TIM4_OUTP_CMP_CCR1	(2000 - 1)
 //#define TIM4_OUTP_CMP_CCR2	(2000 - 1)
 //#define TIM4_OUTP_CMP_CCR3	(2000 - 1)
 //#define TIM4_OUTP_CMP_CCR4	(2000 - 1)
-#define TIM4_CH1_OUTP_CMP_TOGGLE
+//#define TIM4_CH1_OUTP_CMP_TOGGLE
 //#define TIM4_CH2_OUTP_CMP_TOGGLE
 //#define TIM4_CH3_OUTP_CMP_TOGGLE
 //#define TIM4_CH4_OUTP_CMP_TOGGLE
@@ -96,7 +96,7 @@ knowledge:
 //#define TIM4_CH4_OUTP_OPMode
 
 //************ || interrupts OF THE TIMER-4 || *****************
-#define _TIM4_CC1IEN()					{TIM4->DIER |= TIM_DIER_CC1IE;}
+//#define _TIM4_CC1IEN()					{TIM4->DIER |= TIM_DIER_CC1IE;}
 //#define _TIM4_CC2IEN()				{TIM4->DIER |= TIM_DIER_CC2IE;}
 //#define _TIM4_CC3IEN()				{TIM4->DIER |= TIM_DIER_CC3IE;}
 //#define _TIM4_CC4IEN()				{TIM4->DIER |= TIM_DIER_CC4IE;}
@@ -136,7 +136,7 @@ knowledge:
 		#define _TIM2_CH1RM_GPIO_EN()	{RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;	/*PA15*/							\
 										 GPIOA->CRH |= GPIO_CRH_MODE15_0 | GPIO_CRH_MODE15_1 | GPIO_CRH_CNF15_1;	\
 										 GPIOA->CRH &= ~GPIO_CRH_CNF15_0;	\
-										 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_0;}
+										 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_0 | AFIO_MAPR_TIM2_REMAP_1;}
 	#endif
 #endif										 
 #ifdef TIM2_partREMAP_CH2
@@ -279,7 +279,7 @@ knowledge:
 #endif
 
 #ifdef TIM2_CH4_OUTP_OPMode
-#define _TIM2_CH4_OUTP_OPM()			{TIM2->CCMR1 |= TIM_CCMR2_OC4M_0 | TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2 | TIM_CCMR2_OC4PE;	\
+#define _TIM2_CH4_OUTP_OPM()			{TIM2->CCMR2 |= TIM_CCMR2_OC4M_0 | TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2 | TIM_CCMR2_OC4PE;	\
 										 TIM2->CCR4 = TIM2_OUTP_CMP_CCR4;	\
 										 TIM2->CCER |= TIM_CCER_CC4E;		\
 										 TIM2->CCER &= ~TIM_CCER_CC4P;		\
@@ -289,9 +289,9 @@ knowledge:
 
 //************ || INTERRUPT SETTINGS OF THE TIMER-2	|| *********************
 #if defined(_TIM2_CC1IEN) || defined(_TIM2_CC2IEN) || defined(_TIM2_CC3IEN) || defined(_TIM2_CC4IEN) || defined(_TIM2_UPCOUNTER)
-#define _TIM2_IRQ(Pri)				{NVIC_EnableIRQ(TIM2_IRQn);					\
-/* Set IRQn of the Priority*/		 NVIC_SetPriority(TIM2_IRQn, (Pri));	\
-									 _TIM2_EN()					}
+#define _TIM2_IRQ(Pri)				{NVIC_EnableIRQ(TIM2_IRQn);						\
+/* Set IRQn of the Priority*/	 NVIC_SetPriority(TIM2_IRQn, (Pri));	\
+															 _TIM2_EN()	}
 #endif									 
 #endif
 

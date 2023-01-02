@@ -8,14 +8,14 @@ static uint64_t myTicks = 0;
 static uint16_t msTicks = 0;
 void initTimer(void){
 	// IF SysTick is going to be used..
-	SysTick_Config(SystemCoreClock / 1000); // 1ms interval
+	//SysTick_Config(SystemCoreClock / 1000); // 1ms interval
 	
 // IF TIMER 2 IS GOING TO BE USED... MODES: COMPARE-TOGGLE,PWM,ONEPULSE
 	_TIM2_RCC_EN()	
 	_TIM2_GeneralSetup()
 	
 	// IF UPCOUNTING MODE WILL BE USED
-	_TIM2_UPCOUNTER()
+	//_TIM2_UPCOUNTER()
 	
 	// IF CH1 IS GOING TO BE USED
 //	_TIM2_CH1_GPIO_EN()
@@ -25,6 +25,12 @@ void initTimer(void){
 //	_TIM2_CH3_GPIO_EN()
 	// IF CH4 IS GOING TO BE USED
 //	_TIM2_CH4_GPIO_EN()
+	
+	// if REMAP is enabled.
+	_TIM2_CH1RM_GPIO_EN()
+//	_TIM2_CH2RM_GPIO_EN()
+//	_TIM2_CH3RM_GPIO_EN()
+//	_TIM2_CH4RM_GPIO_EN()
 	
 	//IF TIMER 2 IS GOING TO BE USED FOR COMPARE-TOGGLE MODE
 //	_TIM2_CH1_OUTP_TGL() // CH1
@@ -36,16 +42,16 @@ void initTimer(void){
 //	_TIM2_CH1_OUTP_PWM() // CH1
 //	_TIM2_CH2_OUTP_PWM() // CH2
 //	_TIM2_CH3_OUTP_PWM() // CH3
-//	_TIM2_CH4_OUTP_PWM() // CH4
+//_TIM2_CH4_OUTP_PWM() // CH4
 	
 	//IF TIMER 2 IS GOING TO BE USED FOR ONE PULSE MODE
-//	_TIM2_CH1_OUTP_OPM() // CH1
+	_TIM2_CH1_OUTP_OPM() // CH1
 //	_TIM2_CH2_OUTP_OPM() // CH2
 //	_TIM2_CH3_OUTP_OPM() // CH3
 //	_TIM2_CH4_OUTP_OPM() // CH4
 
-//	_TIM2_CC1IEN()
-//	_TIM2_IRQ(2)	
+	_TIM2_CC1IEN()
+	_TIM2_IRQ(2)	
 	
 /*	
 	// IF TIMER 3 IS GOING TO BE USED... MODES: COMPARE-TOGGLE,PWM,ONEPULSE
@@ -232,9 +238,12 @@ void TIM2_IRQHandler(void){
 		myTicks++;
 	}
 */
-	TIM2->SR &= ~TIM_SR_UIF;
-	myTicks++;
-	//gpio_toggle(PORTC, 13);
+//	TIM2->SR &= ~TIM_SR_UIF;
+//	myTicks++;
+	if(TIM2->SR & TIM_SR_CC1IF){
+		TIM2->SR &= ~TIM_SR_CC1IF;
+		gpio_toggle(PORTC, 13);				}
+	
 }
 
 void TIM3_IRQHandler(void){

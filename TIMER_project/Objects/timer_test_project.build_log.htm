@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.37.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Yusuf Yigitbasi, Hacettepe University, LIC=----
+License Information: Yusuf Yigitbasi, Kellesi, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.37.0.0
@@ -21,21 +21,20 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
-D:\yyigitbasi_stm32_git\TIMER_project\timer_test_project.uvprojx
-Project File Date:  12/21/2022
+D:\mystm32Project\mySTM32project-repo\TIMER_project\timer_test_project.uvprojx
+Project File Date:  01/02/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
-assembling startup_stm32f10x_md.s...
 main.c(19): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
         uint16_t x = 0;
                  ^
 main.c(19): warning: variable 'x' set but not used [-Wunused-but-set-variable]
-main.c(31): warning: no previous prototype for function 'EXTI4_IRQHandler' [-Wmissing-prototypes]
+main.c(29): warning: no previous prototype for function 'EXTI4_IRQHandler' [-Wmissing-prototypes]
 void EXTI4_IRQHandler(void){
      ^
-main.c(31): note: declare 'static' if the function is not intended to be used outside of this translation unit
+main.c(29): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void EXTI4_IRQHandler(void){
 ^
 static 
@@ -53,47 +52,31 @@ static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR);
                ^
 6 warnings generated.
 compiling main.c...
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-            ^
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-    ^
-1 warning generated.
-compiling system_stm32f10x.c...
-_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-         ^
-_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-^
-1 warning generated.
-compiling _HAL_GPIO.c...
-_TIM_CONFIG.c(228): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
+_TIM_CONFIG.c(234): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
 void TIM2_IRQHandler(void){
      ^
-_TIM_CONFIG.c(228): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(234): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void TIM2_IRQHandler(void){
 ^
 static 
-_TIM_CONFIG.c(240): warning: no previous prototype for function 'TIM3_IRQHandler' [-Wmissing-prototypes]
+_TIM_CONFIG.c(249): warning: no previous prototype for function 'TIM3_IRQHandler' [-Wmissing-prototypes]
 void TIM3_IRQHandler(void){
      ^
-_TIM_CONFIG.c(240): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(249): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void TIM3_IRQHandler(void){
 ^
 static 
-_TIM_CONFIG.c(245): warning: no previous prototype for function 'TIM4_IRQHandler' [-Wmissing-prototypes]
+_TIM_CONFIG.c(254): warning: no previous prototype for function 'TIM4_IRQHandler' [-Wmissing-prototypes]
 void TIM4_IRQHandler(void){
      ^
-_TIM_CONFIG.c(245): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(254): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void TIM4_IRQHandler(void){
 ^
 static 
-_TIM_CONFIG.c(250): warning: no previous prototype for function 'SysTick_Handler' [-Wmissing-prototypes]
+_TIM_CONFIG.c(259): warning: no previous prototype for function 'SysTick_Handler' [-Wmissing-prototypes]
 void SysTick_Handler(void){
      ^
-_TIM_CONFIG.c(250): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(259): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void SysTick_Handler(void){
 ^
 static 
@@ -111,6 +94,14 @@ static uint8_t UsartBaudRateSet(USART_TypeDef *UsartP, uint32_t baudR);
                ^
 7 warnings generated.
 compiling _TIM_CONFIG.c...
+_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+         ^
+_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+^
+1 warning generated.
+compiling _HAL_GPIO.c...
 printMsg.c(186): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
         vsprintf(buff, msg, args);
         ^
@@ -123,8 +114,17 @@ printMsg.c(199): warning: no newline at end of file [-Wnewline-eof]
                                           ^
 3 warnings generated.
 compiling printMsg.c...
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+            ^
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+    ^
+1 warning generated.
+compiling system_stm32f10x.c...
+assembling startup_stm32f10x_md.s...
 linking...
-Program Size: Code=2516 RO-data=268 RW-data=68 ZI-data=1648  
+Program Size: Code=2468 RO-data=268 RW-data=64 ZI-data=1640  
 ".\Objects\timer_test_project.axf" - 0 Error(s), 18 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -144,19 +144,19 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   ./RTE/Device/STM32F103C8
   ./RTE/_Target_1
-  C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/Administrator/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Source file:   Device/Source/system_stm32f10x.c
+      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Include file:  RTE_Driver/Config/RTE_Device.h
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
