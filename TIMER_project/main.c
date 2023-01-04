@@ -2,6 +2,7 @@
 #include "_HAL_GPIO.h"
 #include "_UART.h"
 
+
 int main(){
 		
 	GPIO_TYPE myled;
@@ -15,6 +16,7 @@ int main(){
 	gpio_init(myled);
 	
 	initTimer();
+	DMA1_Channel4->CCR |= DMA_CCR7_MINC
 	
 	uint16_t x = 0;
 	

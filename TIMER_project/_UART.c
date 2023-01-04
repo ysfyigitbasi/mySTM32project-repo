@@ -5,19 +5,6 @@
 #include "stdarg.h"
 #include "_HAL_GPIO.h"
 
-void printMsg(USART_TypeDef *UsartP, const char *msg, ...){
-	
-	char buff[50];
-	va_list args;
-	va_start(args, msg);
-	vsprintf(buff, msg, args);
-		
-	for(uint8_t i=0; i<strlen(buff); i++){
-		UsartP->DR = buff[i];
-		while( !(UsartP->SR & USART_SR_TXE) );
-	}	
-	
-}
 
 void USART1_IRQHandler(void){
 	
@@ -33,3 +20,21 @@ void USART1_IRQHandler(void){
 	}
 		
 }
+#ifdef _USART1_EN
+void DMA1_Channel2_IRQHandler(void){
+	DMA1->IFCR = DMA_IFCR_CTCIF2;
+	DMA1_Channel2->CCR &= ~(uint32_t)DMA_CCR2_EN;	
+}
+#endif
+#ifdef _USART2_EN
+void DMA1_Channel4_IRQHandler(void){
+	DMA1->IFCR = DMA_IFCR_CTCIF4;
+	DMA1_Channel4->CCR &= ~(uint32_t)DMA_CCR4_EN;
+}
+#endif
+#ifdef _USART3_EN
+void DMA1_Channel7_IRQHandler(void){
+	DMA1->IFCR = DMA_IFCR_CTCIF7;
+	DMA1_Channel7->CCR &= ~(uint32_t)DMA_CCR7_EN;
+}
+#endif
