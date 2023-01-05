@@ -6,6 +6,7 @@
 static uint64_t myTicks = 0;
 static uint16_t msTicks = 0;
 void initTimer(void){
+
 	// IF SysTick is going to be used..
 	//SysTick_Config(SystemCoreClock / 1000); // 1ms interval
 	
@@ -17,7 +18,7 @@ void initTimer(void){
 	//_TIM2_UPCOUNTER()
 	
 	// IF CH1 IS GOING TO BE USED
-//	_TIM2_CH1_GPIO_EN()
+	_TIM2_CH1_GPIO_EN()
 	// IF CH2 IS GOING TO BE USED
 //	_TIM2_CH2_GPIO_EN()
 	// IF CH3 IS GOING TO BE USED
@@ -25,14 +26,9 @@ void initTimer(void){
 	// IF CH4 IS GOING TO BE USED
 //	_TIM2_CH4_GPIO_EN()
 	
-	// if REMAP is enabled.
-	_TIM2_CH1RM_GPIO_EN()
-//	_TIM2_CH2RM_GPIO_EN()
-//	_TIM2_CH3RM_GPIO_EN()
-//	_TIM2_CH4RM_GPIO_EN()
 	
 	//IF TIMER 2 IS GOING TO BE USED FOR COMPARE-TOGGLE MODE
-//	_TIM2_CH1_OUTP_TGL() // CH1
+	_TIM2_CH1_OUTP_TGL() // CH1
 //	_TIM2_CH2_OUTP_TGL() // CH2
 //	_TIM2_CH3_OUTP_TGL() // CH3
 //	_TIM2_CH4_OUTP_TGL() // CH4
@@ -44,7 +40,7 @@ void initTimer(void){
 //_TIM2_CH4_OUTP_PWM() // CH4
 	
 	//IF TIMER 2 IS GOING TO BE USED FOR ONE PULSE MODE
-	_TIM2_CH1_OUTP_OPM() // CH1
+//	_TIM2_CH1_OUTP_OPM() // CH1
 //	_TIM2_CH2_OUTP_OPM() // CH2
 //	_TIM2_CH3_OUTP_OPM() // CH3
 //	_TIM2_CH4_OUTP_OPM() // CH4

@@ -24,12 +24,12 @@ knowledge:
 //#define TIM2_OUTP_CMP_CCR2	(1000 - 1)
 //#define TIM2_OUTP_CMP_CCR3	(2000 - 1)
 //#define TIM2_OUTP_CMP_CCR4	(2000 - 1)
-#define TIM2_partREMAP_CH1	
+//#define TIM2_partREMAP_CH1	
 //#define TIM2_partREMAP_CH2
 //#define TIM2_partREMAP_CH3
 //#define TIM2_partREMAP_CH4
 //#define TIM2_UPCNT
-//#define TIM2_CH1_OUTP_CMP_TOGGLE
+#define TIM2_CH1_OUTP_CMP_TOGGLE
 //#define TIM2_CH2_OUTP_CMP_TOGGLE
 //#define TIM2_CH3_OUTP_CMP_TOGGLE
 //#define TIM2_CH4_OUTP_CMP_TOGGLE
@@ -37,7 +37,7 @@ knowledge:
 //#define TIM2_CH2_OUTP_CMP_PWM
 //#define TIM2_CH3_OUTP_CMP_PWM
 //#define TIM2_CH4_OUTP_CMP_PWM
-#define TIM2_CH1_OUTP_OPMode
+//#define TIM2_CH1_OUTP_OPMode
 //#define TIM2_CH2_OUTP_OPMode
 //#define TIM2_CH3_OUTP_OPMode
 //#define TIM2_CH4_OUTP_OPMode
@@ -128,42 +128,35 @@ knowledge:
 #if defined(TIM2_OUTP_CMP_CCR4) && !defined(TIM2_partREMAP_CH4)									 
 	#define _TIM2_CH4_GPIO_EN()		{RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;	/*PA3*/							\
 									 GPIOA->CRL |= GPIO_CRL_MODE3_0 | GPIO_CRL_MODE3_1 | GPIO_CRL_CNF3_1;	\
-									 GPIOA->CRL &= ~GPIO_CRL_CNF3_0;}	
+									 GPIOA->CRL &= ~GPIO_CRL_CNF3_0;	}	
 #endif
 
-#ifdef TIM2_partREMAP_CH1
-	#ifdef TIM2_OUTP_CMP_CCR1
-		#define _TIM2_CH1RM_GPIO_EN()	{RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;	/*PA15*/							\
-										 GPIOA->CRH |= GPIO_CRH_MODE15_0 | GPIO_CRH_MODE15_1 | GPIO_CRH_CNF15_1;	\
-										 GPIOA->CRH &= ~GPIO_CRH_CNF15_0;	\
-										 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_0 | AFIO_MAPR_TIM2_REMAP_1;}
-	#endif
-#endif										 
-#ifdef TIM2_partREMAP_CH2
-	#ifdef TIM2_OUTP_CMP_CCR2
-		#define _TIM2_CH2RM_GPIO_EN()	{RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;	/*PB3*/							\
-										 GPIOB->CRL |= GPIO_CRL_MODE3_0 | GPIO_CRL_MODE3_1 | GPIO_CRL_CNF3_1;	\
-										 GPIOB->CRL &= ~GPIO_CRL_CNF3_0;	\
-										 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_0;}
-	#endif
+#if defined(TIM2_partREMAP_CH1) && defined(TIM2_OUTP_CMP_CCR1)
+	#define _TIM2_CH1_GPIO_EN()		{RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;	/*PA15*/							\
+									 GPIOA->CRH |= GPIO_CRH_MODE15_0 | GPIO_CRH_MODE15_1 | GPIO_CRH_CNF15_1;	\
+									 GPIOA->CRH &= ~GPIO_CRH_CNF15_0;	\
+									 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_0 | AFIO_MAPR_TIM2_REMAP_1;	}
 #endif
 
-#ifdef TIM2_partREMAP_CH3
-	#ifdef TIM2_OUTP_CMP_CCR3
-		#define _TIM2_CH3RM_GPIO_EN()	{RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;	/*PB10*/							\
-										 GPIOB->CRH |= GPIO_CRH_MODE10_0 | GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_1;	\
-										 GPIOB->CRH &= ~GPIO_CRH_CNF10_0;	\
-										 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_1;}
-	#endif
+#if defined(TIM2_partREMAP_CH2) && defined(TIM2_OUTP_CMP_CCR2)
+	#define _TIM2_CH2_GPIO_EN()		{RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;	/*PB3*/							\
+									 GPIOB->CRL |= GPIO_CRL_MODE3_0 | GPIO_CRL_MODE3_1 | GPIO_CRL_CNF3_1;	\
+									 GPIOB->CRL &= ~GPIO_CRL_CNF3_0;	\
+									 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_0;		}
 #endif
 
-#ifdef TIM2_partREMAP_CH4
-	#ifdef TIM2_OUTP_CMP_CCR4
-		#define _TIM2_CH4RM_GPIO_EN()	{RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;	/*PB11*/							\
-										 GPIOB->CRH |= GPIO_CRH_MODE11_0 | GPIO_CRH_MODE11_1 | GPIO_CRH_CNF11_1;	\
-										 GPIOB->CRH &= ~GPIO_CRH_CNF11_0;	\
-										 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_1;}
-	#endif
+#if defined(TIM2_partREMAP_CH3) && defined(TIM2_OUTP_CMP_CCR3)
+	#define _TIM2_CH3_GPIO_EN()		{RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;	/*PB10*/							\
+									 GPIOB->CRH |= GPIO_CRH_MODE10_0 | GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_1;	\
+									 GPIOB->CRH &= ~GPIO_CRH_CNF10_0;	\
+									 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_1;		}
+#endif
+
+#if defined(TIM2_partREMAP_CH4) && defined(TIM2_OUTP_CMP_CCR4)
+	#define _TIM2_CH4_GPIO_EN()		{RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;	/*PB11*/							\
+									 GPIOB->CRH |= GPIO_CRH_MODE11_0 | GPIO_CRH_MODE11_1 | GPIO_CRH_CNF11_1;	\
+									 GPIOB->CRH &= ~GPIO_CRH_CNF11_0;	\
+									 AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_1;		}
 #endif										 
 										 
 //************ || TIMER SETTINGS OF THE TIMER-2	|| *********************
@@ -290,8 +283,8 @@ knowledge:
 //************ || INTERRUPT SETTINGS OF THE TIMER-2	|| *********************
 #if defined(_TIM2_CC1IEN) || defined(_TIM2_CC2IEN) || defined(_TIM2_CC3IEN) || defined(_TIM2_CC4IEN) || defined(_TIM2_UPCOUNTER)
 #define _TIM2_IRQ(Pri)				{NVIC_EnableIRQ(TIM2_IRQn);						\
-/* Set IRQn of the Priority*/	 NVIC_SetPriority(TIM2_IRQn, (Pri));	\
-															 _TIM2_EN()	}
+/* Set IRQn of the Priority*/	 	 NVIC_SetPriority(TIM2_IRQn, (Pri));	\
+									 _TIM2_EN()	}
 #endif									 
 #endif
 

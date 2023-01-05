@@ -2,6 +2,8 @@
 #include "_HAL_GPIO.h"
 #include "_UART.h"
 
+extern volatile char receiveRX1[BUFFER_SIZE_1];
+extern volatile char transmitTX1[BUFFER_SIZE_1];
 
 int main(){
 		
@@ -16,23 +18,17 @@ int main(){
 	gpio_init(myled);
 	
 	initTimer();
-	DMA1_Channel4->CCR |= DMA_CCR7_MINC
+	_init_usart1()
 	
 	uint16_t x = 0;
 	
 	while(1){
 		x = TIM2->CNT;
+		if (x > 2000){
+			//enable dmatx etc.
+			}
 	}
-	
 }
 
-
-// External interrupt handler function, for gpio port interrupts.
-void EXTI4_IRQHandler(void){
-	if((EXTI->PR & EXTI_PR_PR4) == EXTI_PR_PR4)
-		clear_gpio_interrupt(4);
-}
-
-// Timer 2 Interrupt Request Handler Function
 
 

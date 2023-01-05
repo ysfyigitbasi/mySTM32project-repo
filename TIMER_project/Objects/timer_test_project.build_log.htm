@@ -28,32 +28,40 @@ Project File Date:  01/02/2023
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_stm32f10x_md.s...
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+main.c(21): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+        _init_usart1()
+        ^~~~~~~~~~~~~~
+./_UART.h(83): note: expanded from macro '_init_usart1'
+                                                                _USART1_BR_SET()        \
+                                                                ^~~~~~~~~~~~~~~~
+./_UART.h(40): note: expanded from macro '_USART1_BR_SET'
+                                                                 USART1->BRR = (mantissa << 4) | fraction;      }                                                       
+                                                                             ~ ~~~~~~~~~~~~~~~~^~~~~~~~~~
+main.c(23): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        uint16_t x = 0;
+                 ^
+main.c(1): warning: In file included from...
+./_TIM_CONFIG.h(5): warning: In file included from...
+./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
+static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
             ^
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-    ^
-1 warning generated.
-compiling system_stm32f10x.c...
-_UART.c(13): warning: implicitly declaring library function 'vsprintf' with type 'int (char *, const char *, __builtin_va_list)' [-Wimplicit-function-declaration]
-        vsprintf(buff, msg, args);
-        ^
-_UART.c(13): note: include the header <stdio.h> or explicitly provide a declaration for 'vsprintf'
-_UART.c(13): warning: format string is not a string literal [-Wformat-nonliteral]
-        vsprintf(buff, msg, args);
-                       ^~~
-_UART.c(25): warning: implicit conversion loses integer precision: 'volatile uint16_t' (aka 'volatile unsigned short') to 'char' [-Wimplicit-int-conversion]
-                char temp = USART1->DR;
-                     ~~~~   ~~~~~~~~^~
-_UART.c(35): warning: no newline at end of file [-Wnewline-eof]
-}
- ^
-_UART.c(22): warning: no previous prototype for function 'USART1_IRQHandler' [-Wmissing-prototypes]
-void USART1_IRQHandler(void){
+./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
+static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+            ^
+4 warnings generated.
+compiling main.c...
+_UART.c(19): warning: no previous prototype for function 'DMA1_Channel4_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel4_IRQHandler(void){
      ^
-_UART.c(22): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void USART1_IRQHandler(void){
+_UART.c(19): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel4_IRQHandler(void){
+^
+static 
+_UART.c(23): warning: no previous prototype for function 'DMA1_Channel5_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel5_IRQHandler(void){
+     ^
+_UART.c(23): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel5_IRQHandler(void){
 ^
 static 
 _UART.c(6): warning: In file included from...
@@ -63,54 +71,49 @@ static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_typ
 ./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
 static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
             ^
-7 warnings generated.
+4 warnings generated.
 compiling _UART.c...
-main.c(19): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-        uint16_t x = 0;
-                 ^
-main.c(19): warning: variable 'x' set but not used [-Wunused-but-set-variable]
-main.c(29): warning: no previous prototype for function 'EXTI4_IRQHandler' [-Wmissing-prototypes]
-void EXTI4_IRQHandler(void){
-     ^
-main.c(29): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void EXTI4_IRQHandler(void){
+_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+         ^
+_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
 ^
-static 
-main.c(1): warning: In file included from...
-./_TIM_CONFIG.h(5): warning: In file included from...
-./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
+1 warning generated.
+compiling _HAL_GPIO.c...
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
             ^
-./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
-static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
-            ^
-5 warnings generated.
-compiling main.c...
-_TIM_CONFIG.c(233): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+    ^
+1 warning generated.
+compiling system_stm32f10x.c...
+_TIM_CONFIG.c(229): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
 void TIM2_IRQHandler(void){
      ^
-_TIM_CONFIG.c(233): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(229): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void TIM2_IRQHandler(void){
 ^
 static 
-_TIM_CONFIG.c(248): warning: no previous prototype for function 'TIM3_IRQHandler' [-Wmissing-prototypes]
+_TIM_CONFIG.c(244): warning: no previous prototype for function 'TIM3_IRQHandler' [-Wmissing-prototypes]
 void TIM3_IRQHandler(void){
      ^
-_TIM_CONFIG.c(248): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(244): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void TIM3_IRQHandler(void){
 ^
 static 
-_TIM_CONFIG.c(253): warning: no previous prototype for function 'TIM4_IRQHandler' [-Wmissing-prototypes]
+_TIM_CONFIG.c(249): warning: no previous prototype for function 'TIM4_IRQHandler' [-Wmissing-prototypes]
 void TIM4_IRQHandler(void){
      ^
-_TIM_CONFIG.c(253): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(249): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void TIM4_IRQHandler(void){
 ^
 static 
-_TIM_CONFIG.c(258): warning: no previous prototype for function 'SysTick_Handler' [-Wmissing-prototypes]
+_TIM_CONFIG.c(254): warning: no previous prototype for function 'SysTick_Handler' [-Wmissing-prototypes]
 void SysTick_Handler(void){
      ^
-_TIM_CONFIG.c(258): note: declare 'static' if the function is not intended to be used outside of this translation unit
+_TIM_CONFIG.c(254): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void SysTick_Handler(void){
 ^
 static 
@@ -124,17 +127,13 @@ static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pi
             ^
 6 warnings generated.
 compiling _TIM_CONFIG.c...
-_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-         ^
-_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-^
-1 warning generated.
-compiling _HAL_GPIO.c...
 linking...
-Program Size: Code=2572 RO-data=268 RW-data=64 ZI-data=1640  
-".\Objects\timer_test_project.axf" - 0 Error(s), 20 Warning(s).
+.\Objects\timer_test_project.axf: Error: L6218E: Undefined symbol transmitTX1 (referred from main.o).
+.\Objects\timer_test_project.axf: Error: L6218E: Undefined symbol receiveRX1 (referred from main.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 2 error messages.
+".\Objects\timer_test_project.axf" - 2 Error(s), 16 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -161,11 +160,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device/Source/system_stm32f10x.c
-      Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
-Build Time Elapsed:  00:00:02
+      Include file:  RTE_Driver/Config/RTE_Device.h
+      Source file:   Device/Source/system_stm32f10x.c
+Target not created.
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
