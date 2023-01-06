@@ -1,10 +1,10 @@
 #include "_TIM_CONFIG.h"
 #include "_HAL_GPIO.h"
 #include "_UART.h"
+#include "_DMA.h"
 
-extern volatile char receiveRX1[BUFFER_SIZE_1];
-extern volatile char transmitTX1[BUFFER_SIZE_1];
-
+volatile char Transmit[BUFFER_SIZE_1];
+volatile char Receive[BUFFER_SIZE_1];
 int main(){
 		
 	GPIO_TYPE myled;
@@ -19,6 +19,9 @@ int main(){
 	
 	initTimer();
 	_init_usart1()
+	init_USART1TX_DMA(Transmit);
+	init_USART1RX_DMA(Receive);
+	
 	
 	uint16_t x = 0;
 	
