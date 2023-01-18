@@ -29,11 +29,12 @@ void initI2C1(void){
 	// stretch mode enabled by default
 	// 7bit addressing mode is enabled by default.
 	
-	I2C1->CR1 |= I2C_CR1_PE;
+	initI2C1_DMA();
+	init_queue(&bufferTX);
 	
 }
 
-void initI2C1_DMA(void){
+static void initI2C1_DMA(void){
 	RCC->AHBENR |= RCC_AHBENR_DMA1EN;
 	I2C1->CR2 |= I2C_CR2_DMAEN;
 	
@@ -46,36 +47,31 @@ void initI2C1_DMA(void){
 	DMA1_Channel6->CCR |= DMA_CCR6_TCIE | DMA_CCR6_MINC | DMA_CCR6_DIR; // DMA_CCR6_EN
 }
 
-void enableRX_DMA(void){ DMA1_Channel7->CCR |= DMA_CCR7_EN;	}
-void enableTX_DMA(void){ DMA1_Channel6->CCR |= DMA_CCR6_EN;	}
-
-void i2c_write_single(uint8_t device_address, uint8_t mem_address, uint8_t data){
-	
-	uint16_t temp = 0;
-	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
-	
-	I2C1->CR1 |= I2C_CR1_START;		// generate start condition.
-	
-	while(	!(I2C1->SR1 & I2C_SR1_SB)	)	{}
-	
-	I2C1->DR = device_address;		// write 0x78; send address.
-	
-	while(	!(I2C1->SR1 & I2C_SR1_ADDR)	)	{}
-		
-	temp = I2C1->SR2;
-		
-	I2C1->DR = mem_address;		// address to write to
-		
-	while(	!(I2C1->SR1 & I2C_SR1_TXE)	)	{}	// wait for byte transfer complete.
-		
-	I2C1->DR = data;		// data to write in that address.
-		
-	while(	!(I2C1->SR1 & I2C_SR1_TXE)	)	{}	// wait for byte transfer complete.
-	
-	I2C1->CR1 |= I2C_CR1_STOP;		// send another start condition to get the data.	
+static void init_queue(TX_BUFFER *q){
+	q->transmitData = 0;
+	q->sizeTX = 0; q->device_address = 0; q->memory_address = 0;
+	q->state_TX = STOP;
 }
 
-void i2c_read(uint8_t* memory, uint8_t length){
+static void enableRX_DMA(void){ DMA1_Channel7->CCR |= DMA_CCR7_EN;	}
+static void enableTX_DMA(void){ DMA1_Channel6->CCR |= DMA_CCR6_EN;	}
+
+void i2c_write_single(uint8_t slave_address, uint8_t mem_address, uint8_t data){
+	
+	bufferTX.memory_address = mem_address;
+	bufferTX.device_address = (slave_address < 1);
+	bufferTX.transmitData = data;
+	bufferTX.I2C_MODE = WRITE;
+	
+	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
+	
+	I2C1->CR1 |= I2C_CR1_PE;
+	
+	I2C1->CR1 |= I2C_CR1_START;		// generate start condition.	
+}
+
+/*
+void i2c_read(uint8_t device_address, uint8_t* memory, uint8_t length){
 	
 	uint16_t temp = 0;
 	RCC->AHBENR |= RCC_AHBENR_DMA1EN;
@@ -107,19 +103,58 @@ void DMA1_Channel7_IRQHandler(void){	// I2C1 rx
 	// if i2c1 is used
 	DMA1->IFCR = DMA_IFCR_CTCIF7;
 	DMA1_Channel7->CCR &= ~(uint32_t)DMA_CCR7_EN;
-}
+} */
 
 void I2C1_EV_IRQHandler(void){
 	
 	if( I2C1->SR1 & I2C_SR1_SB ){
-		I2C1->DR = device_address;
-		if(READ)
-			I2C1->DR++;
+		if( (bufferTX.state_TX == STOP) || ( bufferTX.state_TX == READ_ADDRESS) ){
+			
+			I2C1->DR = bufferTX.device_address;			
+			
+			if( bufferTX.I2C_MODE != READ){
+				bufferTX.state_TX = START;
+			}
+			else{  // READ condition
+				I2C1->DR++;
+				bufferTX.state_TX = DMA_RX;
+				//DMA ENABLE
+				
+			}
+		}
 	}
 	
 	if( I2C1->SR1 & I2C_SR1_ADDR ){
-		(void) I2C1->SR2;
-		I2C1->DR = mem_address;		// address to write to------struct TX_char.
+		if( bufferTX.state_TX == START ){
+			
+			(void) I2C1->SR2;
+			
+			I2C1->DR = bufferTX.memory_address;		// address to write to
+			
+			if( bufferTX.I2C_MODE == READ){
+				bufferTX.state_TX = READ_ADDRESS;
+				I2C1->CR1 |= I2C_CR1_START;	}	// generate start condition.
+			else
+				bufferTX.state_TX = ADDRESS;
+		}
+	}
+	
+	if( I2C1->SR1 & I2C_SR1_TXE){
+		
+		if( bufferTX.state_TX == TRANSMIT){
+			
+			I2C1->CR1 |= I2C_CR1_STOP;
+			
+			bufferTX.state_TX = STOP;
+		}
+		
+		if( bufferTX.state_TX == ADDRESS ){
+			
+			I2C1->DR = bufferTX.transmitData;
+			
+			bufferTX.state_TX = TRANSMIT;
+		}
+		
 	}
 	
 }

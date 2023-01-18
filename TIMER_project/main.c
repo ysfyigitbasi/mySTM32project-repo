@@ -1,66 +1,32 @@
-#include "stm32f10x.h"
 #include "_I2C.h"
+#include "_TIM_CONFIG.h"
 
-char receiveBUFF[10];
 
 void init_i2c1(void);
 void i2c_write_single(uint8_t device_address, uint8_t mem_address, uint8_t data);
 void i2c_read(uint8_t device_address, uint8_t* memory, uint8_t length);
-int main(){
+
+TX_BUFFER bufferTX;
+
+int main(void){
+	
+	initI2C1();
+	
+	
+	i2c_write_single(0x28,0x55,'C');
+	
+	while(1){
 		
+		i2c_write_single(0x28,0x55,'C');
+		delayMS(5);
+	}
+	
+	
 
 }
 
 
-void init_i2c1(void){
-
-	RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
-	RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
-	
-	//NVIC_EnableIRQ(I2C1_EV_IRQn);
-	I2C1->CR2 |= 36;	// freq value of APB1 buss is maximum 36MHz.
-	
-	/* Clock Control Register Math --- 100KHz. %50 duty cycle
-	T_high / T_pclk = CCR -> (1/100khz * 1/2) / (1/36MHz) = 180. */
-	I2C1->CCR |= 180;
-	I2C1->TRISE |= 37;		// 1000ns t_rise [max for standard mode 100kHz] 300ns[max for fast mode], 1000ns/(1/36MHz) = TRISE + 1.
-	
-	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
-	
-	// stretch mode enabled by default
-	// 7bit addressing mode is enabled by default.
-	GPIOB->CRL |= GPIO_CRL_CNF6 | GPIO_CRL_MODE6 | GPIO_CRL_CNF7 | GPIO_CRL_MODE7;	// PB6 PB7 OPEN-DRAIN ALTERNATE FNCTION.
-	
-	I2C1->CR1 |= I2C_CR1_PE;
-
-}
-
-void i2c_write_single(uint8_t device_address, uint8_t mem_address, uint8_t data){
-	
-	uint16_t temp = 0;
-	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
-	
-	I2C1->CR1 |= I2C_CR1_START;		// generate start condition.
-	
-	while(	!(I2C1->SR1 & I2C_SR1_SB)	)	{}
-	
-	I2C1->DR = device_address;		// write 0x78; send address.
-	
-	while(	!(I2C1->SR1 & I2C_SR1_ADDR)	)	{}
-		
-	temp = I2C1->SR2;
-		
-	I2C1->DR = mem_address;		// address to write to
-		
-	while(	!(I2C1->SR1 & I2C_SR1_TXE)	)	{}	// wait for byte transfer complete.
-		
-	I2C1->DR = data;		// data to write in that address.
-		
-	while(	!(I2C1->SR1 & I2C_SR1_TXE)	)	{}	// wait for byte transfer complete.
-	
-	I2C1->CR1 |= I2C_CR1_STOP;		// send another start condition to get the data.	
-}
-
+/*
 void i2c_read(uint8_t device_address, uint8_t* memory, uint8_t length){
 	
 	uint16_t temp = 0;
@@ -88,11 +54,4 @@ void i2c_read(uint8_t device_address, uint8_t* memory, uint8_t length){
 
 	I2C1->CR1 |= I2C_CR1_STOP;	
 }
-
-
-void DMA1_Channel6_IRQHandler(void){	// I2C1 tx
-	// if i2c1 is used
-	DMA1->IFCR = DMA_IFCR_CTCIF6;
-	DMA1_Channel6->CCR &= ~(uint32_t)DMA_CCR6_EN;
-}
-
+*/

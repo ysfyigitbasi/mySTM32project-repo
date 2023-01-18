@@ -3,100 +3,42 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.37.0.0
+IDE-Version: µVision V5.38.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Yusuf Yigitbasi, Hacettepe University, LIC=----
+License Information: Yusuf Yigitbasi, Hacettepe, LIC=----
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.37.0.0
+Toolchain:       MDK-Lite  Version: 5.38.0.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.18
-Assembler:       Armasm.exe V6.18
-Linker/Locator:  ArmLink.exe V6.18
-Library Manager: ArmAr.exe V6.18
-Hex Converter:   FromElf.exe V6.18
-CPU DLL:         SARMCM3.DLL V5.37.0.0
+C Compiler:      ArmClang.exe V6.19
+Assembler:       Armasm.exe V6.19
+Linker/Locator:  ArmLink.exe V6.19
+Library Manager: ArmAr.exe V6.19
+Hex Converter:   FromElf.exe V6.19
+CPU DLL:         SARMCM3.DLL V5.38.0.0
 Dialog DLL:      DCM.DLL V1.17.5.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
-Dialog DLL:      TCM.DLL V1.56.1.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
+Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-D:\yyigitbasi_stm32_git\TIMER_project\timer_test_project.uvprojx
-Project File Date:  01/06/2023
+D:\myfolder\stm32\mySTM32project-repo\TIMER_project\timer_test_project.uvprojx
+Project File Date:  01/18/2023
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+*** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_stm32f10x_md.s...
-main.c(4): warning: In file included from...
-./_DMA.h(36): warning: no newline at end of file [-Wnewline-eof]
-                                                                _USART1_DMA_RX_EN()     }
-                                                                                         ^
-main.c(21): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
-        _init_usart1()
-        ^~~~~~~~~~~~~~
-./_UART.h(65): note: expanded from macro '_init_usart1'
-                                                                _USART1_BR_SET()        \
-                                                                ^~~~~~~~~~~~~~~~
-./_UART.h(46): note: expanded from macro '_USART1_BR_SET'
-                                                                 USART1->BRR = (mantissa << 4) | fraction;      }                                                       
-                                                                             ~ ~~~~~~~~~~~~~~~~^~~~~~~~~~
-main.c(26): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-        uint16_t x = 0;
-                 ^
-main.c(6): warning: no previous extern declaration for non-static variable 'Transmit' [-Wmissing-variable-declarations]
-volatile char Transmit[BUFFER_SIZE_1];
-              ^
-main.c(6): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-volatile char Transmit[BUFFER_SIZE_1];
-         ^
-main.c(7): warning: no previous extern declaration for non-static variable 'Receive' [-Wmissing-variable-declarations]
-volatile char Receive[BUFFER_SIZE_1];
-              ^
-main.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-volatile char Receive[BUFFER_SIZE_1];
-         ^
-main.c(1): warning: In file included from...
-./_TIM_CONFIG.h(5): warning: In file included from...
-./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
-            ^
-./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
-static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
-            ^
-7 warnings generated.
-compiling main.c...
-_UART.c(73): warning: no previous prototype for function 'DMA1_Channel4_IRQHandler' [-Wmissing-prototypes]
-void DMA1_Channel4_IRQHandler(void){
-     ^
-_UART.c(73): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void DMA1_Channel4_IRQHandler(void){
-^
-static 
-_UART.c(77): warning: no previous prototype for function 'DMA1_Channel5_IRQHandler' [-Wmissing-prototypes]
-void DMA1_Channel5_IRQHandler(void){
-     ^
-_UART.c(77): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void DMA1_Channel5_IRQHandler(void){
-^
-static 
-_UART.c(6): warning: In file included from...
-./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
-            ^
-./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
-static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
-            ^
-4 warnings generated.
-compiling _UART.c...
-_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-         ^
-_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-^
-1 warning generated.
-compiling _HAL_GPIO.c...
+_TIM_CONFIG.c(1): warning: In file included from...
+./_TIM_CONFIG.h(4): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
 _TIM_CONFIG.c(229): warning: no previous prototype for function 'TIM2_IRQHandler' [-Wmissing-prototypes]
 void TIM2_IRQHandler(void){
      ^
@@ -133,19 +75,142 @@ static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_typ
 ./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
 static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
             ^
-6 warnings generated.
+9 warnings generated.
 compiling _TIM_CONFIG.c...
+main.c(1): warning: In file included from...
+./_I2C.h(4): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+main.c(1): warning: In file included from...
+./_I2C.h(40): warning: unused function 'init_queue' [-Wunused-function]
+static void init_queue(TX_BUFFER *q);
+            ^
+./_I2C.h(41): warning: unused function 'initI2C1_DMA' [-Wunused-function]
+static void initI2C1_DMA(void);
+            ^
+./_I2C.h(43): warning: unused function 'enableTX_DMA' [-Wunused-function]
+static void enableTX_DMA(void);
+            ^
+./_I2C.h(44): warning: unused function 'enableRX_DMA' [-Wunused-function]
+static void enableRX_DMA(void);
+            ^
+main.c(2): warning: In file included from...
+./_TIM_CONFIG.h(5): warning: In file included from...
+./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
+static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
+            ^
+./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
+static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+            ^
+9 warnings generated.
+compiling main.c...
+_HAL_GPIO.c(1): warning: In file included from...
+./_HAL_GPIO.h(4): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+         ^
+_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+^
+4 warnings generated.
+compiling _HAL_GPIO.c...
+_I2C.c(1): warning: In file included from...
+./_I2C.h(4): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+_I2C.c(108): warning: no previous prototype for function 'I2C1_EV_IRQHandler' [-Wmissing-prototypes]
+void I2C1_EV_IRQHandler(void){
+     ^
+_I2C.c(108): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void I2C1_EV_IRQHandler(void){
+^
+static 
+_I2C.c(57): warning: unused function 'enableTX_DMA' [-Wunused-function]
+static void enableTX_DMA(void){ DMA1_Channel6->CCR |= DMA_CCR6_EN;      }
+            ^
+_I2C.c(56): warning: unused function 'enableRX_DMA' [-Wunused-function]
+static void enableRX_DMA(void){ DMA1_Channel7->CCR |= DMA_CCR7_EN;      }
+            ^
+6 warnings generated.
+compiling _I2C.c...
+RTE/Device/STM32F103C8/system_stm32f10x.c(64): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
 RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
 __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
             ^
 RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
     ^
-1 warning generated.
+4 warnings generated.
 compiling system_stm32f10x.c...
+_UART.c(1): warning: In file included from...
+./_UART.h(1): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+_UART.c(73): warning: no previous prototype for function 'DMA1_Channel4_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel4_IRQHandler(void){
+     ^
+_UART.c(73): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel4_IRQHandler(void){
+^
+static 
+_UART.c(77): warning: no previous prototype for function 'DMA1_Channel5_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel5_IRQHandler(void){
+     ^
+_UART.c(77): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel5_IRQHandler(void){
+^
+static 
+_UART.c(6): warning: In file included from...
+./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
+static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
+            ^
+./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
+static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+            ^
+7 warnings generated.
+compiling _UART.c...
 linking...
-Program Size: Code=2924 RO-data=268 RW-data=64 ZI-data=1704  
-".\Objects\timer_test_project.axf" - 0 Error(s), 19 Warning(s).
+Program Size: Code=1824 RO-data=252 RW-data=0 ZI-data=1680  
+".\Objects\timer_test_project.axf" - 0 Error(s), 39 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -164,8 +229,8 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   ./RTE/Device/STM32F103C8
   ./RTE/_Target_1
-  C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/Administrator/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
+  C:/Users/YUSUF/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
@@ -173,8 +238,8 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device/Source/system_stm32f10x.c
-      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
+      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Include file:  RTE_Driver/Config/RTE_Device.h
 Build Time Elapsed:  00:00:01
 </pre>
