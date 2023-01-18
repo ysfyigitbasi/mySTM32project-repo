@@ -2,15 +2,14 @@
 #include "_TIM_CONFIG.h"
 
 
-void init_i2c1(void);
-void i2c_write_single(uint8_t device_address, uint8_t mem_address, uint8_t data);
-void i2c_read(uint8_t device_address, uint8_t* memory, uint8_t length);
 
 TX_BUFFER bufferTX;
+RX_BUFFER bufferRX;
 
 int main(void){
 	
 	initI2C1();
+	char GPS[20];
 	
 	
 	i2c_write_single(0x28,0x55,'C');
@@ -18,6 +17,8 @@ int main(void){
 	while(1){
 		
 		i2c_write_single(0x28,0x55,'C');
+		delayMS(20);
+		i2c_read(0x28,0x12,GPS,20);
 		delayMS(5);
 	}
 	

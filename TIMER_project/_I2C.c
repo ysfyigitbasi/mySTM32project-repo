@@ -1,5 +1,6 @@
 #include "_I2C.h"
-
+//--------------------------------------------------------------------------------------------------------------------
+//-----------------------------------INIT I2C-1-----------------------------------------------------------------------
 void initI2C1(void){
 	
 	RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
@@ -30,13 +31,35 @@ void initI2C1(void){
 	// 7bit addressing mode is enabled by default.
 	
 	initI2C1_DMA();
-	init_queue(&bufferTX);
+
 	
 }
 
+//--------------------------------------------------------------------------------------------------------------------
+//----------------------------------- DMA FUNCTIONS ------------------------------------------------------------------
+
+static void config_DMA_TX(void){
+	DMA1_Channel7->CMAR = (uint32_t)bufferRX.receiveBUFF;
+	DMA1_Channel7->CPAR = (uint32_t)&I2C1->DR;
+	DMA1_Channel7->CNDTR = bufferRX.sizeRX;
+}
+
+static void config_DMA_RX(void){
+	DMA1_Channel6->CMAR = (uint32_t)bufferTX.transmitBUFF;
+	DMA1_Channel6->CPAR = (uint32_t)&I2C1->DR;
+	DMA1_Channel6->CNDTR = bufferTX.sizeTX;	
+}
+
+
 static void initI2C1_DMA(void){
+	
+	init_queue(&bufferTX);
+		
 	RCC->AHBENR |= RCC_AHBENR_DMA1EN;
 	I2C1->CR2 |= I2C_CR2_DMAEN;
+	
+	config_DMA_TX();
+	config_DMA_RX();
 	
 	/*	RECEIVE	*/
 	NVIC_EnableIRQ(DMA1_Channel7_IRQn);
@@ -56,6 +79,7 @@ static void init_queue(TX_BUFFER *q){
 static void enableRX_DMA(void){ DMA1_Channel7->CCR |= DMA_CCR7_EN;	}
 static void enableTX_DMA(void){ DMA1_Channel6->CCR |= DMA_CCR6_EN;	}
 
+
 void i2c_write_single(uint8_t slave_address, uint8_t mem_address, uint8_t data){
 	
 	bufferTX.memory_address = mem_address;
@@ -70,61 +94,43 @@ void i2c_write_single(uint8_t slave_address, uint8_t mem_address, uint8_t data){
 	I2C1->CR1 |= I2C_CR1_START;		// generate start condition.	
 }
 
-/*
-void i2c_read(uint8_t device_address, uint8_t* memory, uint8_t length){
+
+void i2c_read(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_ptr, uint8_t mem_size){
 	
-	uint16_t temp = 0;
-	RCC->AHBENR |= RCC_AHBENR_DMA1EN;
-	I2C1->CR2 |= I2C_CR2_DMAEN;
-	I2C1->CR1 |= I2C_CR1_ACK;
-	DMA1_Channel7->CMAR = (uint32_t)memory;
-	DMA1_Channel7->CPAR = (uint32_t)&I2C1->DR;
-	DMA1_Channel7->CNDTR = length;
-	NVIC_EnableIRQ(DMA1_Channel7_IRQn);
-	DMA1_Channel7->CCR |= DMA_CCR7_TCIE | DMA_CCR7_MINC | DMA_CCR7_EN;
+	bufferTX.device_address = (slave_address < 1);
+	bufferTX.memory_address = sensor_mem_address;
+	bufferRX.receiveBUFF = mem_ptr;
+	bufferRX.sizeRX = mem_size;
+	bufferTX.I2C_MODE = READ;
+	
+	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
+	
+	I2C1->CR1 |= I2C_CR1_PE;
 	
 	I2C1->CR1 |= I2C_CR1_START;
-	
-	while(	!(I2C1->SR1 & I2C_SR1_SB)	)	{}
-	
-	I2C1->DR = device_address + 1;	// when you write, add 1 at LSB.
-	
-	while(	!(I2C1->SR1 & I2C_SR1_ADDR)	)	{}
-		
-	temp = I2C1->SR2;
-		
-	while(	( DMA1->ISR & DMA_ISR_TCIF7 ) == 0	);
-	I2C1->CR1 &= ~I2C_CR1_ACK;	//NACK
-
-	I2C1->CR1 |= I2C_CR1_STOP;	
+				
 }
 
-void DMA1_Channel7_IRQHandler(void){	// I2C1 rx
-	// if i2c1 is used
-	DMA1->IFCR = DMA_IFCR_CTCIF7;
-	DMA1_Channel7->CCR &= ~(uint32_t)DMA_CCR7_EN;
-} */
+
 
 void I2C1_EV_IRQHandler(void){
 	
-	if( I2C1->SR1 & I2C_SR1_SB ){
-		if( (bufferTX.state_TX == STOP) || ( bufferTX.state_TX == READ_ADDRESS) ){
+	if( I2C1->SR1 & I2C_SR1_SB ){			// START BIT FLAG
+		
+		I2C1->DR = bufferTX.device_address;
+		
+		if( bufferTX.state_TX == STOP )
+			bufferTX.state_TX = START;
 			
-			I2C1->DR = bufferTX.device_address;			
-			
-			if( bufferTX.I2C_MODE != READ){
-				bufferTX.state_TX = START;
-			}
-			else{  // READ condition
+		if( bufferTX.state_TX == READ_ADDRESS){
 				I2C1->DR++;
 				bufferTX.state_TX = DMA_RX;
-				//DMA ENABLE
-				
-			}
+				enableRX_DMA();
 		}
 	}
+
 	
-	if( I2C1->SR1 & I2C_SR1_ADDR ){
+	if( I2C1->SR1 & I2C_SR1_ADDR ){			// ADDRESS BIT FLAG
 		if( bufferTX.state_TX == START ){
 			
 			(void) I2C1->SR2;
@@ -139,12 +145,12 @@ void I2C1_EV_IRQHandler(void){
 		}
 	}
 	
-	if( I2C1->SR1 & I2C_SR1_TXE){
+	if( I2C1->SR1 & I2C_SR1_TXE){				// TRANSMIT DATA REG IS EMPTY BIT FLAG
 		
 		if( bufferTX.state_TX == TRANSMIT){
 			
-			I2C1->CR1 |= I2C_CR1_STOP;
-			
+			I2C1->CR1 |= I2C_CR1_STOP;	// GENERATE STOP
+			I2C1->CR1 &= ~I2C_CR1_PE;	//
 			bufferTX.state_TX = STOP;
 		}
 		
@@ -157,4 +163,14 @@ void I2C1_EV_IRQHandler(void){
 		
 	}
 	
+}
+
+void DMA1_Channel7_IRQHandler(void){	// I2C1 rx
+	// if i2c1 is used
+	DMA1->IFCR = DMA_IFCR_CTCIF7;
+	DMA1_Channel7->CCR &= ~(uint32_t)DMA_CCR7_EN;
+	I2C1->CR1 &= ~I2C_CR1_ACK;	//NACK
+	I2C1->CR1 |= I2C_CR1_STOP;	//STOP TRANSMISION
+	bufferTX.state_TX = STOP;
+	I2C1->CR1 &= ~I2C_CR1_PE;
 }
