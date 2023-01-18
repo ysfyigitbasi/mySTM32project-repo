@@ -122,5 +122,4 @@ void I2C1_EV_IRQHandler(void){
 		I2C1->DR = mem_address;		// address to write to------struct TX_char.
 	}
 	
-	
 }
