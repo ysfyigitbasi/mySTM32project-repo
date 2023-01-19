@@ -5,8 +5,6 @@
 //#define I2C1_REMAP
 #define FASTMODE
 #define CLCK_FREQ_MHZ	36
-#define WRITE	2
-#define READ	1
 #define MAX_BUFFER_SIZE_CHAR	40
 #define MAX_BUFFER_SIZE_INT		40
 
@@ -23,29 +21,36 @@ typedef struct{
 }TX_BUFFER;
 
 typedef struct{
-		char receiveData;
+	char receiveData;
 	uint8_t sizeRX;
-	
 	char *receiveBUFF;
-
 }RX_BUFFER;
 
 
 typedef enum{
-	NOT_USED,
-	START,
-	ADDRESS,
-	READ_ADDRESS,
+	SLAVE_ADDRESS,	// FOR WRITE PURPOSES
+	REG_ADDRESS,	// FOR READ PURPOSES
+	RECEIVE,
+	RECEIVE_DMA,
 	TRANSMIT,
+	TRANSMITTED,
 	STOP,
-	DMA_RX
-}txFlags;
+	TRANSMIT_DMA_CMPLT,
+}I2C_STATES;
+
+typedef enum{
+	WRITE,
+	READ,
+	WRITE_DMA,
+	READ_DMA,
+}I2C_MODES;
 
 extern TX_BUFFER bufferTX;
 extern RX_BUFFER bufferRX;
 
 
 void initI2C1(void);
+static void i2c_stop(void);
 
 static void config_DMA_TX(void);
 static void config_DMA_RX(void);
@@ -56,7 +61,10 @@ static void enableTX_DMA(void);
 static void enableRX_DMA(void);
 
 void i2c_write_single(uint8_t slave_address, uint8_t mem_address, uint8_t data);
-void i2c_read(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_ptr, uint8_t mem_size);
+void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_ptr, uint8_t mem_size);
+
+void i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address);
+void i2c_readMULT(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_ptr, uint8_t mem_size);
 
 
 

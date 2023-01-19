@@ -1,7 +1,7 @@
 #include "_I2C.h"
 #include "_TIM_CONFIG.h"
 
-
+#define MESSAGE1	"HELLO_REVEIVER_1"
 
 TX_BUFFER bufferTX;
 RX_BUFFER bufferRX;
@@ -10,6 +10,11 @@ int main(void){
 	
 	initI2C1();
 	char GPS[20];
+	char* single_ptr;
+	char single_rx;
+	
+	single_ptr = &bufferRX.receiveData;
+	single_rx = *single_ptr;
 	
 	
 	i2c_write_single(0x28,0x55,'C');
@@ -18,12 +23,13 @@ int main(void){
 		
 		i2c_write_single(0x28,0x55,'C');
 		delayMS(20);
-		i2c_read(0x28,0x12,GPS,20);
+		i2c_read_single(0x28,0x12);
 		delayMS(5);
+		single_rx = *single_ptr;
+		i2c_writeMULT(0x28,0x30,MESSAGE1,16);
+		delayMS(10);
+		i2c_readMULT(0x28,0x44,GPS,20);
 	}
-	
-	
-
 }
 
 
