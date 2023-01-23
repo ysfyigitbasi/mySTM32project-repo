@@ -24,8 +24,8 @@ void initI2C1(void){
 		I2C1->TRISE |= (CLCK_FREQ_MHZ * 300 / 1000) + 1;
 	#endif
 	
-	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
 	I2C1->CR2 |= I2C_CR2_ITEVTEN | CLCK_FREQ_MHZ;
+	NVIC_EnableIRQ(I2C1_EV_IRQn);
 	
 	// stretch mode enabled by default
 	// 7bit addressing mode is enabled by default.
@@ -39,13 +39,13 @@ void initI2C1(void){
 //----------------------------------- DMA FUNCTIONS ------------------------------------------------------------------
 
 static void config_DMA_RX(void){
-	DMA1_Channel7->CMAR = (uint32_t)bufferRX.receiveBUFF;
+	DMA1_Channel7->CMAR = (uint32_t)&bufferRX.receiveBUFF;
 	DMA1_Channel7->CPAR = (uint32_t)&I2C1->DR;
 	DMA1_Channel7->CNDTR = bufferRX.sizeRX;
 }
 
 static void config_DMA_TX(void){
-	DMA1_Channel6->CMAR = (uint32_t)bufferTX.transmitBUFF;
+	DMA1_Channel6->CMAR = (uint32_t)&bufferTX.transmitBUFF;
 	DMA1_Channel6->CPAR = (uint32_t)&I2C1->DR;
 	DMA1_Channel6->CNDTR = bufferTX.sizeTX;	
 }
@@ -103,10 +103,11 @@ void i2c_write_single(uint8_t slave_address, uint8_t mem_address, uint8_t data){
 	bufferTX.transmitData = data;
 	bufferTX.I2C_MODE = WRITE;
 	
+	I2C1->CR1 |= I2C_CR1_PE;
 	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
 	I2C1->CR2 |= I2C_CR2_ITBUFEN;	// ENABLE TX-RXNE INTERRUPTS
 	I2C1->CR2 &= ~I2C_CR2_LAST;		// DISABLE LAST
-	I2C1->CR1 |= I2C_CR1_PE;
+	
 	
 	I2C1->CR1 |= I2C_CR1_START;		// generate start condition.	
 }
@@ -119,9 +120,8 @@ void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_
 	bufferTX.sizeTX = mem_size;
 	bufferTX.I2C_MODE = WRITE_DMA;
 	
-	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
-	
 	I2C1->CR1 |= I2C_CR1_PE;
+	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
 	
 	I2C1->CR1 |= I2C_CR1_START;	
 }
@@ -135,9 +135,9 @@ void i2c_readMULT(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_p
 	bufferRX.sizeRX = mem_size;
 	bufferTX.I2C_MODE = READ_DMA;
 	
-	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
 	
 	I2C1->CR1 |= I2C_CR1_PE;
+	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
 	
 	I2C1->CR1 |= I2C_CR1_START;
 				
@@ -150,11 +150,12 @@ void i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address){
 	
 	bufferTX.I2C_MODE = READ;
 	
+	I2C1->CR1 |= I2C_CR1_PE;
 	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
 	I2C1->CR2 |= I2C_CR2_ITBUFEN;	// ENABLE TX-RXNE INTERRUPTS
 	I2C1->CR2 &= ~I2C_CR2_LAST;		// DISABLE LAST
-	I2C1->CR1 |= I2C_CR1_PE;
 	
+	//I2C1->CR1 |= I2C_CR1_STOP;	//STOP TRANSMISION
 	I2C1->CR1 |= I2C_CR1_START;		// generate start condition.
 }
 
@@ -169,23 +170,8 @@ void I2C1_EV_IRQHandler(void){
 			I2C1->DR = bufferTX.device_address;			// WRITE PROCESS - slave address
 			bufferTX.state_TX = SLAVE_ADDRESS;
 		}
-		else if( bufferTX.state_TX == REG_ADDRESS )
+		else if( bufferTX.state_TX == REG_ADDRESS ){
 			I2C1->DR = ++bufferTX.device_address;	// READ PROCESS
-		
-		return;
-	}
-
-	if( I2C1->SR1 & I2C_SR1_ADDR ){		// ADDRESS BIT FLAG
-		
-		(void) I2C1->SR2;	// READ SR2 - clear addr flag
-		
-		if( bufferTX.state_TX == SLAVE_ADDRESS ){
-			
-			I2C1->DR = bufferTX.memory_address;		// address to write to reg address of the sensor.
-			bufferTX.state_TX = TRANSMIT;
-		}
-		else{	// reg_address
-			
 			if( bufferTX.I2C_MODE == READ )				// ONE BYTE RECEIVE
 				bufferTX.state_TX = RECEIVE;
 			else{	// read_dma
@@ -193,19 +179,30 @@ void I2C1_EV_IRQHandler(void){
 				enableRX_DMA();
 			}
 		}
-		return;
+	}
+
+	if( I2C1->SR1 & I2C_SR1_ADDR ){		// ADDRESS BIT FLAG
+		
+		uint32_t temp;
+		temp = I2C1->SR2;	// READ SR2 - clear addr flag
 	}
 	
 	if( I2C1->SR1 & I2C_SR1_TXE){				// TRANSMIT DATA REG IS EMPTY BIT FLAG
 		
-		if( bufferTX.state_TX == TRANSMITTED ){
+		if( bufferTX.state_TX == SLAVE_ADDRESS ){
+			
+			I2C1->DR = bufferTX.memory_address;		// address to write to reg address of the sensor.
+			bufferTX.state_TX = TRANSMIT;
+		}
+
+		else if( bufferTX.state_TX == TRANSMITTED ){
 			
 			I2C1->CR1 |= I2C_CR1_STOP;	// GENERATE STOP
 			I2C1->CR1 &= ~I2C_CR1_PE;	// DISABLE I2C
 			bufferTX.state_TX = STOP;
 		}
 		
-		if( bufferTX.state_TX == TRANSMIT){
+		else if( bufferTX.state_TX == TRANSMIT){
 			
 			if( bufferTX.I2C_MODE == WRITE ){
 				
@@ -219,8 +216,7 @@ void I2C1_EV_IRQHandler(void){
 				bufferTX.state_TX = REG_ADDRESS;
 				I2C1->CR1 |= I2C_CR1_START;	// generate restart condition
 			}
-		}
-		return;	
+		}	
 	}
 	
 	if( I2C1->SR1 & I2C_SR1_RXNE){
@@ -230,19 +226,17 @@ void I2C1_EV_IRQHandler(void){
 			I2C1->CR1 &= ~I2C_CR1_ACK;
 			i2c_stop();
 		}
-	
-	
 	}
 	
 	if( I2C1->SR1 & I2C_SR1_BTF){
 		
 		if( bufferTX.state_TX == TRANSMIT_DMA_CMPLT ){
 			i2c_stop();
-		}
-		return;	
+		}	
 	}
 }
-		
+
+//********************* | DMA IRQ HANDLER FUNCTIONS | **************************************
 void DMA1_Channel7_IRQHandler(void){	// I2C1 rx
 	// if i2c1 is used
 	DMA1->IFCR = DMA_IFCR_CTCIF7;
