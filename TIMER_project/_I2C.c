@@ -26,6 +26,7 @@ void initI2C1(void){
 	
 	I2C1->CR2 |= I2C_CR2_ITEVTEN | CLCK_FREQ_MHZ;
 	NVIC_EnableIRQ(I2C1_EV_IRQn);
+	NVIC_SetPriority(I2C1_EV_IRQn, 3);
 	
 	// stretch mode enabled by default
 	// 7bit addressing mode is enabled by default.
@@ -39,9 +40,7 @@ void initI2C1(void){
 //----------------------------------- DMA FUNCTIONS ------------------------------------------------------------------
 
 static void config_DMA_RX(void){
-	DMA1_Channel7->CMAR = (uint32_t)&bufferRX.receiveBUFF;
-	DMA1_Channel7->CPAR = (uint32_t)&I2C1->DR;
-	DMA1_Channel7->CNDTR = bufferRX.sizeRX;
+
 }
 
 static void config_DMA_TX(void){
@@ -131,8 +130,9 @@ void i2c_readMULT(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_p
 	bufferTX.device_address = (uint8_t)(slave_address << 1);
 	bufferTX.memory_address = sensor_mem_address;
 	
-	bufferRX.receiveBUFF = mem_ptr;
-	bufferRX.sizeRX = mem_size;
+	DMA1_Channel7->CNDTR = mem_size;
+	DMA1_Channel7->CMAR = (uint32_t)mem_ptr;
+	DMA1_Channel7->CPAR = (uint32_t)&I2C1->DR;
 	bufferTX.I2C_MODE = READ_DMA;
 	
 	
@@ -161,7 +161,6 @@ void i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address){
 
 
 // ********************************* INTERRUPT SERVISE ROUTINE FUNCTIONS *****************************
-
 void I2C1_EV_IRQHandler(void){
 	
 	if( I2C1->SR1 & I2C_SR1_SB ){			// START BIT FLAG
@@ -171,7 +170,7 @@ void I2C1_EV_IRQHandler(void){
 			bufferTX.state_TX = SLAVE_ADDRESS;
 		}
 		else if( bufferTX.state_TX == REG_ADDRESS ){
-			I2C1->DR = ++bufferTX.device_address;	// READ PROCESS
+			I2C1->DR = bufferTX.device_address + 1;	// READ PROCESS
 			if( bufferTX.I2C_MODE == READ )				// ONE BYTE RECEIVE
 				bufferTX.state_TX = RECEIVE;
 			else{	// read_dma

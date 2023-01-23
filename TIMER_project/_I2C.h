@@ -22,7 +22,7 @@ typedef struct{
 
 typedef struct{
 	char receiveData;
-	uint8_t sizeRX;
+	//uint8_t *sizeRX;
 	char *receiveBUFF;
 }RX_BUFFER;
 
