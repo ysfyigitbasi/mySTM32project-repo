@@ -106,11 +106,33 @@ void i2c_write_single(uint8_t slave_address, uint8_t mem_address, uint8_t data){
 }
 
 void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_ptr, uint8_t mem_size){
-		
+	
+	DMA1_Channel6->CNDTR = mem_size;
+	DMA1_Channel6->CMAR = (uint32_t)mem_ptr;
+	DMA1_Channel6->CPAR = (uint32_t)&I2C1->DR;
+	enableTX_DMA();
+	
 	I2C1->CR1 |= I2C_CR1_PE;
 	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
+	I2C1->CR1 |= I2C_CR1_START;
 	
-	I2C1->CR1 |= I2C_CR1_START;	
+	while(!(I2C1->SR1 & I2C_SR1_SB));
+	
+	I2C1->DR = (uint8_t)(slave_address << 1);
+	
+	while(!(I2C1->SR1 & I2C_SR1_ADDR));	// send address
+	
+	(void)I2C1->SR2;
+	
+	I2C1->DR = sensor_mem_address;
+	
+	while(!(I2C1->SR1 & I2C_SR1_TXE));	// wait for transfer
+	
+	while(!(DMA1->ISR & DMA_ISR_TCIF6));
+	
+	disableTX_DMA();
+	i2c_stop();
+
 }
 
 void i2c_readMULT(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_ptr, uint8_t mem_size){
@@ -152,12 +174,41 @@ void i2c_readMULT(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_p
 	i2c_stop();
 }
 
-void i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address){
+char i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address){
 		
+	char temp;
 	I2C1->CR1 |= I2C_CR1_PE;
-	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK
-	I2C1->CR2 |= I2C_CR2_ITBUFEN;	// ENABLE TX-RXNE INTERRUPTS
+	I2C1->CR1 |= I2C_CR1_ACK;	//ENABLE ACK	
+	I2C1->CR1 |= I2C_CR1_START;	// generate start condition.
 	
-	//I2C1->CR1 |= I2C_CR1_STOP;	//STOP TRANSMISION
-	I2C1->CR1 |= I2C_CR1_START;		// generate start condition.
+	while(!(I2C1->SR1 & I2C_SR1_SB));
+	
+	I2C1->DR = (uint8_t)(slave_address << 1);
+	
+	while(!(I2C1->SR1 & I2C_SR1_ADDR));	// send address
+	
+	(void)I2C1->SR2;
+	
+	I2C1->DR = sensor_mem_address;
+	
+	while(!(I2C1->SR1 & I2C_SR1_TXE));	// wait for transfer
+	
+	I2C1->CR1 |= I2C_CR1_START;
+	
+	while(!(I2C1->SR1 & I2C_SR1_SB));
+	
+	I2C1->DR = (uint8_t)((slave_address << 1) + 1);
+	
+	while(!(I2C1->SR1 & I2C_SR1_ADDR));	// send address
+	
+	(void)I2C1->SR2;
+	
+	while(!(I2C1->SR1 & I2C_SR1_RXNE));
+	temp = (char)I2C1->DR;
+	
+	
+	disableRX_DMA();
+	I2C1->CR1 &= ~I2C_CR1_ACK;	//NACK- unnecessary - I'm going to test it without writing this line.
+	i2c_stop();
+	return temp;
 }

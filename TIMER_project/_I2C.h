@@ -23,7 +23,7 @@ static void disableTX_DMA(void);
 void i2c_write_single(uint8_t slave_address, uint8_t mem_address, uint8_t data);
 void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_ptr, uint8_t mem_size);
 
-void i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address);
+char i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address);
 void i2c_readMULT(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_ptr, uint8_t mem_size);
 
 
