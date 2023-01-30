@@ -45,7 +45,7 @@
 #define	BMP388_CMD				0x7E	// Command register sub-address
      
 	 
-#define sea_level_pressure 		1013.25f	 
+#define sea_level_pressure 		1013.25	 
 //************************| BMP388_DEV Modes |******************************************
 enum Mode{          // Device mode bitfield in the control and measurement register 
 	SLEEP_MODE          	 = 0x00,
@@ -210,30 +210,34 @@ uint8_t begin(uint8_t mode, uint8_t iirFilter, uint8_t timeStand, uint8_t presOS
 // *****| SET FUNCTIONS |*****
 
 // set registers..
-static void setMode(uint8_t mode);			// Set the barometer mode
-static void setIIRFilter(uint8_t iirCoef);		// Set the IIR filter setting: OFF, 2, 3, 8, 16, 32
-static void setTimeStandby(uint8_t timeStandby); 	// Set the time standby measurement interval: 5, 62, 125, 250, 500ms...
-static void setOversamplingRegister(uint8_t pressOSR, uint8_t tempOSR); 	// pressure and temperature
+static void setMode(enum Mode mode);			// Set the barometer mode 
+static void setIIRFilter(enum IIRFilter iirCoef);		// Set the IIR filter setting: OFF, 2, 3, 8, 16, 32
+static void setTimeStandby(enum TimeStandby standby_t); 	// Set the time standby measurement interval: 5, 62, 125, 250, 500ms...
+static void setOversamplingRegister(enum Oversampling pressOSR, enum Oversampling tempOSR); 	// pressure and temperature
 // INTERRUPTS
-static void setIntOutputDrive(void);// Sets the interrupt pin's output drive, PUSH_PULL OR OPEN_DRAIN, default PUSH_PULL
+static void setInterrupts(enum OutputDrive gpio, enum ActiveLevel active_L_H, enum LatchConfig irqLatch); 
+
+/*
+static void setIntOutputDrive(enum OutputDrive state );// Sets the interrupt pin's output drive, PUSH_PULL OR OPEN_DRAIN, default PUSH_PULL
 static void setIntActiveLevel(void);// Set the interrupt active level, ACTIVE_LOW or ACTIVE_HIGH, default ACTIVE_HIGH
 static void setIntLatchConfig(void);// Set the interrupt latch, UNLATCHED or LATCHED, default UNLATCHED
+*/
 
 // ACTIONS
 uint8_t reset(void);				// Soft reset the barometer
 void enableInterrupt(void);
-void disableInterrupt(void);	// Disable the BMP388's interrupt pin
+void disableInterrupt(void);		// Disable the BMP388's interrupt pin
 
 // *****| GET FUNCTIONS |*****
 // measurements
 static uint8_t dataReady(void);		// Checks if a measurement is ready
-void getTemperature(float* temperature);						// Get a temperature measurement
-void getPressure(float* pressure);								// Get a pressure measurement
-void getTempPres(float* temperature,	float* pressure);		
-void getAltitude(float* altitude);								// Get an altitude measurement
-void getMeasurements(float* temperature, float* pressure, float* altitude);
+//void getTemperature(float* temperature);						// Get a temperature measurement
+//void getPressure(float* pressure);							// Get a pressure measurement
+uint8_t getTempPres(double* temperature,	double* pressure);		
+int8_t getAltitude(double* altitude);							// Get an altitude measurement
+void getMeasurements(double* temperature, double* pressure, double* altitude);
 void calcCoefPARAM(void);
 
-float bmp388_compensate_temp(float* uncomp_temp);				// Bosch temperature compensation function
-float bmp388_compensate_press(float* uncomp_press,float* t_lin);// Bosch pressure compensation function		
+double bmp388_compensate_temp(int32_t uncomp_temp);				// Bosch temperature compensation function
+double bmp388_compensate_press(int32_t uncomp_press,double t_lin);// Bosch pressure compensation function		
 #endif

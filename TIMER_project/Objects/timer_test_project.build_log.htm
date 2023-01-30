@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 D:\myfolder\stm32\mySTM32project-repo\TIMER_project\timer_test_project.uvprojx
-Project File Date:  01/18/2023
+Project File Date:  01/26/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
@@ -39,7 +39,7 @@ C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\s
 C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
   *           - Macros to access peripheral<92>s registers hardware
                                            ^
-main.c(50): warning: address of stack memory associated with local variable 'ax' returned [-Wreturn-stack-address]
+main.c(51): warning: address of stack memory associated with local variable 'ax' returned [-Wreturn-stack-address]
         return ax;
                ^~
 main.c(1): warning: In file included from...
@@ -69,42 +69,27 @@ static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_typ
 ./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
 static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
             ^
-12 warnings generated.
+main.c(3): warning: In file included from...
+./_BMP388.h(213): warning: unused function 'setMode' [-Wunused-function]
+static void setMode(enum Mode mode);                    // Set the barometer mode 
+            ^
+./_BMP388.h(214): warning: unused function 'setIIRFilter' [-Wunused-function]
+static void setIIRFilter(enum IIRFilter iirCoef);               // Set the IIR filter setting: OFF, 2, 3, 8, 16, 32
+            ^
+./_BMP388.h(215): warning: unused function 'setTimeStandby' [-Wunused-function]
+static void setTimeStandby(enum TimeStandby standby_t);         // Set the time standby measurement interval: 5, 62, 125, 250, 500ms...
+            ^
+./_BMP388.h(216): warning: unused function 'setOversamplingRegister' [-Wunused-function]
+static void setOversamplingRegister(enum Oversampling pressOSR, enum Oversampling tempOSR);     // pressure and temperature
+            ^
+./_BMP388.h(218): warning: unused function 'setInterrupts' [-Wunused-function]
+static void setInterrupts(enum OutputDrive gpio, enum ActiveLevel active_L_H, enum LatchConfig irqLatch); 
+            ^
+./_BMP388.h(233): warning: unused function 'dataReady' [-Wunused-function]
+static uint8_t dataReady(void);         // Checks if a measurement is ready
+               ^
+18 warnings generated.
 compiling main.c...
-_UART.c(1): warning: In file included from...
-./_UART.h(1): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-_UART.c(73): warning: no previous prototype for function 'DMA1_Channel4_IRQHandler' [-Wmissing-prototypes]
-void DMA1_Channel4_IRQHandler(void){
-     ^
-_UART.c(73): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void DMA1_Channel4_IRQHandler(void){
-^
-static 
-_UART.c(77): warning: no previous prototype for function 'DMA1_Channel5_IRQHandler' [-Wmissing-prototypes]
-void DMA1_Channel5_IRQHandler(void){
-     ^
-_UART.c(77): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void DMA1_Channel5_IRQHandler(void){
-^
-static 
-_UART.c(6): warning: In file included from...
-./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
-            ^
-./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
-static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
-            ^
-7 warnings generated.
-compiling _UART.c...
 RTE/Device/STM32F103C8/system_stm32f10x.c(64): warning: In file included from...
 C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
   *              - To use or not the peripheral<92>s drivers in application code(i.e. 
@@ -123,43 +108,6 @@ __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9}
     ^
 4 warnings generated.
 compiling system_stm32f10x.c...
-_I2C.c(1): warning: In file included from...
-./_I2C.h(4): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-_I2C.c(108): warning: unused parameter 'slave_address' [-Wunused-parameter]
-void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_ptr, uint8_t mem_size){
-                           ^
-_I2C.c(108): warning: unused parameter 'sensor_mem_address' [-Wunused-parameter]
-void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_ptr, uint8_t mem_size){
-                                                  ^
-_I2C.c(108): warning: unused parameter 'mem_ptr' [-Wunused-parameter]
-void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_ptr, uint8_t mem_size){
-                                                                            ^
-_I2C.c(108): warning: unused parameter 'mem_size' [-Wunused-parameter]
-void i2c_writeMULT(uint8_t slave_address, uint8_t sensor_mem_address, char* mem_ptr, uint8_t mem_size){
-                                                                                             ^
-_I2C.c(155): warning: unused parameter 'slave_address' [-Wunused-parameter]
-void i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address){
-                              ^
-_I2C.c(155): warning: unused parameter 'sensor_mem_address' [-Wunused-parameter]
-void i2c_read_single( uint8_t slave_address, uint8_t sensor_mem_address){
-                                                     ^
-_I2C.c(64): warning: unused function 'enableTX_DMA' [-Wunused-function]
-static void enableTX_DMA(void){DMA1_Channel6->CCR |= DMA_CCR6_EN;}
-            ^
-_I2C.c(69): warning: unused function 'disableTX_DMA' [-Wunused-function]
-static void disableTX_DMA(void){
-            ^
-11 warnings generated.
-compiling _I2C.c...
 _TIM_CONFIG.c(1): warning: In file included from...
 ./_TIM_CONFIG.h(4): warning: In file included from...
 C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
@@ -209,6 +157,53 @@ static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pi
             ^
 9 warnings generated.
 compiling _TIM_CONFIG.c...
+_I2C.c(1): warning: In file included from...
+./_I2C.h(4): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+3 warnings generated.
+compiling _I2C.c...
+_UART.c(1): warning: In file included from...
+./_UART.h(1): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+_UART.c(73): warning: no previous prototype for function 'DMA1_Channel4_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel4_IRQHandler(void){
+     ^
+_UART.c(73): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel4_IRQHandler(void){
+^
+static 
+_UART.c(77): warning: no previous prototype for function 'DMA1_Channel5_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel5_IRQHandler(void){
+     ^
+_UART.c(77): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel5_IRQHandler(void){
+^
+static 
+_UART.c(6): warning: In file included from...
+./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
+static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
+            ^
+./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
+static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+            ^
+7 warnings generated.
+compiling _UART.c...
 _HAL_GPIO.c(1): warning: In file included from...
 ./_HAL_GPIO.h(4): warning: In file included from...
 C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
@@ -228,9 +223,124 @@ uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
 ^
 4 warnings generated.
 compiling _HAL_GPIO.c...
+_BMP388.c(1): warning: In file included from...
+./_BMP388.h(4): warning: In file included from...
+./_I2C.h(4): warning: In file included from...
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+_BMP388.c(9): warning: declaration shadows a variable in the global scope [-Wshadow]
+uint8_t begin(uint8_t mode, uint8_t iirFilter, uint8_t timeStand, uint8_t presOSR, uint8_t tempOSR){
+                      ^
+./_BMP388.h(196): note: previous declaration is here
+extern enum Mode mode;
+                 ^
+_BMP388.c(9): warning: declaration shadows a variable in the global scope [-Wshadow]
+uint8_t begin(uint8_t mode, uint8_t iirFilter, uint8_t timeStand, uint8_t presOSR, uint8_t tempOSR){
+                                    ^
+./_BMP388.h(199): note: previous declaration is here
+extern enum IIRFilter iirFilter;
+                      ^
+_BMP388.c(16): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        char chipId;
+             ^
+_BMP388.c(32): warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+        i2c_readMULT(BMP388_I2C_ADDR, BMP388_TRIM_PARAMS, (uint8_t*)&calibINT, sizeof(calibINT));
+                                                          ^~~~~~~~~~~~~~~~~~~
+./_I2C.h(27): note: passing argument to parameter 'mem_ptr' here
+void i2c_readMULT(uint8_t slave_address, uint8_t sensor_mem_address, char *mem_ptr, uint8_t mem_size);
+                                                                           ^
+_BMP388.c(1): warning: In file included from...
+./_BMP388.h(117): warning: padding struct 'calibINTCoefficents' with 1 byte to align 'param_P1' [-Wpadded]
+        int16_t  param_P1;
+                 ^
+_BMP388.c(36): warning: shift count >= width of type [-Wshift-count-overflow]
+        calibFLOAT.param_T3 = (double)calibINT.param_T3 / (int64_t)(1 << 48);
+                                                                      ^  ~~
+_BMP388.c(39): warning: shift count >= width of type [-Wshift-count-overflow]
+        calibFLOAT.param_P3 = (double)calibINT.param_P3 / (int64_t)(1 << 32);
+                                                                      ^  ~~
+_BMP388.c(40): warning: shift count >= width of type [-Wshift-count-overflow]
+        calibFLOAT.param_P4 = (double)calibINT.param_P4 / (int64_t)(1 << 37);
+                                                                      ^  ~~
+_BMP388.c(45): warning: shift count >= width of type [-Wshift-count-overflow]
+        calibFLOAT.param_P9 = (double)calibINT.param_P9 / (int64_t)(1 << 48);
+                                                                      ^  ~~
+_BMP388.c(46): warning: shift count >= width of type [-Wshift-count-overflow]
+        calibFLOAT.param_P10 = (double)calibINT.param_P10 / (int64_t)(1 << 48);
+                                                                        ^  ~~
+_BMP388.c(47): warning: shift count >= width of type [-Wshift-count-overflow]
+        calibFLOAT.param_P11 = (double)(calibINT.param_P11 / (int8_t) (1 << 5)) / (int64_t)(1 << 60);
+                                                                                              ^  ~~
+_BMP388.c(50): warning: declaration shadows a variable in the global scope [-Wshadow]
+void setMode(enum Mode mode){
+                       ^
+./_BMP388.h(196): note: previous declaration is here
+extern enum Mode mode;
+                 ^
+_BMP388.c(52): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        uint8_t modeSelect = (mode << 4) | (0x03) ; //Mode is 2 bit, shifting 4 times to (write temp_en ve pres_en denenecek)
+                ~~~~~~~~~~   ~~~~~~~~~~~~^~~~~~~~
+_BMP388.c(58): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        uint8_t iirCoefSelect = iirCoef << 1;
+                ~~~~~~~~~~~~~   ~~~~~~~~^~~~
+_BMP388.c(71): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        uint8_t overSamplingSelector = (pressOSR) | (tempOSR<<3);
+                ~~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~^~~~~~~~~~~~~~
+_BMP388.c(78): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        uint8_t interruptBits = (irqLatch << 2) | (active_L_H << 1) | (gpio) | (1<<6);
+                ~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+_BMP388.c(101): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        char data[6];
+             ^
+_BMP388.c(118): warning: variable 'pressure' is uninitialized when used here [-Wuninitialized]
+        if( !(getTempPres(temperature,pressure)) )
+                                      ^~~~~~~~
+_BMP388.c(115): note: initialize the variable 'pressure' to silence this warning
+        double *pressure;
+                        ^
+                         = 0
+_BMP388.c(118): warning: variable 'temperature' is uninitialized when used here [-Wuninitialized]
+        if( !(getTempPres(temperature,pressure)) )
+                          ^~~~~~~~~~~
+_BMP388.c(116): note: initialize the variable 'temperature' to silence this warning
+        double *temperature;
+                           ^
+                            = 0
+_BMP388.c(1): warning: In file included from...
+./_BMP388.h(4): warning: In file included from...
+./_I2C.h(14): warning: unused function 'i2c_stop' [-Wunused-function]
+static void i2c_stop(void);
+            ^
+./_I2C.h(16): warning: unused function 'initI2C1_DMA' [-Wunused-function]
+static void initI2C1_DMA(void);
+            ^
+./_I2C.h(18): warning: unused function 'enableTX_DMA' [-Wunused-function]
+static void enableTX_DMA(void);
+            ^
+./_I2C.h(19): warning: unused function 'enableRX_DMA' [-Wunused-function]
+static void enableRX_DMA(void);
+            ^
+./_I2C.h(20): warning: unused function 'disableRX_DMA' [-Wunused-function]
+static void disableRX_DMA(void);
+            ^
+./_I2C.h(21): warning: unused function 'disableTX_DMA' [-Wunused-function]
+static void disableTX_DMA(void);
+            ^
+_BMP388.c(76): warning: unused function 'setInterrupts' [-Wunused-function]
+void setInterrupts(enum OutputDrive gpio, enum ActiveLevel active_L_H, enum LatchConfig irqLatch){
+     ^
+29 warnings generated.
+compiling _BMP388.c...
 linking...
 Program Size: Code=2564 RO-data=252 RW-data=0 ZI-data=1640  
-".\Objects\timer_test_project.axf" - 0 Error(s), 47 Warning(s).
+".\Objects\timer_test_project.axf" - 0 Error(s), 74 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -258,9 +368,9 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
+      Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/system_stm32f10x.c
-      Include file:  RTE_Driver/Config/RTE_Device.h
 Build Time Elapsed:  00:00:01
 </pre>
 </body>
