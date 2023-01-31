@@ -445,6 +445,26 @@
               <FileType>1</FileType>
               <FilePath>.\_BMP388.c</FilePath>
             </File>
+            <File>
+              <FileName>bno055.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bno055.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bno055.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\bno055.h</FilePath>
+            </File>
+            <File>
+              <FileName>bno055_stm32.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\bno055_stm32.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

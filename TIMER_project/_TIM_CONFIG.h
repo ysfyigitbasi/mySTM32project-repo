@@ -13,7 +13,7 @@ knowledge:
 
 //************ || ENABLE THE TIMERS	|| ********************
 //#define _TIM1_EN()			{TIM1->CR1 |= TIM_CR1_CEN;}
-#define _TIM2_EN()				{TIM2->CR1 |= TIM_CR1_CEN;}
+//#define _TIM2_EN()				{TIM2->CR1 |= TIM_CR1_CEN;}
 //#define _TIM3_EN()			{TIM3->CR1 |= TIM_CR1_CEN;}
 //#define _TIM4_EN()			{TIM4->CR1 |= TIM_CR1_CEN;}
 
