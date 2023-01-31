@@ -155,6 +155,14 @@
 #define BNO055_GYR_AM_THRESH 0x1E
 #define BNO055_GYR_AM_SET 0x1F
 
+// ****************************|  USER DEFINES  |******************************************
+//#define LAUNCH	1
+#define CALIBRATED_FULLY 	(uint8_t)0xFF
+#define CALIBRATED_GYRO		(uint8_t)0x30
+#define CALIBRATED_ACC		(uint8_t)0x0C
+#define CALIBRATED_MAG		(uint8_t)0x03
+//*****************************************************************************************
+
 enum bno055_system_status_t {
   BNO055_SYSTEM_STATUS_IDLE = 0x00,
   BNO055_SYSTEM_STATUS_SYSTEM_ERROR = 0x01,
@@ -165,7 +173,7 @@ enum bno055_system_status_t {
   BNO055_SYSTEM_STATUS_FUSION_ALOG_NOT_RUNNING = 0x06
 };
 
-typedef enum {  // BNO-55 operation modes
+enum bno055_opmode_t{  // BNO-55 operation modes
   BNO055_OPERATION_MODE_CONFIG = 0x00,
   // Sensor Mode
   BNO055_OPERATION_MODE_ACCONLY,
@@ -181,14 +189,9 @@ typedef enum {  // BNO-55 operation modes
   BNO055_OPERATION_MODE_M4G,
   BNO055_OPERATION_MODE_NDOF_FMC_OFF,
   BNO055_OPERATION_MODE_NDOF  // 0x0C
-} bno055_opmode_t;
+};
 
-typedef struct {
-  uint8_t mcuState;
-  uint8_t gyrState;
-  uint8_t magState;
-  uint8_t accState;
-} bno055_self_test_result_t;
+extern enum bno055_opmode_t OPMODE;
 
 typedef struct {
   uint8_t sys;
@@ -275,24 +278,22 @@ void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len);
 void bno055_delay(int time);
 
 void bno055_reset(void);
-bno055_opmode_t bno055_getOperationMode(void);
-void bno055_setOperationMode(bno055_opmode_t mode);
-void bno055_setOperationModeConfig(void);
-void bno055_setOperationModeNDOF(void);
-void bno055_enableExternalCrystal(void);
-void bno055_disableExternalCrystal(void);
-int8_t bno055_setup(void);
-void bno055_setPage( uint8_t page);
+enum bno055_opmode_t getOperationMode(void);
+void setOperationMode(enum bno055_opmode_t mode);
+void enableExternalCrystal(void);
+void disableExternalCrystal(void);
+int8_t bno055_setup(enum bno055_opmode_t opmode);
+void setPage( uint8_t page);
 
-int8_t bno055_getTemp(void);
+int8_t getTemp(void);
 
-uint8_t bno055_getBootloaderRevision(void);
+uint8_t getBootloaderRevision(void);
 enum bno055_system_status_t getSystemStatus(void);
-uint8_t bno055_getSystemError(void);
-int16_t bno055_getSWRevision(void);
+uint8_t getSystemError(void);
+int16_t getSWRevision(void);
 
-bno055_self_test_result_t bno055_getSelfTestResult(void);
-bno055_calibration_state_t bno055_getCalibrationState(void);
+uint8_t getSelfTestResult(void);
+uint8_t getCalibrationState(void);
 bno055_calibration_data_t bno055_getCalibrationData(void);
 void bno055_setCalibrationData(bno055_calibration_data_t calData);
 bno055_vector_t bno055_getVectorAccelerometer(void);

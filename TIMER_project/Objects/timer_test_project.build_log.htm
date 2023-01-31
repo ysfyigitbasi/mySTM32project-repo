@@ -3,66 +3,31 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.38.0.0
+IDE-Version: µVision V5.37.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Yusuf Yigitbasi, Hacettepe, LIC=----
+License Information: Yusuf Yigitbasi, Kellesi, LIC=----
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.38.0.0
+Toolchain:       MDK-Lite  Version: 5.37.0.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.19
-Assembler:       Armasm.exe V6.19
-Linker/Locator:  ArmLink.exe V6.19
-Library Manager: ArmAr.exe V6.19
-Hex Converter:   FromElf.exe V6.19
-CPU DLL:         SARMCM3.DLL V5.38.0.0
+C Compiler:      ArmClang.exe V6.18
+Assembler:       Armasm.exe V6.18
+Linker/Locator:  ArmLink.exe V6.18
+Library Manager: ArmAr.exe V6.18
+Hex Converter:   FromElf.exe V6.18
+CPU DLL:         SARMCM3.DLL V5.37.0.0
 Dialog DLL:      DCM.DLL V1.17.5.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
-Dialog DLL:      TCM.DLL V1.56.4.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
+Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
-D:\myfolder\stm32\mySTM32project-repo\TIMER_project\timer_test_project.uvprojx
+D:\mystm32Project\mySTM32project-repo\TIMER_project\timer_test_project.uvprojx
 Project File Date:  01/31/2023
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+*** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
-test.c(6): warning: unused parameter 'time' [-Wunused-parameter]
-void bno055_delay(int time) {
-                      ^
-test.c(9): warning: unused parameter 'reg' [-Wunused-parameter]
-void bno055_writeData(uint8_t reg, uint8_t data) {
-                              ^
-test.c(9): warning: unused parameter 'data' [-Wunused-parameter]
-void bno055_writeData(uint8_t reg, uint8_t data) {
-                                           ^
-test.c(12): warning: unused parameter 'reg' [-Wunused-parameter]
-void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
-                             ^
-test.c(12): warning: unused parameter 'data' [-Wunused-parameter]
-void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
-                                           ^
-test.c(12): warning: unused parameter 'len' [-Wunused-parameter]
-void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
-                                                         ^
-test.c(15): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-int main() {
-        ^
-         void
-7 warnings generated.
-compiling test.c...
-_TIM_CONFIG.c(1): warning: In file included from...
-./_TIM_CONFIG.h(4): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-_TIM_CONFIG.c(138): error: call to undeclared function '_TIM2_EN'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+_TIM_CONFIG.c(138): warning: implicit declaration of function '_TIM2_EN' is invalid in C99 [-Wimplicit-function-declaration]
         _TIM2_EN()
         ^
 _TIM_CONFIG.c(138): error: expected ';' after expression
@@ -97,67 +62,8 @@ _TIM_CONFIG.c(254): note: declare 'static' if the function is not intended to be
 void SysTick_Handler(void){
 ^
 static 
-7 warnings and 2 errors generated.
+5 warnings and 1 error generated.
 compiling _TIM_CONFIG.c...
-_UART.c(1): warning: In file included from...
-./_UART.h(1): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-_UART.c(73): warning: no previous prototype for function 'DMA1_Channel4_IRQHandler' [-Wmissing-prototypes]
-void DMA1_Channel4_IRQHandler(void){
-     ^
-_UART.c(73): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void DMA1_Channel4_IRQHandler(void){
-^
-static 
-_UART.c(77): warning: no previous prototype for function 'DMA1_Channel5_IRQHandler' [-Wmissing-prototypes]
-void DMA1_Channel5_IRQHandler(void){
-     ^
-_UART.c(77): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void DMA1_Channel5_IRQHandler(void){
-^
-static 
-_UART.c(6): warning: In file included from...
-./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
-            ^
-./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
-static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
-            ^
-7 warnings generated.
-compiling _UART.c...
-assembling startup_stm32f10x_md.s...
-_I2C.c(1): warning: In file included from...
-./_I2C.h(4): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-3 warnings generated.
-compiling _I2C.c...
-main.c(1): warning: In file included from...
-./_I2C.h(4): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
 main.c(51): warning: address of stack memory associated with local variable 'ax' returned [-Wreturn-stack-address]
         return ax;
                ^~
@@ -207,37 +113,40 @@ static void setInterrupts(enum OutputDrive gpio, enum ActiveLevel active_L_H, en
 ./_BMP388.h(233): warning: unused function 'dataReady' [-Wunused-function]
 static uint8_t dataReady(void);         // Checks if a measurement is ready
                ^
-18 warnings generated.
+15 warnings generated.
 compiling main.c...
-RTE/Device/STM32F103C8/system_stm32f10x.c(64): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+_UART.c(73): warning: no previous prototype for function 'DMA1_Channel4_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel4_IRQHandler(void){
+     ^
+_UART.c(73): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel4_IRQHandler(void){
+^
+static 
+_UART.c(77): warning: no previous prototype for function 'DMA1_Channel5_IRQHandler' [-Wmissing-prototypes]
+void DMA1_Channel5_IRQHandler(void){
+     ^
+_UART.c(77): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DMA1_Channel5_IRQHandler(void){
+^
+static 
+_UART.c(6): warning: In file included from...
+./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
+static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
             ^
-RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-    ^
+./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
+static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+            ^
 4 warnings generated.
-compiling system_stm32f10x.c...
-bno055.c(2): warning: In file included from...
-./_I2C.h(4): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
+compiling _UART.c...
+_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+         ^
+_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
+^
+1 warning generated.
+compiling _HAL_GPIO.c...
+compiling _I2C.c...
 bno055.c(6): warning: no previous extern declaration for non-static variable 'accelScale' [-Wmissing-variable-declarations]
 uint16_t accelScale = 100;
          ^
@@ -274,141 +183,46 @@ uint16_t quaScale = (1<<14);    // 2^14
 bno055.c(11): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 uint16_t quaScale = (1<<14);    // 2^14
 ^
-bno055.c(17): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-        char chip_id = 0x00;
-             ^
-bno055.c(74): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-  char buffer[2];
-       ^
-bno055.c(89): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_self_test_result_t bno055_getSelfTestResult() {
-                                                  ^
-                                                   void
-bno055.c(91): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-  char tmp;
-       ^
-bno055.c(102): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-uint8_t bno055_getSystemError() {
-                             ^
-                              void
-bno055.c(104): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-  uint8_t tmp;
-          ^
-bno055.c(109): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_calibration_state_t bno055_getCalibrationState() {
-                                                     ^
-                                                      void
-bno055.c(111): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
-  bno055_calibration_state_t cal = {.sys = 0, .gyro = 0, .mag = 0, .accel = 0};
-                             ^
-bno055.c(122): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_calibration_data_t bno055_getCalibrationData() {
-                                                   ^
-                                                    void
-bno055.c(166): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+bno055.c(157): error: must use 'enum' tag to refer to type 'bno055_opmode_t'
+  bno055_opmode_t operationMode = bno055_getOperationMode();
+  ^
+  enum 
+bno055.c(157): warning: implicit declaration of function 'bno055_getOperationMode' is invalid in C99 [-Wimplicit-function-declaration]
+  bno055_opmode_t operationMode = bno055_getOperationMode();
+                                  ^
+bno055.c(157): warning: implicit conversion loses integer precision: 'int' to 'enum bno055_opmode_t' [-Wimplicit-int-conversion]
+  bno055_opmode_t operationMode = bno055_getOperationMode();
+                  ~~~~~~~~~~~~~   ^~~~~~~~~~~~~~~~~~~~~~~~~
+bno055.c(158): warning: implicit declaration of function 'bno055_setOperationModeConfig' is invalid in C99 [-Wimplicit-function-declaration]
+  bno055_setOperationModeConfig();
+  ^
+bno055.c(159): warning: implicit declaration of function 'bno055_setPage' is invalid in C99 [-Wimplicit-function-declaration]
+  bno055_setPage(0);
+  ^
+bno055.c(173): warning: implicit declaration of function 'bno055_setOperationMode' is invalid in C99 [-Wimplicit-function-declaration]
+  bno055_setOperationMode(operationMode);
+  ^
+bno055.c(177): warning: implicit declaration of function 'bno055_setPage' is invalid in C99 [-Wimplicit-function-declaration]
+  bno055_setPage(0);
+  ^
+bno055.c(178): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
   uint8_t buffer[8];    // Quaternion need 8 bytes
           ^
-bno055.c(164): warning: no previous prototype for function 'bno055_getVector' [-Wmissing-prototypes]
+bno055.c(176): warning: no previous prototype for function 'bno055_getVector' [-Wmissing-prototypes]
 bno055_vector_t bno055_getVector(uint8_t vec) {
                 ^
-bno055.c(164): note: declare 'static' if the function is not intended to be used outside of this translation unit
+bno055.c(176): note: declare 'static' if the function is not intended to be used outside of this translation unit
 bno055_vector_t bno055_getVector(uint8_t vec) {
 ^
 static 
-bno055.c(203): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_vector_t bno055_getVectorAccelerometer() {
-                                             ^
-                                              void
-bno055.c(206): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_vector_t bno055_getVectorMagnetometer() {
-                                            ^
-                                             void
-bno055.c(209): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_vector_t bno055_getVectorGyroscope() {
-                                         ^
-                                          void
-bno055.c(212): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_vector_t bno055_getVectorEuler() {
-                                     ^
-                                      void
-bno055.c(215): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_vector_t bno055_getVectorLinearAccel() {
-                                           ^
-                                            void
-bno055.c(218): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_vector_t bno055_getVectorGravity() {
-                                       ^
-                                        void
-bno055.c(221): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-bno055_vector_t bno055_getVectorQuaternion() {
-                                          ^
-                                           void
-bno055.c(226): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+bno055.c(238): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
   uint8_t axisRemap = (axis.z << 4) | (axis.y << 2) | (axis.x);
           ~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
-bno055.c(227): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+bno055.c(239): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
   uint8_t axisMapSign = (axis.x_sign << 2) | (axis.y_sign << 1) | (axis.z_sign);
           ~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
-bno055.c(2): warning: In file included from...
-./_I2C.h(14): warning: unused function 'i2c_stop' [-Wunused-function]
-static void i2c_stop(void);
-            ^
-./_I2C.h(16): warning: unused function 'initI2C1_DMA' [-Wunused-function]
-static void initI2C1_DMA(void);
-            ^
-./_I2C.h(18): warning: unused function 'enableTX_DMA' [-Wunused-function]
-static void enableTX_DMA(void);
-            ^
-./_I2C.h(19): warning: unused function 'enableRX_DMA' [-Wunused-function]
-static void enableRX_DMA(void);
-            ^
-./_I2C.h(20): warning: unused function 'disableRX_DMA' [-Wunused-function]
-static void disableRX_DMA(void);
-            ^
-./_I2C.h(21): warning: unused function 'disableTX_DMA' [-Wunused-function]
-static void disableTX_DMA(void);
-            ^
-bno055.c(3): warning: In file included from...
-./_TIM_CONFIG.h(5): warning: In file included from...
-./_HAL_GPIO.h(73): warning: unused function 'config_pin' [-Wunused-function]
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t mode_type);
-            ^
-./_HAL_GPIO.h(74): warning: unused function 'config_pin_speed' [-Wunused-function]
-static void config_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
-            ^
-37 warnings generated.
+16 warnings and 1 error generated.
 compiling bno055.c...
-_HAL_GPIO.c(1): warning: In file included from...
-./_HAL_GPIO.h(4): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-_HAL_GPIO.c(9): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-         ^
-_HAL_GPIO.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint32_t PINPOS[16]= {//takes me to the 1st BIT in MODE
-^
-4 warnings generated.
-compiling _HAL_GPIO.c...
-_BMP388.c(1): warning: In file included from...
-./_BMP388.h(4): warning: In file included from...
-./_I2C.h(4): warning: In file included from...
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
 _BMP388.c(9): warning: declaration shadows a variable in the global scope [-Wshadow]
 uint8_t begin(uint8_t mode, uint8_t iirFilter, uint8_t timeStand, uint8_t presOSR, uint8_t tempOSR){
                       ^
@@ -510,9 +324,44 @@ static void disableTX_DMA(void);
 _BMP388.c(76): warning: unused function 'setInterrupts' [-Wunused-function]
 void setInterrupts(enum OutputDrive gpio, enum ActiveLevel active_L_H, enum LatchConfig irqLatch){
      ^
-29 warnings generated.
+26 warnings generated.
 compiling _BMP388.c...
-".\Objects\timer_test_project.axf" - 2 Error(s), 116 Warning(s).
+test.c(6): warning: unused parameter 'time' [-Wunused-parameter]
+void bno055_delay(int time) {
+                      ^
+test.c(9): warning: unused parameter 'reg' [-Wunused-parameter]
+void bno055_writeData(uint8_t reg, uint8_t data) {
+                              ^
+test.c(9): warning: unused parameter 'data' [-Wunused-parameter]
+void bno055_writeData(uint8_t reg, uint8_t data) {
+                                           ^
+test.c(12): warning: unused parameter 'reg' [-Wunused-parameter]
+void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
+                             ^
+test.c(12): warning: unused parameter 'data' [-Wunused-parameter]
+void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
+                                           ^
+test.c(12): warning: unused parameter 'len' [-Wunused-parameter]
+void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
+                                                         ^
+test.c(16): error: too few arguments to function call, single argument 'opmode' was not specified
+  bno055_setup();
+  ~~~~~~~~~~~~ ^
+./bno055.h(285): note: 'bno055_setup' declared here
+int8_t bno055_setup(enum bno055_opmode_t opmode);
+       ^
+6 warnings and 1 error generated.
+compiling test.c...
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+            ^
+RTE/Device/STM32F103C8/system_stm32f10x.c(166): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+    ^
+1 warning generated.
+compiling system_stm32f10x.c...
+assembling startup_stm32f10x_md.s...
+".\Objects\timer_test_project.axf" - 3 Error(s), 74 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -531,20 +380,20 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   ./RTE/Device/STM32F103C8
   ./RTE/_Target_1
-  C:/Users/YUSUF/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/YUSUF/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/yusuf/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
-      Source file:   Device/Source/system_stm32f10x.c
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
+      Include file:  RTE_Driver/Config/RTE_Device.h
+      Source file:   Device/Source/system_stm32f10x.c
 Target not created.
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>

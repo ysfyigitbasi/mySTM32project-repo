@@ -10,49 +10,47 @@ uint16_t eulerScale = 16;
 uint16_t magScale = 16;
 uint16_t quaScale = (1<<14);    // 2^14
 
-
-int8_t bno055_setup(void){
-	bno055_reset();
+int8_t bno055_setup(enum bno055_opmode_t opmode){
 
 	char chip_id = 0x00;
+	#ifndef LAUNCH
+		bno055_reset();
+	#endif
 	chip_id = i2c_read_single(BNO055_I2C_ADDR, BNO055_CHIP_ID);
 	
 	if (chip_id != BNO055_ID)
 		return -1;
 	
-	bno055_setPage(0);
-	i2c_write_single(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x0);	// RESET the register.
-
-	// Select BNO055 config mode
-	//bno055_setOperationMode(BNO055_OPERATION_MODE_CONFIG);
-	//delayMS(10);
+	setOperationMode(opmode);
+	
+	
 	return 1;
 }
 
-void bno055_setPage(uint8_t page) { i2c_write_single(BNO055_I2C_ADDR, BNO055_PAGE_ID, page);	}
+void setPage(uint8_t page) { i2c_write_single(BNO055_I2C_ADDR, BNO055_PAGE_ID, page);	}
 
 
-bno055_opmode_t bno055_getOperationMode(void) {  return i2c_read_single(BNO055_I2C_ADDR,BNO055_OPR_MODE); }
+enum bno055_opmode_t getOperationMode(void) {  return i2c_read_single(BNO055_I2C_ADDR,BNO055_OPR_MODE); }
 
-void bno055_setOperationMode(bno055_opmode_t mode) {
+void setOperationMode(enum bno055_opmode_t mode) {
   
 	i2c_write_single(BNO055_I2C_ADDR, BNO055_OPR_MODE, mode);
 	if (mode == BNO055_OPERATION_MODE_CONFIG) {
-		delayMS(19);
+		delayMS(22); // 19+3
 	}
 	else {
-		delayMS(7);
+		delayMS(10); // 7+3
 	}
 }
 
-void bno055_enableExternalCrystal(void) {	
+void enableExternalCrystal(void) {	
 	char temp;
 	temp = i2c_read_single(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER);
 	temp |= 0x80;
 	i2c_write_single(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, temp);
 }
 
-void bno055_disableExternalCrystal(void) {	
+void disableExternalCrystal(void) {	
 	char temp;
 	temp = i2c_read_single(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER);
 	temp &= ~0x80;
@@ -60,89 +58,103 @@ void bno055_disableExternalCrystal(void) {
 }
 
 void bno055_reset(void) {
-  i2c_write_single(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x20);
-  delayMS(700);
+	i2c_write_single(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x20);
+	delayMS(700);
 }
 
-int8_t bno055_getTemp(void) {
-  bno055_setPage(0);
-  return (int8_t)i2c_read_single(BNO055_I2C_ADDR, BNO055_TEMP);
+int8_t getTemp(void) {
+	setPage(0);
+	return (int8_t)i2c_read_single(BNO055_I2C_ADDR, BNO055_TEMP);
 }
 
-int16_t bno055_getSWRevision(void) {
-  bno055_setPage(0);
-  char buffer[2];
-  i2c_readMULT(BNO055_I2C_ADDR, BNO055_SW_REV_ID_LSB, buffer, 2);
-  return (int16_t)((buffer[1] << 8) | buffer[0]);
+int16_t getSWRevision(void) {
+	char buffer[2];
+	setPage(0);
+	i2c_readMULT(BNO055_I2C_ADDR, BNO055_SW_REV_ID_LSB, buffer, 2);
+	return (int16_t)((buffer[1] << 8) | buffer[0]);
 }
 
-uint8_t bno055_getBootloaderRevision(void) {
-  bno055_setPage(0);
-  return i2c_read_single(BNO055_I2C_ADDR,BNO055_BL_REV_ID);
+uint8_t getBootloaderRevision(void) {
+	setPage(0);
+	return i2c_read_single(BNO055_I2C_ADDR,BNO055_BL_REV_ID);
 }
 
 enum bno055_system_status_t getSystemStatus(void) {
-  bno055_setPage(0);
-  return i2c_read_single(BNO055_I2C_ADDR, BNO055_SYS_STATUS);
+	setPage(0);
+	return i2c_read_single(BNO055_I2C_ADDR, BNO055_SYS_STATUS);
 }
 
-bno055_self_test_result_t bno055_getSelfTestResult() {
-  bno055_setPage(0);
-  char tmp;
-  bno055_self_test_result_t res = {
-      .mcuState = 0, .gyrState = 0, .magState = 0, .accState = 0};
-  tmp = i2c_read_single(BNO055_I2C_ADDR,BNO055_ST_RESULT);
-  res.mcuState = (tmp >> 3) & 0x01;
-  res.gyrState = (tmp >> 2) & 0x01;
-  res.magState = (tmp >> 1) & 0x01;
-  res.accState = (tmp >> 0) & 0x01; // burasi bir uint8_t olmali, struct degil.
-  return res;
+uint8_t getSelfTestResult(void) {
+	char temp;
+	setPage(0);
+	temp = i2c_read_single(BNO055_I2C_ADDR,BNO055_ST_RESULT);
+	temp &= 0x0F; // use last four bits: 4mcu, 3gyr, 2mag, 1acc
+  
+	return temp;
 }
 
-uint8_t bno055_getSystemError() {
-  bno055_setPage(0);
-  uint8_t tmp;
-  bno055_readData(BNO055_SYS_ERR, &tmp, 1);
-  return tmp;
+enum bno055_system_error_t getSystemError(void) {
+	
+	if( getSystemStatus() == BNO055_SYSTEM_STATUS_SYSTEM_ERROR ){
+		char temp;
+		temp = i2c_read_single(BNO055_I2C_ADDR, BNO055_SYS_ERR);
+		return temp;
+	}
+	return BNO055_SYSTEM_ERROR_NO_ERROR;
 }
 
-bno055_calibration_state_t bno055_getCalibrationState() {
-  bno055_setPage(0);
-  bno055_calibration_state_t cal = {.sys = 0, .gyro = 0, .mag = 0, .accel = 0};
-  uint8_t calState = 0;
-  bno055_readData(BNO055_CALIB_STAT, &calState, 1);
-  cal.sys = (calState >> 6) & 0x03;
-  cal.gyro = (calState >> 4) & 0x03;
-  cal.accel = (calState >> 2) & 0x03;
-  cal.mag = calState & 0x03;
-  return cal;
+uint8_t getCalibrationState(void) {
+  
+	char calState;
+	setPage(0);
+	
+	calState = i2c_read_single( BNO055_I2C_ADDR, BNO055_CALIB_STAT);
+  
+	return calState; // 7->11-sys, 11-gyr, 11-acc, 11-mag ->0.
 }
 
 
 bno055_calibration_data_t bno055_getCalibrationData() {
-  bno055_calibration_data_t calData;
-  uint8_t buffer[22];
-  bno055_opmode_t operationMode = bno055_getOperationMode();
-  bno055_setOperationModeConfig();
-  bno055_setPage(0);
+	// After every power on reset 
+	bno055_calibration_data_t calData;
+	uint8_t buffer[22];
+	uint8_t myCalibration = 0;
+	
+	// buraya bu satirlarin yerine bir fonksiyon yazilacak, ardindan setup() fonksiyonun icine yazilacak.
+	myCalibration = getCalibrationState();
+	while( myCalibration != CALIBRATED_FULLY )
+	{
+		while( !(myCalibration & CALIBRATED_ACC) ){
+			myCalibration = getCalibrationState();
+			//printf(" Calibration ACC continues...");
+		}
+		while( !(myCalibration & CALIBRATED_GYRO) ){
+			myCalibration = getCalibrationState();
+			//printf(" Calibration GYRO continues...");
+		}
+		while( !(myCalibration & CALIBRATED_MAG) ){
+			myCalibration = getCalibrationState();
+			//printf(" Calibration MAGG continues...");
+		}
+	}
+	//.
+	
+	bno055_readData(BNO055_ACC_OFFSET_X_LSB, buffer, 22);
 
-  bno055_readData(BNO055_ACC_OFFSET_X_LSB, buffer, 22);
-
-  // Assumes little endian processor
+  // Assumes little endian processor. memcpy degil direkt atama yapilacak kaydirmali. x << 8 | y gibi.
   memcpy(&calData.offset.accel, buffer, 6);
   memcpy(&calData.offset.mag, buffer + 6, 6);
   memcpy(&calData.offset.gyro, buffer + 12, 6);
   memcpy(&calData.radius.accel, buffer + 18, 2);
   memcpy(&calData.radius.mag, buffer + 20, 2);
 
-  bno055_setOperationMode(operationMode);
 
   return calData;
 }
 
 void bno055_setCalibrationData(bno055_calibration_data_t calData) {
   uint8_t buffer[22];
-  bno055_opmode_t operationMode = bno055_getOperationMode();
+  operationMode = bno055_getOperationMode();
   bno055_setOperationModeConfig();
   bno055_setPage(0);
 
