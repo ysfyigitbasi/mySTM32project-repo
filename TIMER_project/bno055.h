@@ -295,7 +295,6 @@ int16_t getSWRevision(void);
 uint8_t getSelfTestResult(void);
 uint8_t getCalibrationState(void);
 bno055_calibration_data_t bno055_getCalibrationData(void);
-void bno055_setCalibrationData(bno055_calibration_data_t calData);
 bno055_vector_t bno055_getVectorAccelerometer(void);
 bno055_vector_t bno055_getVectorMagnetometer(void);
 bno055_vector_t bno055_getVectorGyroscope(void);
@@ -303,8 +302,10 @@ bno055_vector_t bno055_getVectorEuler(void);
 bno055_vector_t bno055_getVectorLinearAccel(void);
 bno055_vector_t bno055_getVectorGravity(void);
 bno055_vector_t bno055_getVectorQuaternion(void);
-void bno055_setAxisMap(bno055_axis_map_t axis);
 
+void bno055_setAxisMap(bno055_axis_map_t axis);
+void bno055_setCalibrationData(bno055_calibration_data_t calData);
+int8_t wait4Calibration(uint8_t internalDelay, uint8_t mainDelay);
 #ifdef __cplusplus
   }
 #endif

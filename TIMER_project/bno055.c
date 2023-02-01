@@ -118,28 +118,10 @@ bno055_calibration_data_t bno055_getCalibrationData() {
 	// After every power on reset 
 	bno055_calibration_data_t calData;
 	uint8_t buffer[22];
-	uint8_t myCalibration = 0;
 	
-	// buraya bu satirlarin yerine bir fonksiyon yazilacak, ardindan setup() fonksiyonun icine yazilacak.
-	myCalibration = getCalibrationState();
-	while( myCalibration != CALIBRATED_FULLY )
-	{
-		while( !(myCalibration & CALIBRATED_ACC) ){
-			myCalibration = getCalibrationState();
-			//printf(" Calibration ACC continues...");
-		}
-		while( !(myCalibration & CALIBRATED_GYRO) ){
-			myCalibration = getCalibrationState();
-			//printf(" Calibration GYRO continues...");
-		}
-		while( !(myCalibration & CALIBRATED_MAG) ){
-			myCalibration = getCalibrationState();
-			//printf(" Calibration MAGG continues...");
-		}
-	}
-	//.
-	
-	bno055_readData(BNO055_ACC_OFFSET_X_LSB, buffer, 22);
+	if( wait4Calibration() != -1){
+		
+		bno055_readData(BNO055_ACC_OFFSET_X_LSB, buffer, 22);
 
   // Assumes little endian processor. memcpy degil direkt atama yapilacak kaydirmali. x << 8 | y gibi.
   memcpy(&calData.offset.accel, buffer, 6);
@@ -147,6 +129,8 @@ bno055_calibration_data_t bno055_getCalibrationData() {
   memcpy(&calData.offset.gyro, buffer + 12, 6);
   memcpy(&calData.radius.accel, buffer + 18, 2);
   memcpy(&calData.radius.mag, buffer + 20, 2);
+		
+	}
 
 
   return calData;
@@ -171,6 +155,45 @@ void bno055_setCalibrationData(bno055_calibration_data_t calData) {
   }
 
   bno055_setOperationMode(operationMode);
+}
+
+int8_t wait4Calibration( uint8_t internalDelay, uint8_t mainDelay){
+	
+	uint8_t myCalibration = 0;
+	uint8_t out = 0, in1 = 0, in2 = 0, in3 = 0;
+	
+	myCalibration = getCalibrationState();
+	while( myCalibration != CALIBRATED_FULLY )
+	{
+		while( !(myCalibration & CALIBRATED_ACC) ){
+			if(++in1 > 254)
+				return -1;
+			myCalibration = getCalibrationState();
+			//printf(" Calibration ACC continues...");
+			delayMS(internalDelay);
+		}
+		while( !(myCalibration & CALIBRATED_GYRO) ){
+			if(++in2 > 254)
+				return -1;
+			myCalibration = getCalibrationState();
+			//printf(" Calibration GYRO continues...");
+			delayMS(internalDelay);
+		}
+		while( !(myCalibration & CALIBRATED_MAG) ){y
+			if(++in3 > 254)
+				return -1;
+			myCalibration = getCalibrationState();
+			//printf(" Calibration MAGG continues...");
+			delayMS(internalDelay);
+		}
+		if( ++out > 254)
+			return -1;
+		
+		delayMS(mainDelay);
+		myCalibration = getCalibrationState();
+	}
+	
+	return 1;
 }
 
 bno055_vector_t bno055_getVector(uint8_t vec) {
