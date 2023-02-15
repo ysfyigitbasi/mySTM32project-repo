@@ -25,36 +25,34 @@ void bno055_setOperationMode(bno055_opmode_t mode) {
   }
 }
 
-void bno055_setOperationModeConfig() {
-  bno055_setOperationMode(BNO055_OPERATION_MODE_CONFIG);
-}
+//void bno055_setExternalCrystalUse(bool state) {
+//  bno055_setPage(0);
+//  uint8_t tmp = 0;
+//  bno055_readData(BNO055_SYS_TRIGGER, &tmp, 1);
+//  tmp |= (state == true) ? 0x80 : 0x0;
+//  bno055_writeData(BNO055_SYS_TRIGGER, tmp);
+//  bno055_delay(700);
+//}
 
-void bno055_setOperationModeNDOF() {
-  bno055_setOperationMode(BNO055_OPERATION_MODE_NDOF);
-}
-
-void bno055_setExternalCrystalUse(bool state) {
-  bno055_setPage(0);
-  uint8_t tmp = 0;
-  bno055_readData(BNO055_SYS_TRIGGER, &tmp, 1);
-  tmp |= (state == true) ? 0x80 : 0x0;
-  bno055_writeData(BNO055_SYS_TRIGGER, tmp);
-  bno055_delay(700);
-}
-
-void bno055_enableExternalCrystal() { bno055_setExternalCrystalUse(true); }
-void bno055_disableExternalCrystal() { bno055_setExternalCrystalUse(false); }
+//void bno055_enableExternalCrystal() { bno055_setExternalCrystalUse(true); }
+//void bno055_disableExternalCrystal() { bno055_setExternalCrystalUse(false); }
 
 void bno055_reset() {
-  bno055_writeData(BNO055_SYS_TRIGGER, 0x20);
-  bno055_delay(700);
-}
-
-int8_t bno055_getTemp() {
-  bno055_setPage(0);
-  uint8_t t;
-  bno055_readData(BNO055_TEMP, &t, 1);
-  return t;
+	uint8_t temp = 0;
+	bno055_setPage(0);
+	
+	// external clock set bit7, system reset bit 5.
+  bno055_writeData(BNO055_SYS_TRIGGER, 0xA0);
+  bno055_delay(800);
+	
+	// TODO - check errors with sys_error register. If no error is detected, continue with self test result. 
+	
+	bno055_readData(BNO055_ST_RESULT, &temp, 1);	
+	temp &= 0x0F;
+	
+	// TODO - if temp = 0x0F, then reset is terminated with success.
+	
+	
 }
 
 void bno055_setup() {
@@ -66,25 +64,11 @@ void bno055_setup() {
     printf("Can't find BNO055, id: 0x%02x. Please check your wiring.\r\n", id);
   }
   bno055_setPage(0);
-  bno055_writeData(BNO055_SYS_TRIGGER, 0x0);
+  bno055_writeData(BNO055_SYS_TRIGGER, 0x81); // External Clock bit7
 
   // Select BNO055 config mode
   bno055_setOperationModeConfig();
   bno055_delay(10);
-}
-
-int16_t bno055_getSWRevision() {
-  bno055_setPage(0);
-  uint8_t buffer[2];
-  bno055_readData(BNO055_SW_REV_ID_LSB, buffer, 2);
-  return (int16_t)((buffer[1] << 8) | buffer[0]);
-}
-
-uint8_t bno055_getBootloaderRevision() {
-  bno055_setPage(0);
-  uint8_t tmp;
-  bno055_readData(BNO055_BL_REV_ID, &tmp, 1);
-  return tmp;
 }
 
 uint8_t bno055_getSystemStatus() {
@@ -105,13 +89,6 @@ bno055_self_test_result_t bno055_getSelfTestResult() {
   res.magState = (tmp >> 1) & 0x01;
   res.accState = (tmp >> 0) & 0x01;
   return res;
-}
-
-uint8_t bno055_getSystemError() {
-  bno055_setPage(0);
-  uint8_t tmp;
-  bno055_readData(BNO055_SYS_ERR, &tmp, 1);
-  return tmp;
 }
 
 bno055_calibration_state_t bno055_getCalibrationState() {
@@ -236,3 +213,30 @@ void bno055_setAxisMap(bno055_axis_map_t axis) {
   bno055_writeData(BNO055_AXIS_MAP_CONFIG, axisRemap);
   bno055_writeData(BNO055_AXIS_MAP_SIGN, axisMapSign);
 }
+//int8_t bno055_getTemp() {
+//  bno055_setPage(0);
+//  uint8_t t;
+//  bno055_readData(BNO055_TEMP, &t, 1);
+//  return t;
+//}
+
+//int16_t bno055_getSWRevision() {
+//  bno055_setPage(0);
+//  uint8_t buffer[2];
+//  bno055_readData(BNO055_SW_REV_ID_LSB, buffer, 2);
+//  return (int16_t)((buffer[1] << 8) | buffer[0]);
+//}
+
+//uint8_t bno055_getBootloaderRevision() {
+//  bno055_setPage(0);
+//  uint8_t tmp;
+//  bno055_readData(BNO055_BL_REV_ID, &tmp, 1);
+//  return tmp;
+//}
+
+//uint8_t bno055_getSystemError() {
+//  bno055_setPage(0);
+//  uint8_t tmp;
+//  bno055_readData(BNO055_SYS_ERR, &tmp, 1);
+//  return tmp;
+//}
