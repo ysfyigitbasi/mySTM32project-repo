@@ -274,7 +274,7 @@ void bno055_writeData(uint8_t reg, uint8_t data);
 void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len);
 void bno055_delay(int time);
 
-void bno055_reset();
+uint8_t bno055_reset();
 bno055_opmode_t bno055_getOperationMode();
 void bno055_setOperationMode(bno055_opmode_t mode);
 void bno055_setOperationModeConfig();
@@ -290,8 +290,8 @@ uint8_t bno055_getSystemStatus();
 uint8_t bno055_getSystemError();
 int16_t bno055_getSWRevision();
 
-bno055_self_test_result_t bno055_getSelfTestResult();
-bno055_calibration_state_t bno055_getCalibrationState();
+uint8_t bno055_getSelfTestResult();
+uint8_t bno055_getCalibrationState();
 bno055_calibration_data_t bno055_getCalibrationData();
 void bno055_setCalibrationData(bno055_calibration_data_t calData);
 bno055_vector_t bno055_getVectorAccelerometer();

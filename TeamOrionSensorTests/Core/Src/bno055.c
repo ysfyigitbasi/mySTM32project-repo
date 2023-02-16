@@ -11,18 +11,19 @@ uint16_t quaScale = (1<<14);    // 2^14
 void bno055_setPage(uint8_t page) { bno055_writeData(BNO055_PAGE_ID, page); }
 
 bno055_opmode_t bno055_getOperationMode() {
-  bno055_opmode_t mode;
-  bno055_readData(BNO055_OPR_MODE, &mode, 1);
-  return mode;
+	bno055_opmode_t mode;
+	bno055_readData(BNO055_OPR_MODE, &mode, 1);
+	return mode;
 }
 
 void bno055_setOperationMode(bno055_opmode_t mode) {
-  bno055_writeData(BNO055_OPR_MODE, mode);
-  if (mode == BNO055_OPERATION_MODE_CONFIG) {
-    bno055_delay(19);
-  } else {
-    bno055_delay(7);
-  }
+	
+	bno055_writeData(BNO055_OPR_MODE, mode);
+	if (mode == BNO055_OPERATION_MODE_CONFIG) {
+		bno055_delay(19);
+	} else {
+		bno055_delay(7);
+	}
 }
 
 //void bno055_setExternalCrystalUse(bool state) {
@@ -37,70 +38,81 @@ void bno055_setOperationMode(bno055_opmode_t mode) {
 //void bno055_enableExternalCrystal() { bno055_setExternalCrystalUse(true); }
 //void bno055_disableExternalCrystal() { bno055_setExternalCrystalUse(false); }
 
-void bno055_reset() {
+uint8_t bno055_reset() {
+	
 	uint8_t temp = 0;
 	bno055_setPage(0);
 	
 	// external clock set bit7, system reset bit 5.
-  bno055_writeData(BNO055_SYS_TRIGGER, 0xA0);
-  bno055_delay(800);
+	bno055_writeData(BNO055_SYS_TRIGGER, 0xA0);
+	bno055_delay(800);
 	
-	// TODO - check errors with sys_error register. If no error is detected, continue with self test result. 
-	
-	bno055_readData(BNO055_ST_RESULT, &temp, 1);	
+	temp = bno055_getSystemError();
+	if( temp != 0)
+	{// error found.
+		printf("\nSystem Error has occured during Power on reset. %d number",temp);
+		return temp;
+	}
+	temp = bno055_getSelfTestResult();	
 	temp &= 0x0F;
+	if( temp != 0x0F)
+	{
+		printf("\n Self test is failed: %d .",temp);
+		return temp;
+	}
 	
-	// TODO - if temp = 0x0F, then reset is terminated with success.
-	
-	
+	return 0;	
 }
 
 void bno055_setup() {
-  bno055_reset();
+	bno055_reset();
 
-  uint8_t id = 0;
-  bno055_readData(BNO055_CHIP_ID, &id, 1);
-  if (id != BNO055_ID) {
-    printf("Can't find BNO055, id: 0x%02x. Please check your wiring.\r\n", id);
-  }
-  bno055_setPage(0);
-  bno055_writeData(BNO055_SYS_TRIGGER, 0x81); // External Clock bit7
+	uint8_t id = 0;
+	bno055_readData(BNO055_CHIP_ID, &id, 1);
+	if (id != BNO055_ID) {
+		printf("Can't find BNO055, id: 0x%02x. Please check your wiring.\r\n", id);
+	}
+	bno055_setPage(0);
+	bno055_writeData(BNO055_SYS_TRIGGER, 0x81); // External Clock bit7
 
-  // Select BNO055 config mode
-  bno055_setOperationModeConfig();
-  bno055_delay(10);
+	// Select BNO055 config mode
+	bno055_setOperationMode(BNO055_OPERATION_MODE_CONFIG);
+	bno055_delay(10);
 }
 
-uint8_t bno055_getSystemStatus() {
-  bno055_setPage(0);
-  uint8_t tmp;
-  bno055_readData(BNO055_SYS_STATUS, &tmp, 1);
-  return tmp;
-}
-
-bno055_self_test_result_t bno055_getSelfTestResult() {
-  bno055_setPage(0);
-  uint8_t tmp;
-  bno055_self_test_result_t res = {
-      .mcuState = 0, .gyrState = 0, .magState = 0, .accState = 0};
-  bno055_readData(BNO055_ST_RESULT, &tmp, 1);
-  res.mcuState = (tmp >> 3) & 0x01;
-  res.gyrState = (tmp >> 2) & 0x01;
-  res.magState = (tmp >> 1) & 0x01;
-  res.accState = (tmp >> 0) & 0x01;
-  return res;
-}
-
-bno055_calibration_state_t bno055_getCalibrationState() {
-  bno055_setPage(0);
-  bno055_calibration_state_t cal = {.sys = 0, .gyro = 0, .mag = 0, .accel = 0};
-  uint8_t calState = 0;
-  bno055_readData(BNO055_CALIB_STAT, &calState, 1);
-  cal.sys = (calState >> 6) & 0x03;
-  cal.gyro = (calState >> 4) & 0x03;
-  cal.accel = (calState >> 2) & 0x03;
-  cal.mag = calState & 0x03;
-  return cal;
+uint8_t bno055_getCalibrationState() {
+	uint8_t calState = 0;
+	bno055_setPage(0);
+  
+	bno055_readData(BNO055_CALIB_STAT, &calState, 1);
+	
+	switch(calState){
+		case 0xFF:
+			printf("\nMCU-GYR-MAG-ACC is calibrated");
+			calState = 0;
+			break;
+		case 0x3F:
+			printf("\n MCU is not calibrated yet..");
+			calState = 1;
+			break;
+		case 0x0F:
+			printf("\n MCU and GYR are not calibrated yet !!!");
+			calState = 2;
+			break;
+		case 0x03:
+			printf("\n MCU-GYR-ACC are not calibrated yet !!!");
+			calState = 3;
+			break;
+		case 0x00:
+			printf("\n No calibration is detected !!!");
+			calState = 4;
+			break;
+		default:
+			printf("\n Unknown CALIBRATION STATE !!!!");
+			calState = 5;
+			break;		
+	}	
+  return calState;
 }
 
 
@@ -213,6 +225,20 @@ void bno055_setAxisMap(bno055_axis_map_t axis) {
   bno055_writeData(BNO055_AXIS_MAP_CONFIG, axisRemap);
   bno055_writeData(BNO055_AXIS_MAP_SIGN, axisMapSign);
 }
+uint8_t bno055_getSystemError() {
+  //bno055_setPage(0);
+  uint8_t tmp;
+  bno055_readData(BNO055_SYS_ERR, &tmp, 1);
+  return tmp;
+}
+
+//uint8_t bno055_getSystemStatus() {
+//  bno055_setPage(0);
+//  uint8_t tmp;
+//  bno055_readData(BNO055_SYS_STATUS, &tmp, 1);
+//  return tmp;
+//}
+
 //int8_t bno055_getTemp() {
 //  bno055_setPage(0);
 //  uint8_t t;
@@ -231,12 +257,5 @@ void bno055_setAxisMap(bno055_axis_map_t axis) {
 //  bno055_setPage(0);
 //  uint8_t tmp;
 //  bno055_readData(BNO055_BL_REV_ID, &tmp, 1);
-//  return tmp;
-//}
-
-//uint8_t bno055_getSystemError() {
-//  bno055_setPage(0);
-//  uint8_t tmp;
-//  bno055_readData(BNO055_SYS_ERR, &tmp, 1);
 //  return tmp;
 //}
