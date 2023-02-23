@@ -183,19 +183,6 @@ typedef enum {  // BNO-55 operation modes
   BNO055_OPERATION_MODE_NDOF  // 0x0C
 } bno055_opmode_t;
 
-typedef struct {
-  uint8_t mcuState;
-  uint8_t gyrState;
-  uint8_t magState;
-  uint8_t accState;
-} bno055_self_test_result_t;
-
-typedef struct {
-  uint8_t sys;
-  uint8_t gyro;
-  uint8_t mag;
-  uint8_t accel;
-} bno055_calibration_state_t;
 
 typedef struct {
   int16_t x;
@@ -203,21 +190,21 @@ typedef struct {
   int16_t z;
 } bno055_vector_xyz_int16_t;
 
-typedef struct {
-  bno055_vector_xyz_int16_t gyro;
-  bno055_vector_xyz_int16_t mag;
-  bno055_vector_xyz_int16_t accel;
-} bno055_calibration_offset_t;
+//typedef struct {
+//  bno055_vector_xyz_int16_t gyro;
+//  bno055_vector_xyz_int16_t mag;
+//  bno055_vector_xyz_int16_t accel;
+//} bno055_calibration_offset_t;
 
-typedef struct {
-  uint16_t mag;
-  uint16_t accel;
-} bno055_calibration_radius_t;
+//typedef struct {
+//  uint16_t mag;
+//  uint16_t accel;
+//} bno055_calibration_radius_t;
 
-typedef struct {
-  bno055_calibration_offset_t offset;
-  bno055_calibration_radius_t radius;
-} bno055_calibration_data_t;
+//typedef struct {
+//  bno055_calibration_offset_t offset;
+//  bno055_calibration_radius_t radius;
+//} bno055_calibration_data_t;
 
 typedef struct {
   double w;
@@ -276,12 +263,8 @@ void bno055_delay(int time);
 
 uint8_t bno055_reset();
 bno055_opmode_t bno055_getOperationMode();
-void bno055_setOperationMode(bno055_opmode_t mode);
-void bno055_setOperationModeConfig();
-void bno055_setOperationModeNDOF();
-void bno055_enableExternalCrystal();
-void bno055_disableExternalCrystal();
-void bno055_setup();
+uint8_t bno055_setOperationMode(bno055_opmode_t mode);
+uint8_t bno055_setup();
 
 int8_t bno055_getTemp();
 
@@ -292,16 +275,32 @@ int16_t bno055_getSWRevision();
 
 uint8_t bno055_getSelfTestResult();
 uint8_t bno055_getCalibrationState();
-bno055_calibration_data_t bno055_getCalibrationData();
-void bno055_setCalibrationData(bno055_calibration_data_t calData);
-bno055_vector_t bno055_getVectorAccelerometer();
-bno055_vector_t bno055_getVectorMagnetometer();
-bno055_vector_t bno055_getVectorGyroscope();
-bno055_vector_t bno055_getVectorEuler();
-bno055_vector_t bno055_getVectorLinearAccel();
-bno055_vector_t bno055_getVectorGravity();
-bno055_vector_t bno055_getVectorQuaternion();
+uint8_t bno055_getCalibrationData(uint8_t* calData);
+uint8_t bno055_setCalibrationData(uint8_t* calData);
+bno055_vector_t bno055_getVector(uint8_t vec);
 void bno055_setAxisMap(bno055_axis_map_t axis);
+
+
+//typedef struct {
+//  uint8_t mcuState;
+//  uint8_t gyrState;
+//  uint8_t magState;
+//  uint8_t accState;
+//} bno055_self_test_result_t;
+
+//typedef struct {
+//  uint8_t sys;
+//  uint8_t gyro;
+//  uint8_t mag;
+//  uint8_t accel;
+//} bno055_calibration_state_t;
+//bno055_vector_t bno055_getVectorAccelerometer();
+//bno055_vector_t bno055_getVectorMagnetometer();
+//bno055_vector_t bno055_getVectorGyroscope();
+//bno055_vector_t bno055_getVectorEuler();
+//bno055_vector_t bno055_getVectorLinearAccel();
+//bno055_vector_t bno055_getVectorGravity();
+//bno055_vector_t bno055_getVectorQuaternion();
 
 #ifdef __cplusplus
   }

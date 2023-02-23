@@ -26,6 +26,8 @@
 "teamorionsensortests\stm32f1xx_hal_uart.o"
 "teamorionsensortests\system_stm32f1xx.o"
 "teamorionsensortests\bno055.o"
+"teamorionsensortests\_bmp388.o"
+"teamorionsensortests\i2c_sensordriver.o"
 --strict --scatter "TeamOrionSensorTests\TeamOrionSensorTests.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
