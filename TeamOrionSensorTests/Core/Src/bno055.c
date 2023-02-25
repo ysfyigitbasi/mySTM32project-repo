@@ -2,11 +2,11 @@
 #include <string.h>
 #include "I2C_sensorDriver.h"
 
-uint16_t accelScale = 100;
-uint16_t tempScale = 1;
-uint16_t angularRateScale = 16;
+//uint16_t accelScale = 100;
+//uint16_t tempScale = 1;
+//uint16_t angularRateScale = 16;
 uint16_t eulerScale = 16;
-uint16_t magScale = 16;
+//uint16_t magScale = 16;
 uint16_t quaScale = (1<<14);    // 2^14
 
 uint8_t calibrationDATA[22] = {};
@@ -133,7 +133,6 @@ uint8_t bno055_setup() {
 		return 2;
 	}
 
-	//bno055_writeData(BNO055_SYS_TRIGGER, 0x80); // External Clock bit7
 	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x80);
 	if(SENSOR_OK != i2c_status)
 	{
@@ -264,13 +263,13 @@ bno055_vector_t bno055_getVector(uint8_t vec) {
 
 	double scale = 1;
 
-	if (vec == BNO055_VECTOR_MAGNETOMETER) {
-		scale = magScale;
-	} else if (vec == BNO055_VECTOR_ACCELEROMETER || vec == BNO055_VECTOR_LINEARACCEL || vec == BNO055_VECTOR_GRAVITY) {
-		scale = accelScale;
-	} else if (vec == BNO055_VECTOR_GYROSCOPE) {
-		scale = angularRateScale;
-	} else if (vec == BNO055_VECTOR_EULER) {
+//	if (vec == BNO055_VECTOR_MAGNETOMETER) {
+//		scale = magScale;
+//	} else if (vec == BNO055_VECTOR_ACCELEROMETER || vec == BNO055_VECTOR_LINEARACCEL || vec == BNO055_VECTOR_GRAVITY) {
+//		scale = accelScale;
+//	} else if (vec == BNO055_VECTOR_GYROSCOPE) {
+//		scale = angularRateScale;
+	if (vec == BNO055_VECTOR_EULER) {
 		scale = eulerScale;
 	} else if (vec == BNO055_VECTOR_QUATERNION) {
 		scale = quaScale;

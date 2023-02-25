@@ -104,11 +104,11 @@ uint8_t readCoef(void){
 	return 1;
 }
 
-void setInterrupts(enum OutputDrive gpio, enum ActiveLevel active_L_H, enum LatchConfig irqLatch){
+//void setInterrupts(enum OutputDrive gpio, enum ActiveLevel active_L_H, enum LatchConfig irqLatch){
 
-	uint8_t interruptBits = (irqLatch << 2) | (active_L_H << 1) | (gpio) | (1<<6);
-	write8bit(BMP388_ADDR, BMP388_INT_CTRL, interruptBits);
-}
+//	uint8_t interruptBits = (irqLatch << 2) | (active_L_H << 1) | (gpio) | (1<<6);
+//	write8bit(BMP388_ADDR, BMP388_INT_CTRL, interruptBits);
+//}
 
 uint8_t dataReady(void){
 	

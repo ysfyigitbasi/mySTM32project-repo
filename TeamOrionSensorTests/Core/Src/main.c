@@ -47,11 +47,11 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-//uint8_t x = 0;
-//uint8_t y = 0;
-//volatile double pressure = 0.0;
-//volatile double temperature = 0.0;
-//volatile double altitude = 0.0;
+uint8_t x = 0;
+uint8_t y = 0;
+volatile double pressure = 0.0;
+volatile double temperature = 0.0;
+volatile double altitude = 0.0;
 calibINTCoefficents calibINT;
 bno055_vector_t euler;
 bno055_vector_t quaternion;
@@ -105,7 +105,11 @@ int main(void)
   bno055_assignI2C(&hi2c1);
   bno055_setup();
   bno055_setOperationMode(BNO055_OPERATION_MODE_NDOF);
-
+//  x = BMP388_TestSensor();
+//  y = BMP388_ReadID();
+//  //															Pressure		Temperature
+//  x = begin(NORMAL_MODE, IIR_FILTER_OFF, TIME_STANDBY_5MS, OVERSAMPLING_SKIP, OVERSAMPLING_SKIP);
+//  readCoef();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -116,10 +120,13 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	euler = bno055_getVector(BNO055_VECTOR_EULER);
-    printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", euler.x, euler.y, euler.z);
-    quaternion = bno055_getVector(BNO055_VECTOR_QUATERNION);
-    printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", quaternion.w, quaternion.x, quaternion.y, quaternion.z);
-    HAL_Delay(10);
+	printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", euler.x, euler.y, euler.z);
+	quaternion = bno055_getVector(BNO055_VECTOR_QUATERNION);
+	printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", quaternion.w, quaternion.x, quaternion.y, quaternion.z);
+	HAL_Delay(10);
+	//y = getBMP_Data(&temperature, &pressure, &altitude);
+	//HAL_Delay(10);
+	  
   }
   /* USER CODE END 3 */
 }
