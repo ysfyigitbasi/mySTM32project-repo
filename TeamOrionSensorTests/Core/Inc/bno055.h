@@ -183,28 +183,11 @@ typedef enum {  // BNO-55 operation modes
   BNO055_OPERATION_MODE_NDOF  // 0x0C
 } bno055_opmode_t;
 
-
 typedef struct {
   int16_t x;
   int16_t y;
   int16_t z;
 } bno055_vector_xyz_int16_t;
-
-//typedef struct {
-//  bno055_vector_xyz_int16_t gyro;
-//  bno055_vector_xyz_int16_t mag;
-//  bno055_vector_xyz_int16_t accel;
-//} bno055_calibration_offset_t;
-
-//typedef struct {
-//  uint16_t mag;
-//  uint16_t accel;
-//} bno055_calibration_radius_t;
-
-//typedef struct {
-//  bno055_calibration_offset_t offset;
-//  bno055_calibration_radius_t radius;
-//} bno055_calibration_data_t;
 
 typedef struct {
   double w;
@@ -257,9 +240,7 @@ enum bno055_axis_map_sign_t {
   BNO055_AXIS_SIGN_NEGATIVE = 0x01
 };
 
-void bno055_writeData(uint8_t reg, uint8_t data);
-void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len);
-void bno055_delay(int time);
+extern uint8_t calibrationDATA[22];
 
 uint8_t bno055_reset();
 bno055_opmode_t bno055_getOperationMode();
@@ -267,11 +248,8 @@ uint8_t bno055_setOperationMode(bno055_opmode_t mode);
 uint8_t bno055_setup();
 
 int8_t bno055_getTemp();
-
-uint8_t bno055_getBootloaderRevision();
-uint8_t bno055_getSystemStatus();
 uint8_t bno055_getSystemError();
-int16_t bno055_getSWRevision();
+//uint8_t bno055_getSystemStatus();
 
 uint8_t bno055_getSelfTestResult();
 uint8_t bno055_getCalibrationState();
@@ -280,20 +258,6 @@ uint8_t bno055_setCalibrationData(uint8_t* calData);
 bno055_vector_t bno055_getVector(uint8_t vec);
 void bno055_setAxisMap(bno055_axis_map_t axis);
 
-
-//typedef struct {
-//  uint8_t mcuState;
-//  uint8_t gyrState;
-//  uint8_t magState;
-//  uint8_t accState;
-//} bno055_self_test_result_t;
-
-//typedef struct {
-//  uint8_t sys;
-//  uint8_t gyro;
-//  uint8_t mag;
-//  uint8_t accel;
-//} bno055_calibration_state_t;
 //bno055_vector_t bno055_getVectorAccelerometer();
 //bno055_vector_t bno055_getVectorMagnetometer();
 //bno055_vector_t bno055_getVectorGyroscope();
@@ -301,6 +265,11 @@ void bno055_setAxisMap(bno055_axis_map_t axis);
 //bno055_vector_t bno055_getVectorLinearAccel();
 //bno055_vector_t bno055_getVectorGravity();
 //bno055_vector_t bno055_getVectorQuaternion();
+//uint8_t bno055_getBootloaderRevision();
+//int16_t bno055_getSWRevision();
+//void bno055_writeData(uint8_t reg, uint8_t data);
+//void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len);
+//void bno055_delay(int time);
 
 #ifdef __cplusplus
   }

@@ -9,7 +9,20 @@ uint16_t eulerScale = 16;
 uint16_t magScale = 16;
 uint16_t quaScale = (1<<14);    // 2^14
 
-void bno055_setPage(uint8_t page) { bno055_writeData(BNO055_PAGE_ID, page); }
+uint8_t calibrationDATA[22] = {};
+
+uint8_t bno055_setPage(uint8_t page)
+{
+	sensor_status_e i2c_status;
+	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_PAGE_ID, page);
+	if(SENSOR_OK != i2c_status)
+	{
+		printf("\n I2C write ERROR in setOperationMode!!!");
+		return 1; // ERROR STATE
+	}
+	return 0;
+
+}
 
 bno055_opmode_t bno055_getOperationMode() {
 	bno055_opmode_t mode;
@@ -26,9 +39,9 @@ uint8_t bno055_setOperationMode(bno055_opmode_t mode) {
 		return 1; // ERROR STATE
 	}
 	if (mode == BNO055_OPERATION_MODE_CONFIG) {
-		bno055_delay(19);
+		HAL_Delay(19);
 	} else {
-		bno055_delay(7);
+		HAL_Delay(7);
 	}
 	return 0;
 }
@@ -69,29 +82,34 @@ uint8_t bno055_reset() {
 	
 	uint8_t temp = 0;
 	sensor_status_e i2c_status;
-	bno055_setPage(0);
+	temp = bno055_setPage(0);
+	if( temp != 0)
+	{
+		printf("\nSET PAGE I2C ERROR");
+		return 1;
+	}
 	
 	// external clock set bit7, system reset bit 5.
 	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0xA0);
 	if(SENSOR_OK != i2c_status)
 	{
 		printf("\n I2C write ERROR!!!");
-		return 1; // ERROR STATE
+		return 2; // ERROR STATE
 	}
-	bno055_delay(800);
+	HAL_Delay(800);
 	
 	temp = bno055_getSystemError();
 	if( temp != 0)
 	{// error found.
 		printf("\nSystem Error has occured during Power on reset. %d number",temp);
-		return temp;
+		return 3;
 	}
 	temp = bno055_getSelfTestResult();	
 	
-	if( !temp)
+	if( temp != 0)
 	{
 		printf("\n Self test is failed: %d .",temp);
-		return temp;
+		return 4;
 	}
 	
 	return 0;	
@@ -116,18 +134,23 @@ uint8_t bno055_setup() {
 	}
 
 	//bno055_writeData(BNO055_SYS_TRIGGER, 0x80); // External Clock bit7
-	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x80);
+	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x81);
 	if(SENSOR_OK != i2c_status)
 	{
 		printf("\n I2C write ERROR!!!");
 		return 3; // ERROR STATE
 	}
 	
-	// Select BNO055 config mode
-//	status = bno055_setOperationMode(BNO055_OPERATION_MODE_CONFIG);
-//	if (status != 0)
-//		return 4;
-//	bno055_delay(10);
+	status = bno055_setOperationMode(BNO055_OPERATION_MODE_NDOF);
+	if (status != 0)
+		return 4;
+	HAL_Delay(10);
+	
+	while( bno055_getCalibrationState() != 0 )
+	{
+		HAL_Delay(20);
+	}
+	bno055_getCalibrationData(calibrationDATA);
 	
 	return 0;
 }
@@ -136,7 +159,7 @@ uint8_t bno055_getCalibrationState() {
 	uint8_t calState = 0;
 	bno055_setPage(0);
   
-	bno055_readData(BNO055_CALIB_STAT, &calState, 1);
+	calState = read8bit(BNO055_I2C_ADDR, BNO055_CALIB_STAT);
 	
 	switch(calState){
 		case 0xFF:
@@ -166,7 +189,6 @@ uint8_t bno055_getCalibrationState() {
 	}	
   return calState;
 }
-
 
 uint8_t bno055_getCalibrationData(uint8_t* calData) {
 	uint8_t temp = 0;
@@ -215,7 +237,6 @@ uint8_t bno055_setCalibrationData(uint8_t* calData) {
 }
 
 bno055_vector_t bno055_getVector(uint8_t vec) {
-	bno055_setPage(0);
 	uint8_t buffer[8];    // Quaternion need 8 bytes
 	sensor_status_e status;
 
@@ -267,19 +288,18 @@ bno055_vector_t bno055_getVector(uint8_t vec) {
 	return xyz;
 }
 
-
-
-void bno055_setAxisMap(bno055_axis_map_t axis) {
-	uint8_t axisRemap = (axis.z << 4) | (axis.y << 2) | (axis.x);
-	uint8_t axisMapSign = (axis.x_sign << 2) | (axis.y_sign << 1) | (axis.z_sign);
-	bno055_writeData(BNO055_AXIS_MAP_CONFIG, axisRemap);
-	bno055_writeData(BNO055_AXIS_MAP_SIGN, axisMapSign);
-}
 uint8_t bno055_getSystemError() {
 	uint8_t temp;
 	temp = read8bit(BNO055_I2C_ADDR, BNO055_SYS_ERR);
 	return temp;
 }
+
+//void bno055_setAxisMap(bno055_axis_map_t axis) {
+//	uint8_t axisRemap = (axis.z << 4) | (axis.y << 2) | (axis.x);
+//	uint8_t axisMapSign = (axis.x_sign << 2) | (axis.y_sign << 1) | (axis.z_sign);
+//	bno055_writeData(BNO055_AXIS_MAP_CONFIG, axisRemap);
+//	bno055_writeData(BNO055_AXIS_MAP_SIGN, axisMapSign);
+//}
 
 //uint8_t bno055_getSystemStatus() {
 //  bno055_setPage(0);
@@ -288,45 +308,3 @@ uint8_t bno055_getSystemError() {
 //  return tmp;
 //}
 
-//int8_t bno055_getTemp() {
-//  bno055_setPage(0);
-//  uint8_t t;
-//  bno055_readData(BNO055_TEMP, &t, 1);
-//  return t;
-//}
-
-//int16_t bno055_getSWRevision() {
-//  bno055_setPage(0);
-//  uint8_t buffer[2];
-//  bno055_readData(BNO055_SW_REV_ID_LSB, buffer, 2);
-//  return (int16_t)((buffer[1] << 8) | buffer[0]);
-//}
-
-//uint8_t bno055_getBootloaderRevision() {
-//  bno055_setPage(0);
-//  uint8_t tmp;
-//  bno055_readData(BNO055_BL_REV_ID, &tmp, 1);
-//  return tmp;
-//}
-
-//bno055_vector_t bno055_getVectorAccelerometer() {
-//  return bno055_getVector(BNO055_VECTOR_ACCELEROMETER);
-//}
-//bno055_vector_t bno055_getVectorMagnetometer() {
-//  return bno055_getVector(BNO055_VECTOR_MAGNETOMETER);
-//}
-//bno055_vector_t bno055_getVectorGyroscope() {
-//  return bno055_getVector(BNO055_VECTOR_GYROSCOPE);
-//}
-//bno055_vector_t bno055_getVectorEuler() {
-//  return bno055_getVector(BNO055_VECTOR_EULER);
-//}
-//bno055_vector_t bno055_getVectorLinearAccel() {
-//  return bno055_getVector(BNO055_VECTOR_LINEARACCEL);
-//}
-//bno055_vector_t bno055_getVectorGravity() {
-//  return bno055_getVector(BNO055_VECTOR_GRAVITY);
-//}
-//bno055_vector_t bno055_getVectorQuaternion() {
-//  return bno055_getVector(BNO055_VECTOR_QUATERNION);
-//}

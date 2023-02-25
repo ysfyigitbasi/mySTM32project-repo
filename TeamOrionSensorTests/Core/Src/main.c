@@ -53,6 +53,8 @@
 //volatile double temperature = 0.0;
 //volatile double altitude = 0.0;
 calibINTCoefficents calibINT;
+bno055_vector_t euler;
+bno055_vector_t quaternion;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,8 +75,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	bno055_vector_t euler;
-	bno055_vector_t quaternion;
+	
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
