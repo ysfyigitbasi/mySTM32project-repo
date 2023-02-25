@@ -90,7 +90,7 @@ uint8_t bno055_reset() {
 	}
 	
 	// external clock set bit7, system reset bit 5.
-	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0xA0);
+	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0xA1);
 	if(SENSOR_OK != i2c_status)
 	{
 		printf("\n I2C write ERROR!!!");
@@ -134,7 +134,7 @@ uint8_t bno055_setup() {
 	}
 
 	//bno055_writeData(BNO055_SYS_TRIGGER, 0x80); // External Clock bit7
-	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x81);
+	i2c_status = write8bit(BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x80);
 	if(SENSOR_OK != i2c_status)
 	{
 		printf("\n I2C write ERROR!!!");
@@ -145,10 +145,11 @@ uint8_t bno055_setup() {
 	if (status != 0)
 		return 4;
 	HAL_Delay(10);
-	
-	while( bno055_getCalibrationState() != 0 )
+	status = 1;
+	while( status != 0 )
 	{
-		HAL_Delay(20);
+		status = bno055_getCalibrationState();
+		HAL_Delay(1);
 	}
 	bno055_getCalibrationData(calibrationDATA);
 	
@@ -159,35 +160,37 @@ uint8_t bno055_getCalibrationState() {
 	uint8_t calState = 0;
 	bno055_setPage(0);
   
-	calState = read8bit(BNO055_I2C_ADDR, BNO055_CALIB_STAT);
-	
-	switch(calState){
-		case 0xFF:
-			printf("\nMCU-GYR-MAG-ACC is calibrated");
-			calState = 0;
-			break;
-		case 0x3F:
-			printf("\n MCU is not calibrated yet..");
-			calState = 1;
-			break;
-		case 0x0F:
-			printf("\n MCU and GYR are not calibrated yet !!!");
-			calState = 2;
-			break;
-		case 0x03:
-			printf("\n MCU-GYR-ACC are not calibrated yet !!!");
-			calState = 3;
-			break;
-		case 0x00:
-			printf("\n No calibration is detected !!!");
-			calState = 4;
-			break;
-		default:
-			printf("\n Unknown CALIBRATION STATE !!!!");
-			calState = 5;
-			break;		
-	}	
-  return calState;
+	calState = read8bit(BNO055_I2C_ADDR, BNO055_CALIB_STAT);	
+	if( (calState >> 6) == 0x03)
+	{		
+		return 0;
+	}
+	else{
+		// in fusion mode, not calibrated.	
+		switch(calState){
+			case 0x3F:
+				printf("\n MCU is not calibrated yet..");
+				calState = 1;
+				break;
+			case 0x0F:
+				printf("\n MCU and GYR are not calibrated yet !!!");
+				calState = 2;
+				break;
+			case 0x03:
+				printf("\n MCU-GYR-ACC are not calibrated yet !!!");
+				calState = 3;
+				break;
+			case 0x00:
+				printf("\n No calibration is detected !!!");
+				calState = 4;
+				break;
+			default:
+				printf("\n Unknown CALIBRATION STATE !!!!");
+				calState = 5;
+				break;		
+		}
+		return calState;
+	}		
 }
 
 uint8_t bno055_getCalibrationData(uint8_t* calData) {
