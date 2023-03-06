@@ -38,21 +38,21 @@ uint8_t BMP388_ReadID(void){
 void setMode(enum Mode modeX){
 	// 5 ve 4. bite	
 	uint8_t modeSelect = (uint8_t)(modeX << 4) | (0x03) ; //Mode is 2 bit, shifting 4 times to (write temp_en ve pres_en denenecek)
-	write8bit(BMP388_ADDR, BMP388_PWR_CTRL, modeSelect); //Using I2C write mode to the PWR_CTRL register
+	write8bit(&hi2c1, BMP388_ADDR, BMP388_PWR_CTRL, modeSelect); //Using I2C write mode to the PWR_CTRL register
  
 }
 void setIIRFilter(enum IIRFilter iirCoef){
 	uint8_t iirCoefSelect = (uint8_t)(iirCoef << 1);
 	//iirCoef 3 bit, 3 2 1 e yazilacak 1 bit kaydirmak yeter
-	write8bit(BMP388_ADDR, BMP388_CONFIG, iirCoefSelect);
+	write8bit(&hi2c1, BMP388_ADDR, BMP388_CONFIG, iirCoefSelect);
 }
 void setTimeStandby(enum TimeStandby standby_t){
-	write8bit(BMP388_ADDR,BMP388_ODR, standby_t);
+	write8bit(&hi2c1, BMP388_ADDR,BMP388_ODR, standby_t);
 	//ODR_SEL 4 3 2 1 0 a yazilacak
 }
 void setOversamplingRegister(enum Oversampling pressOSR, enum Oversampling tempOSR){
 	uint8_t overSamplingSelector = (uint8_t)( pressOSR | (tempOSR<<3));
-	write8bit(BMP388_ADDR, BMP388_OSR, overSamplingSelector);
+	write8bit(&hi2c1, BMP388_ADDR, BMP388_OSR, overSamplingSelector);
 }
 uint8_t begin(uint8_t modeX, uint8_t iirFilterX, uint8_t timeStand, uint8_t presOSR, uint8_t tempOSR){
 	uint8_t chipId;
@@ -61,7 +61,7 @@ uint8_t begin(uint8_t modeX, uint8_t iirFilterX, uint8_t timeStand, uint8_t pres
 		return 0;				// If unable to reset return 0
 	}
 
-	chipId = read8bit(BMP388_ADDR, BMP388_CHIP_ID);		// Read the device ID
+	chipId = read8bit(&hi2c1, BMP388_ADDR, BMP388_CHIP_ID);		// Read the device ID
 	
 	if (chipId != BMP388_ID && chipId != BMP390_ID){            		// Check the device ID  
 		return 0;                                                 	// If the ID is incorrect return 0
@@ -75,7 +75,7 @@ uint8_t begin(uint8_t modeX, uint8_t iirFilterX, uint8_t timeStand, uint8_t pres
 
 uint8_t reset(void){
 
-	return write8bit(BMP388_ADDR,BMP388_CMD, RESET_CODE);
+	return write8bit(&hi2c1, BMP388_ADDR,BMP388_CMD, RESET_CODE);
 }
 
 uint8_t readCoef(void){
@@ -85,7 +85,8 @@ uint8_t readCoef(void){
 //	status = readMultBytes(BMP388_ADDR, BMP388_TRIM_PARAMS, array, 21);
 //	if(!status)
 //		return 0;
-	HAL_I2C_Mem_Read_DMA(&hi2c1, BMP388_ADDR, BMP388_TRIM_PARAMS, 1, array, 21);
+	//HAL_I2C_Mem_Read_DMA(&hi2c1, BMP388_ADDR, BMP388_TRIM_PARAMS, 1, array, 21);
+	readMultBytes(&hi2c1, BMP388_ADDR, BMP388_TRIM_PARAMS, array, 21);
 	HAL_Delay(4);
 	calibINT.param_T1 = ( ( (uint16_t)array[1]) << 8) | array[0];
 	calibINT.param_T2 = ( ( (uint16_t)array[3]) << 8) | array[2];
@@ -113,7 +114,7 @@ uint8_t readCoef(void){
 uint8_t dataReady(void){
 	
 	uint8_t readySignal;
-	readySignal	= read8bit(BMP388_ADDR, BMP388_STATUS);
+	readySignal	= read8bit(&hi2c1, BMP388_ADDR, BMP388_STATUS);
 	
 	return (readySignal & (0x70)); //data ready demek sleep mode check yapilacak. ysf: gerek yok gibi, normal modda calistiricaz.
 }
@@ -126,7 +127,7 @@ uint8_t getBMP_Data(volatile double* temperature, volatile double* pressure, vol
 	while(!dataReady());
 	
 
-	readMultBytes(BMP388_ADDR, BMP388_DATA_0, data, 6);
+	readMultBytes(&hi2c1, BMP388_ADDR, BMP388_DATA_0, data, 6);
 
 	adcPress = ((uint32_t)(data[2] << 16))  | ((uint32_t)(data[1] << 8)) | (uint32_t)data[0];
 	adcTemp  = ((uint32_t)(data[5] << 16))  | ((uint32_t)(data[4] << 8)) | (uint32_t)data[3];

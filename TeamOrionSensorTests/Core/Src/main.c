@@ -101,15 +101,16 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   MX_USART2_UART_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
-  bno055_assignI2C(&hi2c1);
+  
   bno055_setup();
   bno055_setOperationMode(BNO055_OPERATION_MODE_NDOF);
-//  x = BMP388_TestSensor();
-//  y = BMP388_ReadID();
-//  //															Pressure		Temperature
-//  x = begin(NORMAL_MODE, IIR_FILTER_OFF, TIME_STANDBY_5MS, OVERSAMPLING_SKIP, OVERSAMPLING_SKIP);
-//  readCoef();
+  x = BMP388_TestSensor();
+  y = BMP388_ReadID();
+  //															Pressure		Temperature
+  x = begin(NORMAL_MODE, IIR_FILTER_OFF, TIME_STANDBY_5MS, OVERSAMPLING_SKIP, OVERSAMPLING_SKIP);
+  readCoef();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -123,9 +124,8 @@ int main(void)
 	printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", euler.x, euler.y, euler.z);
 	quaternion = bno055_getVector(BNO055_VECTOR_QUATERNION);
 	printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", quaternion.w, quaternion.x, quaternion.y, quaternion.z);
-	HAL_Delay(10);
-	//y = getBMP_Data(&temperature, &pressure, &altitude);
-	//HAL_Delay(10);
+//	HAL_Delay(10);
+	y = getBMP_Data(&temperature, &pressure, &altitude);
 	  
   }
   /* USER CODE END 3 */
