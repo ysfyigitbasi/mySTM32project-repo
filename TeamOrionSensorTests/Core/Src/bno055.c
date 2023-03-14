@@ -17,7 +17,7 @@ uint8_t bno055_setPage(uint8_t page)
 	i2c_status = write8bit(&hi2c2, BNO055_I2C_ADDR, BNO055_PAGE_ID, page);
 	if(SENSOR_OK != i2c_status)
 	{
-		printf("\n I2C write ERROR in setOperationMode!!!");
+//		printf("\n I2C write ERROR in setOperationMode!!!");
 		return 1; // ERROR STATE
 	}
 	return 0;
@@ -35,7 +35,7 @@ uint8_t bno055_setOperationMode(bno055_opmode_t mode) {
 	i2c_status = write8bit(&hi2c2, BNO055_I2C_ADDR, BNO055_OPR_MODE, mode);
 	if(SENSOR_OK != i2c_status)
 	{
-		printf("\n I2C write ERROR in setOperationMode!!!");
+//		printf("\n I2C write ERROR in setOperationMode!!!");
 		return 1; // ERROR STATE
 	}
 	if (mode == BNO055_OPERATION_MODE_CONFIG) {
@@ -54,22 +54,22 @@ uint8_t bno055_getSelfTestResult(void)
 	
 	if( !((selfTestState >> 3) & 0x01) )
 	{
-		printf("\nMCU self test failed!!");
+//		printf("\nMCU self test failed!!");
 		temp = 1;
 	}
 	if( !((selfTestState >> 2) & 0x01) )
 	{
-		printf("\nGYRO self test failed!!");
+//		printf("\nGYRO self test failed!!");
 		temp = 1;
 	}
 	if( !((selfTestState >> 1) & 0x01) )
 	{
-		printf("\nMAG self test failed!!");
+//		printf("\nMAG self test failed!!");
 		temp = 1;
 	}
 	if( !((selfTestState) & 0x01) )
 	{
-		printf("\nACC self test failed!!");
+//		printf("\nACC self test failed!!");
 		temp = 1;
 	}
 	if( temp != 0)
@@ -85,7 +85,7 @@ uint8_t bno055_reset() {
 	temp = bno055_setPage(0);
 	if( temp != 0)
 	{
-		printf("\nSET PAGE I2C ERROR");
+//		printf("\nSET PAGE I2C ERROR");
 		return 1;
 	}
 	
@@ -93,7 +93,7 @@ uint8_t bno055_reset() {
 	i2c_status = write8bit(&hi2c2, BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0xA1);
 	if(SENSOR_OK != i2c_status)
 	{
-		printf("\n I2C write ERROR!!!");
+//		printf("\n I2C write ERROR!!!");
 		return 2; // ERROR STATE
 	}
 	HAL_Delay(800);
@@ -101,14 +101,14 @@ uint8_t bno055_reset() {
 	temp = bno055_getSystemError();
 	if( temp != 0)
 	{// error found.
-		printf("\nSystem Error has occured during Power on reset. %d number",temp);
+//		printf("\nSystem Error has occured during Power on reset. %d number",temp);
 		return 3;
 	}
 	temp = bno055_getSelfTestResult();	
 	
 	if( temp != 0)
 	{
-		printf("\n Self test is failed: %d .",temp);
+//		printf("\n Self test is failed: %d .",temp);
 		return 4;
 	}
 	
@@ -121,7 +121,7 @@ uint8_t bno055_setup() {
 	status = bno055_reset();
 	if (status != 0)
 	{
-		printf("\nReset is failed!!!");
+//		printf("\nReset is failed!!!");
 		return 1;
 	}
 	
@@ -129,14 +129,14 @@ uint8_t bno055_setup() {
 	id = read8bit(&hi2c2, BNO055_I2C_ADDR, BNO055_CHIP_ID);
 	
 	if (id != BNO055_ID) {
-		printf("Can't find BNO055, id: 0x%02x. Please check your wiring.\r\n", id);
+//		printf("Can't find BNO055, id: 0x%02x. Please check your wiring.\r\n", id);
 		return 2;
 	}
 
 	i2c_status = write8bit(&hi2c2, BNO055_I2C_ADDR, BNO055_SYS_TRIGGER, 0x80);
 	if(SENSOR_OK != i2c_status)
 	{
-		printf("\n I2C write ERROR!!!");
+//		printf("\n I2C write ERROR!!!");
 		return 3; // ERROR STATE
 	}
 	
@@ -168,23 +168,23 @@ uint8_t bno055_getCalibrationState() {
 		// in fusion mode, not calibrated.	
 		switch(calState){
 			case 0x3F:
-				printf("\n MCU is not calibrated yet..");
+//				printf("\n MCU is not calibrated yet..");
 				calState = 1;
 				break;
 			case 0x0F:
-				printf("\n MCU and GYR are not calibrated yet !!!");
+//				printf("\n MCU and GYR are not calibrated yet !!!");
 				calState = 2;
 				break;
 			case 0x03:
-				printf("\n MCU-GYR-ACC are not calibrated yet !!!");
+//				printf("\n MCU-GYR-ACC are not calibrated yet !!!");
 				calState = 3;
 				break;
 			case 0x00:
-				printf("\n No calibration is detected !!!");
+//				printf("\n No calibration is detected !!!");
 				calState = 4;
 				break;
 			default:
-				printf("\n Unknown CALIBRATION STATE !!!!");
+//				printf("\n Unknown CALIBRATION STATE !!!!");
 				calState = 5;
 				break;		
 		}
@@ -203,11 +203,11 @@ uint8_t bno055_getCalibrationData(uint8_t* calData) {
 	if (temp != 0)	{	return 1; }
 	bno055_setPage(0);
 
-	status = readMultBytes(&hi2c2, BNO055_I2C_ADDR, BNO055_ACC_OFFSET_X_LSB, calData, 22);
-	HAL_Delay(4);
+	status = readMultBytesWNoDMA(&hi2c2, BNO055_I2C_ADDR, BNO055_ACC_OFFSET_X_LSB, calData, 22);
+	//HAL_Delay(4);
 	if(SENSOR_OK != status)
 	{
-		printf("\n I2C_DMA error in getCalibrationData");
+//		printf("\n I2C_DMA error in getCalibrationData");
 		return 2;
 	}
 	
@@ -227,10 +227,10 @@ uint8_t bno055_setCalibrationData(uint8_t* calData) {
 	if (temp != 0)	{	return 1; }
 
 	status = writeMultBytes(&hi2c2, BNO055_I2C_ADDR, BNO055_ACC_OFFSET_X_LSB, calData, 22);
-	HAL_Delay(20);
+	//HAL_Delay(20);
 	if(SENSOR_OK != status)
 	{
-		printf("\n I2C_DMA error in getCalibrationData");
+//		printf("\n I2C_DMA error in getCalibrationData");
 		return 2;
 	}
 	temp = bno055_setOperationMode(operationMode);
@@ -244,20 +244,22 @@ bno055_vector_t bno055_getVector(uint8_t vec) {
 
 	if (vec == BNO055_VECTOR_QUATERNION)
 	{
-		status = readMultBytes(&hi2c2, BNO055_I2C_ADDR, vec, buffer, 8);
-		HAL_Delay(10);
+		status = readMultBytesWNoDMA(&hi2c2, BNO055_I2C_ADDR, vec, buffer, 8);
+		//HAL_Delay(10);
 		if( SENSOR_OK != status)
 		{
-			printf("\nI2C readMult error in vector_quaternion!!");
+			int number = 5;
+//			printf("\nI2C readMult error in vector_quaternion!!");
 		}
 	}
 	else
 	{
-		status = readMultBytes(&hi2c2, BNO055_I2C_ADDR, vec, buffer, 6);
-		HAL_Delay(10);
+		status = readMultBytesWNoDMA(&hi2c2, BNO055_I2C_ADDR, vec, buffer, 6);
+		//HAL_Delay(10);
 		if( SENSOR_OK != status)
 		{
-			printf("\nI2C readMult error in vector_quaternion!!");
+//			printf("\nI2C readMult error in vector_quaternion!!");
+			int number = 6;
 		}
 	}
 

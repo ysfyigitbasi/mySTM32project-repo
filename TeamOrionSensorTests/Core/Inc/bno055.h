@@ -6,9 +6,9 @@
 #endif
 // #define FREERTOS_ENABLED true
 
-#include <stdbool.h>
+//#include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
+//#include <stdio.h>
 
 #define START_BYTE 0xAA
 #define RESPONSE_BYTE 0xBB

@@ -128,6 +128,7 @@ uint8_t getBMP_Data(volatile double* temperature, volatile double* pressure, vol
 	
 
 	readMultBytes(&hi2c1, BMP388_ADDR, BMP388_DATA_0, data, 6);
+	// if status kosullamasi yapilabilir.
 
 	adcPress = ((uint32_t)(data[2] << 16))  | ((uint32_t)(data[1] << 8)) | (uint32_t)data[0];
 	adcTemp  = ((uint32_t)(data[5] << 16))  | ((uint32_t)(data[4] << 8)) | (uint32_t)data[3];
@@ -139,8 +140,8 @@ uint8_t getBMP_Data(volatile double* temperature, volatile double* pressure, vol
 	*pressure = (double)(myPressure / 100.0);
 	//*pressure = (float)compensatePressure(adcPress) / 100.0f;
 	
-	*altitude =(pow(sea_level_pressure / (*pressure), 1.0 / 5.257 ) - 1.0) * ((*temperature) + 273.15) / 0.0065; 
-	//*altitude = 44330.0 * ( 1.0 - pow( (*pressure / sea_level_pressure), 1/5.255)  );
+	//*altitude =(pow(sea_level_pressure / (*pressure), 1.0 / 5.257 ) - 1.0) * ((*temperature) + 273.15) / 0.0065; 
+	*altitude = 44330.0 * ( 1.0 - pow( (*pressure / sea_level_pressure), 1/5.255)  );
 	return 1;
 }
 double a_bmp388_compensate_temperature(uint32_t data)

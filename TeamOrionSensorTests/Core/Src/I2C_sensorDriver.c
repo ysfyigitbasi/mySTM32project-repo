@@ -57,6 +57,20 @@ sensor_status_e readMultBytes(I2C_HandleTypeDef *hi2c_device, uint8_t chipAdd, u
 	}
 }
 
+sensor_status_e readMultBytesWNoDMA(I2C_HandleTypeDef *hi2c_device, uint8_t chipAdd, uint8_t regAdd, uint8_t *data, uint8_t length)
+{
+	HAL_StatusTypeDef status;
+    status = HAL_I2C_Mem_Read( hi2c_device, chipAdd, regAdd, 1, data, length, I2C_TIMEOUT_ms);
+	
+	if(HAL_OK != status)
+	{
+		return SENSOR_ERROR;
+	}
+	else{
+		return SENSOR_OK;
+	}
+}
+
 sensor_status_e writeMultBytes(I2C_HandleTypeDef *hi2c_device, uint8_t chipAdd, uint8_t regAdd, uint8_t* data, uint8_t length)
 {
 

@@ -121,10 +121,10 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	euler = bno055_getVector(BNO055_VECTOR_EULER);
-	printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", euler.x, euler.y, euler.z);
+	//printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", euler.x, euler.y, euler.z);
 	quaternion = bno055_getVector(BNO055_VECTOR_QUATERNION);
-	printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", quaternion.w, quaternion.x, quaternion.y, quaternion.z);
-//	HAL_Delay(10);
+	//printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", quaternion.w, quaternion.x, quaternion.y, quaternion.z);
+	//HAL_Delay(10);
 	y = getBMP_Data(&temperature, &pressure, &altitude);
 	  
   }
