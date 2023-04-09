@@ -570,6 +570,16 @@
               <FileType>1</FileType>
               <FilePath>..\Core\Src\I2C_sensorDriver.c</FilePath>
             </File>
+            <File>
+              <FileName>gps.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\gps.c</FilePath>
+            </File>
+            <File>
+              <FileName>gps.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\gps.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
